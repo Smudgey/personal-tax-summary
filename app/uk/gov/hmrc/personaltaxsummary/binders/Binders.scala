@@ -14,18 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.personaltaxsummary.controllers
+package uk.gov.hmrc.personaltaxsummary.binders
 
-import uk.gov.hmrc.play.microservice.controller.BaseController
-import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext._
-import play.api.mvc._
-import scala.concurrent.Future
+import uk.gov.hmrc.domain.Nino
+import play.api.mvc.PathBindable
 
-object MicroserviceHelloWorld extends MicroserviceHelloWorld
+object Binders {
 
-trait MicroserviceHelloWorld extends BaseController {
+  implicit def ninoBinder(implicit stringBinder: PathBindable[String]) = new PathBindable[Nino] {
 
-	def hello() = Action.async { implicit request =>
-		Future.successful(Ok("Hello world"))
-	}
+    def unbind(key: String, nino: Nino): String = stringBinder.unbind(key, nino.value)
+
+    def bind(key: String, value: String): Either[String, Nino] = {
+      Nino.isValid(value) match {
+        case true => Right(Nino(value))
+        case false => Left("ERROR_NINO_INVALID")
+      }
+    }
+  }
 }
