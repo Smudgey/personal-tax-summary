@@ -33,7 +33,6 @@ trait StubApplicationConfiguration {
     "microservice.services.ntc.port" -> "4567",
     "router.regex" -> ".*",
     "router.prefix" -> "/sandbox",
-    "router.regex" -> "X-MOBILE-USER-ID",
-    "mongodb.uri" -> "mongodb://localhost:27017/pushregistration"
+    "router.regex" -> "X-MOBILE-USER-ID"
   )
 }
