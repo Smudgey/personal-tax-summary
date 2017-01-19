@@ -1,0 +1,1733 @@
+##PAYE page
+tai.paye.title=Your Pay As You Earn Income Tax
+tai.paye.heading=Your Pay As You Earn Income Tax
+tai.paye.banner.heading.tooMuch=You paid too much tax
+tai.paye.banner.heading.tooLittle=You have paid too little tax.
+tai.paye.banner.text.oweRefund=HM Revenue and Customs owe you a £{0} refund for the {1} to {2} tax year.
+tai.paye.banner.text.processingRefund=HM Revenue and Customs are processing your £{0} refund.
+tai.paye.banner.text.paidRefund=HM Revenue and Customs paid you a refund of £{0}.
+tai.paye.banner.text.sentCheque=HM Revenue and Customs sent you a cheque for £{0}.
+tai.paye.banner.text.generic=You owe HM Revenue and Customs £{0} for the {1} to {2} tax year.
+tai.paye.banner.link.getRefund=Get your refund
+tai.paye.banner.link.getMoreDetails=Get more details
+tai.paye.thisTaxYear.heading=Current tax year
+tai.paye.thisTaxYear.subHeading={0} to {1}
+tai.paye.thisTaxYear.table.headingOne=Income source
+tai.paye.thisTaxYear.table.headingTwo=Income to date
+tai.paye.thisTaxYear.table.headingThree=Tax code
+tai.paye.thisTaxYear.link=Check your Income Tax estimate
+tai.paye.thisTaxYear.missingRti_Employment=One or more of your employers have not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the current tax year.
+tai.paye.thisTaxYear.missingRti_Pension=One or more of your pension providers have not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the current tax year.
+tai.paye.thisTaxYear.missingRti_One={0} has not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the current tax year.
+tai.paye.thisTaxYear.missingRti_Both=One or more of your employers or pension providers have not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the current tax year.
+tai.paye.thisTaxYear.missingRti.iform={0} if something is missing or wrong.
+tai.paye.thisTaxYear.missingRti.iformLink=Tell us what to change
+tai.paye.thisTaxYear.taxablePayIncome={0} income received to date
+tai.paye.otherDigitalServices.heading=Other digital services
+tai.paye.otherDigitalServices.table.headingOne=Service
+tai.paye.otherDigitalServices.table.headingTwo=From
+tai.paye.otherDigitalServices.table.headingThree=Action
+tai.paye.otherDigitalServices.table.link.benefitType30=Check or update your medical benefit
+tai.paye.otherDigitalServices.table.link.benefitType31=Check or update your company car tax
+tai.paye.otherDigitalServices.table.link.benefitType126=Check or remove your marriage allowance
+tai.paye.lastTaxYear.heading=Last tax year
+tai.paye.lastTaxYear.subHeading={0} to {1}
+tai.paye.lastTaxYear.table.headingOne=Income source
+tai.paye.lastTaxYear.table.headingTwo=Income
+tai.paye.lastTaxYear.table.headingThree=Action
+tai.paye.lastTaxYear.table.link=Check and print what your {0} sent us
+tai.paye.lastTaxYear.table.providerPension=pension provider
+tai.paye.lastTaxYear.table.providerEmployment=employer
+tai.paye.lastTaxYear.link=Check the Income Tax you paid
+
+
+##currentYear page
+tai.estimatedIncomeTax.heading=Estimated Income Tax
+tai.estimatedIncomeTax.yourIncomeTaxEstimateIs=Your Income Tax estimate is
+tai.estimatedIncomeTax.howWeWorkedOut=Tax on your income
+tai.estimatedIncomeTax.howWeWorkedOut.desc=<a href="{2}">Your income</a> for this year is approximately £{0}. <a href="{3}">Your tax-free amount</a> is £{1}
+tai.estimatedIncomeTax.paperlessActivation.returnLinkText=Go to Estimated Income Tax
+
+
+tai.estimatedIncomeTax.yourIncome=£{0}
+
+tai.account.home.title=<a href="{0}">Back to account home</a>
+tai.incomeTax.backTo=Income Tax summary
+tai.incomeTax.backToIncomeTaxSummary=Back to Income Tax summary
+
+tai.estimatedIncomeTax.incomeThisYear=Your income this year is approximately {0}
+tai.estimatedIncomeTax.seeWhatTaxedOn=See what income you may be taxed on
+tai.estimatedIncomeTax.estimateGuidanceOnly=This estimate is for guidance only
+tai.estimatedIncomeTax.yourTaxableIncome=View your income
+
+
+tai.estimatedIncomeTax.yourIncomeTaxLink=PAYE Income Tax
+tai.estimatedIncomeTax.yourIncomeLink=Taxable income
+tai.estimatedIncomeTax.yourTaxFreeAmountLink=Tax-free allowance
+tai.estimatedIncomeTax.yourTaxCodeLink=Tax code
+tai.estimatedIncomeTax.yourTaxCodesLink=Tax codes
+
+
+
+tai.taxCalc.title=Additional tax due
+tai.taxCalc.table.description=Additional Tax Due On
+tai.taxCalc.table.tax-due=Amount (£)
+
+tai.taxCalc.UnderpaymentPreviousYear.description=An underpayment of tax from an earlier year.
+tai.taxCalc.childBenefit.description=Tax due because your income is over £50,000 and you or your partner get Child Benefit.
+tai.taxCalc.additionalTax.underpayment=Tax may also be due on your other sources of income. Tax is also due for an earlier year (an underpayment).
+tai.taxCalc.additionalTax.noUnderpayment=Tax may also be due on your other sources of income.
+
+tai.paye.taxableIncomes.text=Check all your taxable incomes
+tai.paye.taxableIncomes.link=taxable-income
+
+##Next year link box
+tai.nextYearLinkBox.description=Some of these figures will change in the next tax year starting on {0}. <a href={1}> View next year’s changes</a>.
+tai.nextYearLinkBox.taxCode.description=Your tax code will change in the next tax year starting on {0}. <a href={1}> Check your changes for the next tax year</a>.
+
+tai.service.navTitle=Check your Income Tax
+##Home page
+tai.home.title=Check your Income Tax
+tai.home.useThisServiceToCheck=Use this service to check your Income Tax from {0} to {1}.
+tai.home.useThisService=Use this service to:
+tai.home.showsHowMuchIncomeTax=see how much tax you may have to pay
+tai.home.showsIncomeTaxWorkedOut=see how your tax is worked out
+tai.home.tellsTheTaxCode=see the tax code(s)
+tai.home.letsYouUpdate=update employment income details so you pay the right amount of tax
+tai.home.whatYouNeedToKnow=What you need to know
+tai.home.stillBeingBuilt=This service is still being built. That means some people can’t yet see how their tax is worked out or update their employment income. Most people will be able to see how much tax they may pay and their tax code(s).
+tai.home.cantUseIf=You can’t use this service if Self Assessment is the only way you pay your Income Tax.
+tai.home.whatIsSelfAssessment=What is self-assessment?
+tai.home.selfAssessment.description=If you’re registered for Self Assessment, you’ll usually get a letter in April or May from HM Revenue and Customs (HMRC) telling you to send in a tax return.
+tai.home.beforeYouStart=Before you start
+tai.home.verifyIdentity=You must verify your identity to use this service for the first time. You’ll only have to do this once. After that you can sign in with your username and password.
+tai.home.toDoThis=To do this you’ll need:
+tai.home.needPassport=a valid UK passport or UK photocard driving licence
+tai.home.accessFinancial=access to your financial information
+tai.home.firstVerify=The first time that you sign in you’ll need your National Insurance number but you won’t need it to sign in again.
+tai.home.email_throttle.message=Each day we limit the number of people able to use this service for the first time. You’ll need to give us your email address so we can check if it’s your first time. We won’t share it, sell it or use it to send you emails, unless you tell us we can.
+tai.home.dailyLimit=If the daily limit has been reached we’ll tell you. You should try again another day if this happens.
+tai.home.start_button.text=Start now
+tai.home.enterEmail=Enter your email address:
+info.links_open_new_window=Find out more about Income Tax. These links open in a new window.
+
+##Timeout Page
+tai.timeout.title=Log In
+tai.timeout.message=You’re not currently logged in to this service. This may be due to inactivity or because it’s the first time you’ve used it.
+tai.timeout.message.pleaseLogin=Please log in to continue.
+tai.timeout.login_button.text=Login
+
+##Gatekeeper Refusal
+tai.gatekeeper.refuse.title=Service Unavailable
+tai.gatekeeper.refuse.message=We’re still developing our PAYE online service. Unfortunately it can’t be used by everybody yet and we can’t show your Income Tax estimate. You don’t need to contact us about this.
+tai.gatekeeper.findout.more=Find out more about Income Tax on
+tai.gov.uk.text=GOV.UK
+
+tai.technical.error.title=Error
+tai.technical.error.heading=Sorry we’re experiencing technical difficulties
+tai.technical.error.message=Try again Later
+tai.technical.error.npsdown.message=Please try again later. You do not need to contact us about this.
+
+
+tai.service.error.message=Sorry, there’s a problem that means you can’t use this service. You’ve done nothing wrong and you don’t need to contact us unless you want to discuss your Income Tax.
+tai.hmrc.enquiry.text=Contact HM Revenue and Customs
+tai.hmrc.enquiry.url=https://www.gov.uk/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees
+
+
+##Tabs
+tai.tabs.yourIncome=Your income
+tai.tabs.taxEstimate=Your Income Tax
+tai.tabs.taxFreeAmount=Your tax-free allowance
+tai.tabs.updateIncome=Update your income
+
+
+##currentYearSummary page
+tai.currentYearSummary.heading=Check your Income Tax
+tai.currentYearSummary.taxCode.explanation=Your tax code tells your employer or pension provider how much of your pay or pension is tax-free or how much you may owe.
+tai.currentYearSummary.taxCode.viewTaxCodeExplanation=View how we worked out your tax code(s).
+tai.currentYearSummary.yourIncTaxEst.title=Your Income Tax estimate
+tai.currentYearSummary.yourIncTaxEst.description=Income Tax is collected throughout the year from your pay or pension.
+tai.currentYearSummary.estimate.title=Why is this an estimate?
+tai.currentYearSummary.taxEstimate=Tax estimate
+tai.currentYearSummary.taxOnYourIncome=Tax on your income
+tai.currentYearSummary.estimate.description=The total amount due for the tax year can be worked out only when the year has ended and your total income for the year is known.
+tai.currentYearSummary.viewEstimate=You can view a detailed estimate of how much tax you might pay by the end of the tax year.
+
+##currentYear page
+tai.currentYear.heading=Tax on your income
+tai.currentYear.basedOnTaxAndTFA=This is based on your income and tax free amount
+tai.currentYear.incomeThisYear=Your income this year is approximately {0}
+tai.currentYear.seeWhatTaxedOn=See what income you may be taxed on
+
+tai.currentYear.estimateGuidanceOnly=This estimate is for guidance only
+tai.currentYear.yourTaxableIncome=View your income
+
+tai.yourIncomeAndBenefitsTitle=Your income and benefits
+
+tai.yourTaxFreeIncome=How we work out your tax-free amount
+tai.currentYear.viewTaxFreeAmount=View your tax free amount
+tai.tfa.shortDescription=Some of your income may be tax free.
+tai.tfa.description=You can earn £{0} before you start paying tax.
+tai.income.personalAllowance=Personal Allowance
+tai.personalAllowance.description=Everyone who lives in the UK receives some income before tax has to be paid - a “tax free amount” of income. That tax free amount is a “personal allowance” that depends on your circumstances.
+
+tai.income.taxCode.title=Tax code
+tai.income.employment.total=Total
+tai.income.statePension.title=State Pension or other state benefits
+tai.iabdSummary.description-state-pension=The amount of State Pension or other State Benefits you receive.
+tai.income.statePensionLumpSum.total=State Pension lump sum
+
+tai.potentialUnderpayment.title=You may be paying too little tax for the current tax year.
+tai.view.PotentialUnderpayment=View underpayment estimate
+
+tai.income.employmentBenefits.title=Benefits
+tai.income.employmentBenefits.total=Total
+
+tai.income.taxableBenefits.title=Taxable benefits
+tai.income.taxableBenefits.list.title=What is included in this figure?
+tai.income.taxableBenefits.remainingTaxFree.description=Your taxable benefits reduce your tax free amount by £{0}. This is usually shown on your payslip as a deduction.
+tai.income.taxableBenefits.noTaxFree.title=How do we collect tax on taxable benefits?
+tai.income.taxableBenefits.noTaxFree.description=If your taxable benefits are not covered by your tax free amount, the amount owed is collected from your main income.
+
+tai.income.error.form.summary=Please correct the error(s) highlighted below
+tai.income.error.form.incomes.radioButton.mandatory=Please select an income or taxable benefit to update
+
+tai.income=Employer or pension provider
+tai.percentTax=Tax rate
+tai.percentAmount={0}%
+tai.income.currency=Income (£)
+tai.key=Description
+tai.incomeSources=Income sources
+tai.pensionSources=Pension provider
+tai.income=Employer or pension provider
+tai.taxCodes=Your tax code(s)
+tai.taxCodeYear=Your tax code(s) for the year
+tai.currencySymbol=£
+tai.minusSymbol=-
+tai.amount=Amount (£)
+tai.amount.noCurrency=Amount
+tai.taxCurrencySymbol=Tax (£)
+tai.taxFree.title=Allowance
+tai.taxFree.total=Total
+tai.nowPayTax.title=Your tax calculation
+tai.nowPayTax.incomeEmploymentBenefits=Your income before tax
+tai.nowPayTax.yourTaxFreeAmount=Minus your tax free amount
+tai.taxYear={0} to {1}
+tai.viewDetailedEstimate=View detailed estimate
+tai.total=Total
+tai.taxCode.total=Total
+tai.plus=plus {0} more
+
+tai.youPayTaxOn=You pay tax on
+tai.youPayTaxOn.shortDescription=How much tax may be due.
+tai.youPayTaxOn.description=Tax is collected throughout the year from your pay, pension or from your bank or building society.
+tai.yourTaxableIncome=Your annual income would be updated to £{0}
+tai.yourTaxableIncomeUpdated=Your income has been updated to £{0}
+tai.no.increasesTax=You don’t have any current income.
+tai.viewPayTaxOn=View what you pay tax on
+tai.yourTaxEstimate=Your Tax estimate
+tai.yourTaxEstimateIs=Your tax estimate is
+tai.viewYourTaxEstimate=View your Income Tax estimate
+
+tai.yourIncomeIs=Your income
+tai.yourIncomeAndBenefitsAre=Your income and benefits
+
+tai.extendedTaxReliefs=Your estimate includes any <a href="{0}">tax relief</a> you may be entitled to.
+tai.extendedTaxReliefs.heading=Your tax relief payments
+tai.extendedTaxReliefs.description=Tax relief means you pay less tax to take account of money you’ve spent on Gift Aid donations or personal pension payments.
+tai.extendedTaxReliefs.payments=Payment
+tai.extendedTaxReliefs.source=Amount paid (£)
+tai.extendedTaxReliefs.relief=Tax saving (£)
+
+tai.extendedTaxReliefs.ppr.title=Personal Pension payments
+tai.extendedTaxReliefs.ppr.description=This is the tax relief you’ve claimed for your Personal Pension payments if you pay higher rate tax. Basic rate tax relief is given at source by your pension provider.
+
+tai.extendedTaxReliefs.giftAid.title=Gift Aid
+tai.extendedTaxReliefs.giftAid.description=As a basic rate tax payer you don’t get tax relief on donations to charity or to community amateur sports clubs (CASCs). If you start to pay higher rate tax you may get tax relief on them.
+tai.extendedTaxReliefs.giftAid.BR.description=As a basic rate tax payer you don’t get tax relief on donations to charity or to community amateur sports clubs (CASCs). If you start to pay higher rate tax you may get tax relief on them.
+tai.extendedTaxReliefs.giftAid.HR.description=Your donations to charity or to community amateur sports clubs (CASCs) are tax-free. As we expect you to pay some higher rate tax you’ll be entitled to relief on your donations to charity.
+tai.extendedTaxReliefs.giftAid.NoTax.description=You can’t get tax relief on these payments as your income is too low to pay Income Tax.
+
+
+
+
+tai.yourIncome.heading=Your income
+
+tai.yourIncome.notTaxed.heading=You are not taxed on the amounts shown
+tai.yourIncome.notTaxed.text=This is for guidance only to give you an idea of how much tax you might pay this year. Only your income provider knows what you actually earn. They tax you on that amount.
+
+
+tai.yourIncome.looksWrong.heading=If your income looks wrong
+tai.yourIncome.looksWrong.text=It might be because:
+tai.yourIncome.looksWrong.list1=tax free deductions have already been taken off
+tai.yourIncome.looksWrong.list2=bonus or overtime payments may be temporarily affecting your estimated annual income
+tai.yourIncome.looksWrong.list3=our records need to be updated by your employer
+
+tai.yourIncome.taxFreeDeductions.heading=What are tax free deductions?
+tai.yourIncome.taxFreeDeductions.text=payments for things like a company pension or childcare vouchers
+
+tai.yourIncome.whereFrom.heading=Where we got your income from
+tai.yourIncome.whereFrom.link=<a href="{0}">See who told us about your income</a>.
+
+tai.yourIncome.nextSteps.heading=Next steps
+tai.yourIncome.nextSteps.text=If you wish to change any details you can:
+tai.yourIncome.nextSteps.updateIncome.link=<a href="{0}">update your income</a> to make this estimate more accurate.
+tai.yourIncome.nextSteps.carLink=<a href="{0}">check and update your company car</a>
+tai.yourIncome.nextSteps.medLink=<a href="{0}">check and update your medical insurance benefit</a>
+tai.yourIncome.backLink=Back to tax estimate
+
+
+tai.tellUsAbout.heading=Tell us about a change
+tai.tellUsAbout.description=Change your details if they’re wrong
+tai.tellUsAbout.youCan=You can:
+tai.tellUsAbout.updateIncome=<a href="{0}">update your income</a>
+tai.tellUsAbout.changeCar=<a href="{0}">change your company car details</a>
+tai.tellUsAbout.med=<a href="{0}">change the value of the Medical Benefit(s) provided by your employer</a>
+
+tai.yourTaxEstimate.amountDue=How much Income Tax may be due
+tai.yourTaxEstimate.taxFreeUpTo=Your £{0} income is tax free. You will start to pay tax at {1}% if your income reaches £{2}.
+
+tai.incomes.workNumber=Employee no:
+tai.incomes.jobTitle=Job title:
+tai.incomes.startDate=Start date:
+tai.incomes.endDate=End date:
+
+tai.income.increased.title=Why has my {0} income increased?
+tai.income.totalIncome={0} income:
+tai.income.taxableBenefits.total=Taxable benefits:
+tai.income.increased.totalTaxable=Total taxable {0} income:
+
+#View Incomes Page
+tai.incomes.amount.current=Current amount (£)
+tai.incomes.amount.new=New amount (£)
+tai.incomes.status-1=(Current
+tai.incomes.status-2=(Previous
+tai.incomes.status-3=(Previous
+tai.incomes.type-0=employer)
+tai.incomes.type-1=(Pension)
+tai.incomes.type-2=
+tai.incomes.type-3=
+tai.incomes.type-4=
+tai.incomes.type-99=
+tai.incomes.heading=Update your income
+tai.incomes.pension.heading=Update your Pension income
+tai.incomes.edit.heading=Update your annual taxable pay
+tai.incomes.edit.howTo.subtitle=How to work out your taxable pay
+tai.incomes.edit.howTo.payslip=Your payslip may have a “taxable pay” or “gross for tax figure”. Multiply this by the times you are paid in a year to create an annual figure.
+tai.incomes.edit.howTo.grossAmount=If this isn’t shown on your payslip you can work out your taxable pay by finding your gross figure and deducting non-taxable items such as:
+tai.incomes.edit.howTo.contribution=any contributions to your employer’s or private pension scheme
+tai.incomes.edit.howTo.charity=charitable payments made through a payroll giving scheme
+tai.incomes.edit.howTo.expenses=anything spent on allowable expenses
+
+tai.incomes.noneEditable.text=Benefits received from the Department for Work and Pensions (DWP) can’t be updated. If they’re wrong, please
+tai.incomes.noneEditable.link.text=contact your DWP office
+tai.incomes.noneEditable.link.url=https://www.gov.uk/government/organisations/department-for-work-pensions
+tai.incomes.primaryDefault=If the latest amount isn’t known, £{0} is used to work out tax on your main income.
+tai.incomes.secondaryDefault=If the latest amount isn’t known, £{0} is used to work out tax on your other income.
+tai.incomes.priAndSecDefault=If the latest amount isn’t known, £{0} is used to work out tax on your main income and £{1} is used for your other income(s).
+
+##View Job Centre Plus
+tai.viewJobCentrePlus.title=Your income from Jobcentre Plus
+tai.viewJobCentrePlus.text-JSA=Our records show your only income is either Jobseeker’s Allowance, Incapacity Benefit or Employment and Support Allowance.
+tai.viewJobCentrePlus.contact-Jobcentre=Jobcentre Plus provided the amounts shown. If they’re wrong, or you have other income that’s not shown here, please contact HMRC.
+
+##Income Calculator Page
+tai.incomes.calculator.heading=Calculate your income
+tai.incomes.calculator.payYearToDate=Pay Year To Date
+tai.incomes.calculator.paymentDate=Payment Date
+
+##Edit Incomes Page
+tai.incomes.edit.incomeTax.update.heading=Update your annual taxable pay
+tai.incomes.edit.text=Enter your annual taxable pay from your employment(s) and pension(s) for the tax year  {0} to {1}.
+tai.incomes.edit.incomeTax.warning=Updating these amounts may change the Income Tax you pay
+tai.incomes.edit.incomeTax.heading=Changing your taxable income may:
+tai.enterWholeAndNumericalOnly=Enter whole pounds and numerical characters only.
+
+##Edit Ceased Incomes Page
+tai.incomes.ceased.incomeTitle=Income
+tai.incomes.ceased.heading=Submit your final income
+tai.incomes.ceased.amount.new=Total pay to date (£)
+tai.incomes.edit.incomeTax.update.ceased.heading=Enter your total pay to date
+tai.incomes.edit.ceased.text=Your total pay to date is provided by your employer. It is shown on your P45 as ‘Total pay to date’.
+
+##Edit Pensions Page
+tai.incomes.edit.incomeTax.update.pension.heading=Update your total annual pension
+tai.incomes.edit.pension.text=If the current amount is wrong, please enter a new amount.
+
+##Your Tax Free Allowance Page
+tai.taxFreeAllowance.heading=Your tax-free allowance
+tai.taxFreeAllowance.yourTaxFreeAllowance=Your tax-free allowance
+tai.taxFreeAllowance.howWeWorkOut=Your allowances
+tai.taxFreeAllowance.description.p1=Most people in the UK can have some income before tax has to be paid. This is their ‘Personal Allowance’. The Personal Allowance this tax year is {0} but it can change depending on your circumstances.
+tai.taxFreeAllowance.description.p2=Your tax-free allowance is spread equally over the tax year. So you pay tax every time you are paid rather than only when your income exceeds your tax-free allowance. By the end of the tax year you’ll have had your full tax-free allowance.
+tai.taxFreeAllowance.description.p3=Your tax-free allowance is used to work out {0}.
+tai.taxFreeAllowance.description.p3.linkText=your tax code
+
+
+tai.income.edit.example.heading=How to work out your total taxable income
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition=Your total taxable income is worked out by adding together all sources of income and benefits and deducting non-taxable items such as:
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example=Example:
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.info=Multiply your total taxable income by 52 if paid weekly, or 12 if paid monthly.
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.add.th1=Add
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.add.th2=Weekly / monthly amount (£)
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.add.row1.left=Your gross pay
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.add.row1.right=3,500
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.add.row2.left=Employee benefits such as company car
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.add.row2.right=100
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.add.row3.left=Total
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.add.row3.right=3,600
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.deduct.th1=Deduct
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.deduct.th2=amount (£)
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.deduct.row1.left=Employer and private pension contributions
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.deduct.row1.right=200
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.deduct.row2.left=Salary sacrifice payments
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.deduct.row2.right=20
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.deduct.row3.left=Total
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.example.deduct.row3.right=220
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.total=Total
+tai.incomes.edit.incomeTax.TaxableIncomeDefinition.total.value=3,380
+
+##View income page
+tai.viewIncomes.title=Update your estimated income
+tai.viewIncomes.estimatedAnnualIncome=Your estimated annual income is
+tai.viewIncomes.estimatedIncome.beforeTax.title=Your estimated income before tax
+
+
+#Scenarios for dynamic text
+tai.viewIncomes.text.incomeOnly=These are the latest figures sent to HMRC by your employer(s). You can update these figures if they’re wrong.
+tai.viewIncomes.text.pensionOnly=These are the latest figures sent to HMRC by your pension provider(s). You can update these figures if they’re wrong.
+tai.viewIncomes.text.nonEditableCeasedOnly=Your employer(s) told HMRC this was your income up to the date you stopped working for them. You can’t change this amount. If it’s wrong please contact your employer(s).
+tai.viewIncomes.text.nonEditableCeasedAndPension=These are the latest figures sent by your employer(s) up to the date you stopped working for them, and by your pension provider(s). You can change the pension amount(s) if they’re wrong. You can’t change the amount from your employer(s). If it’s wrong, contact them.
+tai.viewIncomes.text.nonEditableCeasedAndIncome=These are the latest figures sent to HMRC by your employer(s). You can update the amount from your current employer and for previous employer(s) if they’ve not sent your final salary details to HMRC.
+tai.viewIncomes.text.incomeAndPension=These are the latest figures sent to HMRC by your employer(s) and pension provider(s). You can update these figures if they’re wrong.
+tai.viewIncomes.text.everything=Your employer(s) and pension provider(s) provided these figures. You can update the amounts from your pension provider(s) and your current employer if they’re wrong.
+
+tai.viewIncomes.text.gk.incomeOnly=These are the latest figures sent to HMRC by your employer(s).
+tai.viewIncomes.text.gk.pensionOnly=These are the latest figures sent to HMRC by your pension provider(s).
+tai.viewIncomes.text.gk.nonEditableCeasedOnly=Your employer(s) told HMRC this was your income up to the date you stopped working for them. If it’s wrong please contact your employer(s).
+tai.viewIncomes.text.gk.nonEditableCeasedAndPension=These are the latest figures sent by your employer(s) up to the date you stopped working for them, and by your pension provider(s).
+tai.viewIncomes.text.gk.nonEditableCeasedAndIncome=These are the latest figures sent to HMRC by your employer(s).
+tai.viewIncomes.text.gk.incomeAndPension=These are the latest figures sent to HMRC by your employer(s) and pension provider(s).
+tai.viewIncomes.text.gk.everything=Your employer(s) and pension provider(s) provided these figures.
+
+tai.viewIncomes.grossPay.title=Why is my gross pay not displayed?
+tai.viewIncomes.grossPay.text=HMRC is told only about your taxable pay. Your taxable and gross will be different if, for example, you pay into a company pension scheme.
+
+##Scenarios
+tai.incomes.select.scenario1=You may need a recent payslip to work out your annual taxable income.
+tai.incomes.select.scenario2=You will need your P45 to enter your total pay to date figure.
+tai.incomes.select.scenario1and2=You may need a recent payslip to work out your annual taxable income and/or you will need your P45 to enter your total pay to date figure.
+
+
+##Income Selector Page
+tai.incomes.select.title=Select an income to update
+tai.selectIncome.link.text=Next
+
+##Income calculator
+tai.howToUpdate.title=Choose how to update your income
+tai.howToUpdate.error.form.incomes.radioButton.mandatory=Choose if you want to use our income calculator or enter an annual figure
+tai.howToUpdate.explanation=You can enter your own annual amount or use our calculator to work it out for you. You’ll need a recent payslip to use our calculator.
+tai.howToUpdate.incomeCalculator=Use our income calculator
+tai.howToUpdate.enterAnnual=Enter an annual figure
+
+tai.workingHours.title=Your working hours
+tai.workingHours.error.form.incomes.radioButton.mandatory=Select if your working hours are generally the same or very different on each payslip
+tai.workingHours.question=Are your working hours on each payslip generally the same or very different?
+tai.workingHours.same=Generally the same
+tai.workingHours.different=Very different
+
+tai.payPeriod.title=How often do you get paid?
+tai.payPeriod.error.form.incomes.radioButton.mandatory=Select if you get paid monthly, weekly, fortnightly or other
+tai.payPeriod.error.form.incomes.other.mandatory=If you select other, you must say how often (in days)
+tai.payPeriod.monthly=Monthly
+tai.payPeriod.weekly=Weekly
+tai.payPeriod.fortnightly=Fortnightly
+tai.payPeriod.other=Other
+tai.payPeriod.howOften=How often (in days)?
+
+tai.payslip.title=Your total pay from your payslip
+tai.payslip.error.form.incomes.radioButton.mandatory=Enter the total salary from your payslip
+tai.payslip.error.form.notAnAmount=The total pay from your payslip must only include numbers, a pound sign (£) or a decimal point, like £123.50, 123.50 or 123
+tai.payslip.month=Your total salary this month
+tai.payslip.week=Your total salary this week
+tai.payslip.fortnight=Your total salary this fortnight
+tai.payslip.period=Your total salary this period
+tai.payslip.payBeforeTakenOff=This is your pay before anything is taken off.
+
+
+tai.taxablePayslip.title=Taxable pay from your payslip
+tai.taxablePayslip.error.form.incomes.radioButton.mandatory=Enter the taxable pay from your payslip
+tai.taxablePayslip.error.form.invalid=The taxable pay from your payslip must only include numbers, a pound sign (£) or a decimal point, like £123.50, 123.50 or 123
+tai.taxablePayslip.error.form.payTooHigh=Your taxable pay this month is too high. You must enter an amount the same as, or less than £{0}.
+tai.taxablePayslip.month=Your taxable pay this month
+tai.taxablePayslip.week=Your taxable pay this week
+tai.taxablePayslip.fortnight=Your taxable pay this fortnight
+tai.taxablePayslip.period=Your taxable pay this period
+tai.taxablePayslip.shownOnPayslip=This may also be shown on your payslip as "taxable income" or "gross for tax".
+tai.taxablePayslip.whatIsTaxablePay.title=What is taxable pay?
+tai.taxablePayslip.whatIsTaxablePay.description=Taxable pay is your basic pay after deductions for things like pension payments and Gift Aid, but before tax is taken off.
+
+tai.payslipDeductions.title=Payslip deductions
+tai.payslipDeductions.error.form.incomes.radioButton.mandatory=Select yes if your payslip shows any deductions before tax and National Insurance
+tai.payslipDeductions.question=Does your payslip show any deductions before tax and National Insurance?
+tai.payslipDeductions.tellUs=Tell us if you have any deductions such as payments for company pension, Gift Aid or childcare vouchers.
+tai.payslipDeductions.dontPayTax= You don’t pay tax on these so we need to remove them from your total pay.
+tai.payslipDeductions.yes=Yes
+tai.payslipDeductions.no=No
+
+tai.bonusPayments.title=Bonus and overtime payments
+tai.bonusPayments.error.form.incomes.radioButton.mandatory=Select yes if your payslip includes bonus or overtime payments
+tai.bonusPayments.question=Does this payslip include bonus or overtime?
+tai.bonusPayments.moreThisYear=Are you likely to receive any more bonus or overtime payments throughout the year?
+
+tai.bonusPaymentsAmount.year.title=Bonus or overtime payments throughout the year
+tai.bonusPaymentsAmount.month.title=Bonus or overtime payments this month
+tai.bonusPaymentsAmount.fortnightly.title=Bonus or overtime payments this fortnight
+tai.bonusPaymentsAmount.week.title=Bonus or overtime payments this week
+tai.bonusPaymentsAmount.period.title=Bonus or overtime payments this period
+
+tai.bonusPaymentsAmount.year.error=Enter how much you think you’ll get this year in bonus or overtime payments
+tai.bonusPaymentsAmount.month.error=Enter how much you got this month in bonus or overtime payments
+tai.bonusPaymentsAmount.fortnightly.error=Enter how much you got this fortnight in bonus or overtime payments
+tai.bonusPaymentsAmount.week.error=Enter how much you got this week in bonus or overtime payments
+tai.bonusPaymentsAmount.period.error=Enter how much you got this period in bonus or overtime payments
+tai.bonusPaymentsAmount.error.form.notAnAmountAnnual=How much do you think you’ll get in bonus or overtime payments this year must only include numbers, pound sign (£) or a decimal point, like £123.50, 123.50 or 123
+tai.bonusPaymentsAmount.error.form.notAnAmount=How much do you think you’ll get in bonus or overtime payments must only include numbers, pound sign (£) or a decimal point, like £123.50, 123.50 or 123
+
+tai.bonusPaymentsAmount.year.description=How much do you think you’ll get this year in overtime or bonus payments?
+tai.bonusPaymentsAmount.year.message=This doesn’t have to be accurate, just an estimate.
+tai.bonusPaymentsAmount.month.description=How much did you get this month in overtime or bonus payments?
+tai.bonusPaymentsAmount.fortnightly.description=How much did you get this fortnight in overtime or bonus payments?
+tai.bonusPaymentsAmount.week.description=How much did you get this week in overtime or bonus payments?
+tai.bonusPaymentsAmount.period.description=How much did you get this period in overtime or bonus payments?
+
+
+tai.bonusPayments.error.form.incomes.radioButton.mandatory=Select yes if your payslip includes bonus or overtime payments
+tai.bonusPayments.error.form.likely=Select yes if you’re likely to receive any more bonus or overtime this year
+tai.bonusPayments.moreThisYear=Are you likely to receive any more bonus or overtime payments throughout the year?
+
+tai.estimatedPay.title=Your estimated pay for the year
+tai.estimatedPay.inYear=Your annual income is an estimate based on the pay you’ve received from this employer since {0}.
+
+tai.estimatedPay.yourPay=Your pay
+tai.estimatedPay.whyLower.title=Why is this lower than my annual salary?
+tai.estimatedPay.whyLower.message=You started employment on {0}. This means your pay during the tax year {1} to {2} is less than your annual salary. Based on the figures you have given we estimate that your annual salary is £{3}.
+
+tai.estimatedPay.yourTaxablePay=Your taxable pay
+tai.estimatedPay.yourTaxablePay.text=This is the amount that’s taxable. We will use it to estimate how much tax you’ll pay.
+tai.estimatedPay.whySame.title=Why are these amounts the same?
+tai.estimatedPay.whySame.text=You have no deductions so this is the same as your pay.
+
+tai.estimatedPay.basicPay=Your basic pay before tax is £{0}
+tai.estimatedPay.basicPayExplanation=This is your pay before anything is taken off.
+tai.estimatedPay.amountPayTaxOn=The amount you may pay tax on is £{0}
+tai.estimatedPay.amountPayTaxOnExplanation=This is your pay after deductions for a company pension, Gift Aid or childcare vouchers are taken off. This is the amount we will use to estimate your tax.
+tai.estimatedPay.notSaved=These figures have not yet been saved. You can check how this may affect your tax before saving.
+tai.estimatedPay.checkTaxEstimate=Continue
+tai.estimatedPay.error.incorrectTaxableIncome.title=There is an error with your calculation
+tai.estimatedPay.error.incorrectTaxableIncome.errorTitle=The result is lower than the amount we have on record that you have been paid
+tai.estimatedPay.error.incorrectTaxableIncome.description=Your employer told us you were paid £{0} up to {1}. You can’t enter an annual amount less than that. To change your income details contact HM Revenue and Customs on 0300 200 3300.
+tai.estimatedPay.error.incorrectTaxableIncome.whatNext=What to do next
+tai.estimatedPay.error.incorrectTaxableIncome.whatNext.line1=You can start again or contact HM Revenue and Customs:
+tai.estimatedPay.error.incorrectTaxableIncome.whatNext.line2=telephone: 0300 200 3300
+tai.estimatedPay.error.incorrectTaxableIncome.whatNext.line3=textphone: 0300 200 3319
+tai.estimatedPay.error.incorrectTaxableIncome.whatNext.line4=outside theUK: +44 135 535 9022
+tai.estimatedPay.error.incorrectTaxableIncome.button=Start again
+
+
+tai.unableToCalculate.title=We are unable to calculate your pay
+tai.unableToCalculate.nextSteps=Next steps
+tai.unableToCalculate.cantCalc=We apologise that we can’t calculate your pay for you. We are only able to calculate annual pay from regular working hours.
+tai.unableToCalculate.enterOwnFigures=Enter your own figures
+tai.unableToCalculate.enterOwnFigures.text=If you would like to estimate your annual income you can {0}.
+tai.unableToCalculate.enterOwnFigures.link=enter your own figures
+tai.unableToCalculate.contactHmrc=Contact HMRC
+tai.unableToCalculate.noNeedToContact=You do not need to contact HMRC unless you have a question about Income Tax. To speak to HMRC about your Income Tax:
+tai.unableToCalculate.telephone=telephone: 0300 200 3300
+tai.unableToCalculate.textphone=textphone: 0300 200 3319
+tai.unableToCalculate.outsideUk=outside the UK: +44 135 535 9022
+
+#Edit Income Page
+tai.editIncome.link.text=Update your income
+tai.changeIncomeFigures=You can <a href="{0}" >update your income</a> if you have more recent figures.
+tai.editIncome.title=Edit estimated pay
+tai.step=Step {0} of {1}
+
+tai.tellUsChange=<a href="{0}" >Tell us about a change</a>
+
+tai.next=Next
+tai.cancel.noSave=Cancel - Your changes will not be saved
+
+##Edit Income Page Error
+error.tai.updateDataEmployment.positiveValue=Please enter positive value
+error.tai.updateDataEmployment.blankValue=You must enter a new amount to continue. Choose ‘Back’ if you don’t want to continue.
+error.tai.updateDataEmployment.maxLength=The maximum amount you can enter is £999,999,999
+error.tai.updateDataEmployment.enterRealNumber=Please use numeric characters only. For example, 14560
+error.tai.updateDataEmployment.enterLargerValue=Your employer told us you were paid £{0} up to {1}. You can’t enter an annual amount less than that. To change your income details contact HM Revenue and Customs on 0300 200 3300.
+
+##Edit Pension Page Error
+error.tai.updateDataPension.enterLargerValue=Your pension provider told us you were paid £{0} up to {1}. You can’t enter an annual amount less than that. To change your income details contact HM Revenue and Customs on 0300 200 3300.
+
+
+##Edit confirmation page
+tai.incomes.confirm.title=Check and save your changes
+tai.incomes.confirm.newIncomes.heading=Check your figures are correct
+tai.incomes.confirm.affectTaxEstimate.title=How this may affect your tax estimate
+tai.incomes.confirm.check.text=Your changes have not yet been saved.
+tai.comfirmIncome.warning.text=Changing your income may change the amount of Income Tax deducted from your pay or pension.
+
+
+tai.incomes.confirm.newTaxable.heading=Your new Income Tax calculation
+tai.incomes.confirm.newTaxable.total=Your new taxable income
+tai.incomes.confirm.editLink.text=Change these figures
+tai.save.details=Save these details
+
+##Save page
+tai.incomes.updated.check.title=Your taxable income has been updated
+tai.incomes.updated.check.text=If changes are made later today, for example, by your employer(s) or pension provider(s), your calculation may change.
+tai.incomes.seeChanges.text=You can see the changes you have made by viewing your new calculation.
+tai.tapering.warning=Your income has risen to more than £100,000. The Personal Allowance is reduced by £1 for every £2 that your income is above £100,000. This means your allowance is zero if your income is £{0} or more.
+tai.incomes.updated.editLink.text=View taxable income
+tai.amendingPay.march13thToApril5th=The changes you’ve made alter the amount of Income Tax due. We’ll send your employer a new tax code so you pay the right amount of tax from {0}. Your employer won’t have time to make changes to your pay for March {1}. We’ll check this and let you know how we’ll collect any tax underpaid, or refund any tax overpaid
+tai.personalAllowance.sourceAmount=Your original Personal Allowance was £{0}.
+tai.personalAllowance.tapering=This is reduced by £1 for every £2 that your income is above £100,000.
+tai.personalAllowance.paTransferred = Because you’ve chosen to transfer £{0} to your spouse or civil partner it is reduced to £{1}.
+tai.personalAllowance.paReceived = Because your spouse or civil partner has chosen to transfer £{0} of their Personal Allowance to you it is increased to £{1}.
+
+#IABD Items
+tai.iabdSummary.type-1=Gift Aid Payments
+tai.iabdSummary.type-2=Gift Aid treated as paid in previous tax year
+tai.iabdSummary.type-3=One off Gift Aid Payments
+tai.iabdSummary.type-4=Gift Aid after end of tax year
+tai.iabdSummary.type-5=Personal Pension Payments
+tai.iabdSummary.type-6=Maintenance payments
+tai.iabdSummary.type-7=Total Gift Aid Payments
+tai.iabdSummary.type-8=Employer provided services
+tai.iabdSummary.type-9=Widows and Orphans
+tai.iabdSummary.type-10=Balancing charge
+tai.iabdSummary.type-11=Loan interest amount
+tai.iabdSummary.type-12=Death, sickness or funeral benefits
+tai.iabdSummary.type-13=Married Couples Allowance (MAA)
+tai.iabdSummary.type-14=Blind Person’s Allowance
+tai.iabdSummary.type-15=Basic Personal Allowance received from spouse or civil partner
+tai.iabdSummary.type-16=Community investment tax credit
+tai.iabdSummary.type-17=Gifts of shares to charity
+tai.iabdSummary.type-18=Retirement annuity payments
+tai.iabdSummary.type-19=Other income
+tai.iabdSummary.type-20=Commission
+tai.iabdSummary.type-21=Other income (earned)
+tai.iabdSummary.type-22=Other income (not earned)
+tai.iabdSummary.type-23=Part-time earnings
+tai.iabdSummary.type-24=Tips
+tai.iabdSummary.type-25=Other earnings
+tai.iabdSummary.type-26=Casual earnings
+tai.iabdSummary.type-27=New Estimated Pay
+tai.iabdSummary.type-28=Benefits in kind
+tai.iabdSummary.type-29=Car fuel benefit
+tai.iabdSummary.type-30=Medical insurance
+tai.iabdSummary.type-31=Car benefit
+tai.iabdSummary.type-31-link=Car benefit (opens Company Car service)
+tai.iabdSummary.type-32=Telephone
+tai.iabdSummary.type-33=Service benefits
+tai.iabdSummary.type-34=Taxable expenses benefits
+tai.iabdSummary.type-35=Van benefit
+tai.iabdSummary.type-36=Van fuel benefit
+tai.iabdSummary.type-37=Beneficial loan
+tai.iabdSummary.type-38=Accomodation
+tai.iabdSummary.type-39=Assets
+tai.iabdSummary.type-40=Assets transferred
+tai.iabdSummary.type-41=Education services
+tai.iabdSummary.type-42=Entertaining
+tai.iabdSummary.type-43=Expenses
+tai.iabdSummary.type-44=Mileage
+tai.iabdSummary.type-45=Non-qualifying relocation expenses
+tai.iabdSummary.type-46=Nursery places
+tai.iabdSummary.type-47=Other items
+tai.iabdSummary.type-48=Payments on employee’s behalf
+tai.iabdSummary.type-49=Personal incidental expenses
+tai.iabdSummary.type-50=Qualifying relocation expenses
+tai.iabdSummary.type-51=Employer provided professional subscriptions
+tai.iabdSummary.type-52=Income Tax paid but not deducted from director’s renumeration
+tai.iabdSummary.type-53=Travel and subsistence
+tai.iabdSummary.type-54=Vouchers and credit cards
+tai.iabdSummary.type-55=Job expenses
+tai.iabdSummary.type-56=Flat rate job expenses
+tai.iabdSummary.type-57=Professional subscriptions
+tai.iabdSummary.type-58=Hotel and meal expenses
+tai.iabdSummary.type-59=Other expenses
+tai.iabdSummary.type-60=Vehicle expenses
+tai.iabdSummary.type-61=Mileage allowance relief
+tai.iabdSummary.type-62=Foreign dividend income
+tai.iabdSummary.type-63=Foreign property income
+tai.iabdSummary.type-64=Foreign interest and other savings
+tai.iabdSummary.type-65=Foreign pensions & other income
+tai.iabdSummary.type-66=State Pension
+tai.iabdSummary.type-67=Occupational pension
+tai.iabdSummary.type-68=Public services pension
+tai.iabdSummary.type-69=Forces pension
+tai.iabdSummary.type-70=Personal pension annuity
+tai.iabdSummary.type-71=Lump sum deferral
+tai.iabdSummary.type-72=Profit
+tai.iabdSummary.type-73=Loss
+tai.iabdSummary.type-74=Loss bought forward from earlier tax year
+tai.iabdSummary.type-75=Taxed interest on savings and investments
+tai.iabdSummary.type-76=Dividends
+tai.iabdSummary.type-77=Unit trust
+tai.iabdSummary.type-78=Stock dividend
+tai.iabdSummary.type-79=National savings
+tai.iabdSummary.type-80=Saving bonds
+tai.iabdSummary.type-81=Purchased life annuities
+tai.iabdSummary.type-82=Untaxed interest on savings and investments
+tai.iabdSummary.type-83=Incapacity Benefit
+tai.iabdSummary.type-84=Jobseeker’s Allowance
+tai.iabdSummary.type-85=Other benefit
+tai.iabdSummary.type-86=Trust, settlements and estates at trust rate
+tai.iabdSummary.type-87=Trust, settlements and estates at basic rate
+tai.iabdSummary.type-88=Trust, settlements and estates at lower rate
+tai.iabdSummary.type-89=Trust, settlements and estates at non-payable dividend rate
+tai.iabdSummary.type-90=Venture capital trust
+tai.iabdSummary.type-91=BPA Transferred to Spouse/Civil Partner
+tai.iabdSummary.type-92=
+tai.iabdSummary.type-Old-93=Trade Union Subscriptions
+tai.iabdSummary.type-93=Death, sickness or funeral benefits
+tai.iabdSummary.type-94=Chargeable event gain
+tai.iabdSummary.type-95=Gift Aid Adjustment
+tai.iabdSummary.type-96=Widows and Orphans Adjustment
+tai.iabdSummary.type-97=Married Couples Allowance to Wife (MAW)
+tai.iabdSummary.type-98=Double Taxation Relief
+tai.iabdSummary.type-99=Concession relief
+tai.iabdSummary.type-100=Enterprise Investment Scheme
+tai.iabdSummary.type-101=Earlier years adjustment
+tai.iabdSummary.type-102=Loss relief
+tai.iabdSummary.type-103=Estimated Income
+tai.iabdSummary.type-104=Foreign pension allowance
+tai.iabdSummary.type-105=Allowances Allocated Elsewhere
+tai.iabdSummary.type-106=Allowances Allocated Here
+tai.iabdSummary.type-107=Estimated NIB
+tai.iabdSummary.type-108=Estimated IB
+tai.iabdSummary.type-109=Married Couples Allowance (MAE)
+tai.iabdSummary.type-110=Married Couples Allowance (MCCP)
+tai.iabdSummary.type-111=Surplus Married Couples Allowance (MAT)
+tai.iabdSummary.type-112=Surplus Married Couples Allowance to Wife (WAA)
+tai.iabdSummary.type-113=Surplus Married Couples Allowance to Wife (WAE)
+tai.iabdSummary.type-114=Married Couples Allowance to Wife (WMA)
+tai.iabdSummary.type-115=Friendly society subscriptions
+tai.iabdSummary.type-116=Higher rate adjustment
+tai.iabdSummary.type-117=Non-cash benefit
+tai.iabdSummary.type-118=Personal Allowance (PA)
+tai.iabdSummary.type-119=Personal Allowance Aged (PAA)
+tai.iabdSummary.type-120=Personal Allowance Elderly (PAE)
+tai.iabdSummary.type-121=Starting Rate Adjustment (LRA)
+tai.iabdSummary.type-122=Starting Rate Band Adjustment (ELR)
+tai.iabdSummary.type-123=Employment and Support Allowance
+tai.iabdSummary.type-124=Child Benefit
+tai.iabdSummary.type-125=Bereavement allowance
+tai.iabdSummary.type-128=Personal Savings Allowance
+tai.iabdSummary.type-126=Marriage Allowance
+tai.iabdSummary.type-marriage-allowance-received=Marriage allowance received
+tai.iabdSummary.type-marriage-allowance-given=Marriage allowance given
+
+#IABD item descriptions
+tai.iabdSummary.description-1=An allowance made for Gift Aid payments.
+tai.iabdSummary.description-2=
+tai.iabdSummary.description-3=
+tai.iabdSummary.description-4=
+tai.iabdSummary.description-5=The total amount of pension payments you made in the tax year.
+tai.iabdSummary.description-6=The amount of maintenance payments you made in the tax year.
+tai.iabdSummary.description-7=An allowance made for Gift Aid payments.
+tai.iabdSummary.description-8=The value of any services paid for by your employer.
+tai.iabdSummary.description-9=An allowance for payments to friendly societies, trade unions and widows and orphan schemes.
+tai.iabdSummary.description-10=The profit made from the sale of an asset you claimed Capital Allowance for.
+tai.iabdSummary.description-11=The amount of interest paid on a loan you have made to a company or for shares you have bought in a partnership.
+tai.iabdSummary.description-12=Tax relief for one half of your trade union subscriptions that relates to superannuation, life assurance or death benefits paid for by the union, up to a maximum of £100.
+tai.iabdSummary.description-13=An allowance given because both you and/or your spouse or civil partner were born before 6 April 1935 and your date of marriage or civil partnership was before 5 December 2005.
+tai.iabdSummary.description-14=An increased tax-free allowance given because you’re registered blind.
+tai.iabdSummary.description-15=An increased tax-free allowance transferred from your spouse/civil partner.
+tai.iabdSummary.description-16=An increased tax-free allowance on your investment in a Community Development Finance Institution.
+tai.iabdSummary.description-17=The value of shares you donated to charity.
+tai.iabdSummary.description-18=The payments you made to a retirement annuity.
+tai.iabdSummary.description-19=Income from other sources, such as self employment or renting out a room, that won’t be collected through your tax code.
+tai.iabdSummary.description-20=The estimated commission you earned.
+tai.iabdSummary.description-21=Untaxed earned income. For example, from part-time work.
+tai.iabdSummary.description-22=Taxed investment income or foreign income you received.
+tai.iabdSummary.description-23=Untaxed earned income. For example, from part-time work.
+tai.iabdSummary.description-24=The income you received from tips and gratuities.
+tai.iabdSummary.description-25=Income you earned from freelance work, Statutory Sick Pay, and Statutory Maternity Pay.
+tai.iabdSummary.description-26=Income you received from casual work.
+tai.iabdSummary.description-27=Your estimated pay for this tax year.
+tai.iabdSummary.description-28=Taxable benefits you received from your employer(s).
+tai.iabdSummary.description-29=The value of car fuel benefit provided by your employer(s).
+tai.iabdSummary.description-30=The value of medical benefit(s) provided by your employer(s).
+tai.iabdSummary.description-31=The value of the benefit on the car(s) provided by your employer(s).
+tai.iabdSummary.description-32=The amount you receive from your employer(s) for use of your telephone.
+tai.iabdSummary.description-33=The amount based on taxable long service awards that your employer(s) give(s) you.
+tai.iabdSummary.description-34=This is a payment made by your employer for using your own car to carry out your employer’s business.
+tai.iabdSummary.description-35=The value of the benefit on the van(s) provided by your employer(s).
+tai.iabdSummary.description-36=The value of van fuel benefit provided by your employer(s).
+tai.iabdSummary.description-37=The value of an interest free or low interest loan provided by your employer(s).
+tai.iabdSummary.description-38=The value of accommodation provided by your employer(s).
+tai.iabdSummary.description-39=The value of assets, such as PCs and TVs, provided by your employer(s).
+tai.iabdSummary.description-40=The value of items given to you by your employer at no cost or less than market value. For example; a previous company car.
+tai.iabdSummary.description-41=The value of external training provided by your employer(s).
+tai.iabdSummary.description-42=The value of entertaining business clients paid for by your employer(s).
+tai.iabdSummary.description-43=The amount of expenses paid for by your employer(s).
+tai.iabdSummary.description-44=The amount your employer(s) paid for mileage.
+tai.iabdSummary.description-45=All relocation costs over £8,000 paid for by your employer(s).
+tai.iabdSummary.description-46=The value of childcare provided by your employer(s).
+tai.iabdSummary.description-47=Other non-specific benefits you’ve received.
+tai.iabdSummary.description-48=The amount your employer(s) has paid for items on your behalf.
+tai.iabdSummary.description-49=The value of other personal expenses.
+tai.iabdSummary.description-50=All relocation costs under £8,000 paid for by your employer(s).
+tai.iabdSummary.description-51=Professional subscriptions paid for by your employer(s).
+tai.iabdSummary.description-52=Income Tax you paid but that was not deducted from your director’s salary.
+tai.iabdSummary.description-53=The amounts received for the cost of travelling on business.
+tai.iabdSummary.description-54=The value of vouchers and credit cards provided by your employer(s).
+tai.iabdSummary.description-55=The amount you spent to do your job.
+tai.iabdSummary.description-56=The amount you spent on tools and specialist clothing to do your job
+tai.iabdSummary.description-57=The amount you paid to be a member of a professional organisation.
+tai.iabdSummary.description-58=The amount spent on hotels and meals for your job.
+tai.iabdSummary.description-59=Other amounts spent to do your job.
+tai.iabdSummary.description-60=The amount spent on your vehicle up to 5 April 2002.
+tai.iabdSummary.description-61=The amount spent on your vehicle after 5 April 2002.
+tai.iabdSummary.description-62=The gross amount you received from foreign income.
+tai.iabdSummary.description-63=The gross amount you received from foreign property.
+tai.iabdSummary.description-64=The gross amount you received from foreign interest and savings.
+tai.iabdSummary.description-65=The amount of foreign pension you received.
+tai.iabdSummary.description-66=The amount of State Pension you received.
+tai.iabdSummary.description-67=The amount of occupational pension you received.
+tai.iabdSummary.description-68=The amount of public services pension you received.
+tai.iabdSummary.description-69=The amount of forces pension you received.
+tai.iabdSummary.description-70=The personal pension annuity you received.
+tai.iabdSummary.description-71=Shown because you chose to delay taking your State Pension.
+tai.iabdSummary.description-72=The profit you made on the sale of UK property or land.
+tai.iabdSummary.description-73=The loss you made on the sale of UK property or land.
+tai.iabdSummary.description-74=The loss you made on the sale of UK property or land in an earlier tax year.
+tai.iabdSummary.description-75=This is the interest on your savings and investment income that has been taxed at source by the bank, building society or financial institution that you invest with.
+tai.iabdSummary.description-76=From 6 April 2016 up to £5,000 of this dividend income is tax free. On amounts over £5,000 tax is payable at 7.5%, 32.5% or 38.1% depending on your tax band. Your tax code is adjusted to collect any additional tax due.
+tai.iabdSummary.description-77=The amount you received from a unit trust.
+tai.iabdSummary.description-78=The amount you received from stocks and shares in UK companies.
+tai.iabdSummary.description-79=The amount you received from National Savings and Investments.
+tai.iabdSummary.description-80=The amount you received from savings bonds.
+tai.iabdSummary.description-81=The amount you received from life annuities.
+tai.iabdSummary.description-82=This is the interest on your savings and investment income that has not been taxed by the bank, building society or financial institution that you invest with.
+tai.iabdSummary.description-83=The amount of Incapacity Benefit you received.
+tai.iabdSummary.description-84=The amount of Jobseeker’s Allowance you received.
+tai.iabdSummary.description-85=The amount of other taxable benefits you received.
+tai.iabdSummary.description-86=The gross amount you received from a trust, settlement or estate.
+tai.iabdSummary.description-87=The gross amount you received from a trust, settlement or estate.
+tai.iabdSummary.description-88=The gross amount you received from a trust, settlement or estate.
+tai.iabdSummary.description-89=The gross amount you received from a trust, settlement or estate.
+tai.iabdSummary.description-90=Tax relief on your investment in venture capital trusts.
+tai.iabdSummary.description-91=The amount of unused allowance that has been transferred to your spouse/civil partner
+tai.iabdSummary.description-92=
+tai.iabdSummary.description-93=Tax relief for one half of your trade union subscriptions that relates to superannuation, life assurance or death benefits paid for by the union, up to a maximum of £100.
+tai.iabdSummary.description-94=Chargeable event gains are classed as taxable income received for example from UK life insurance policies, life annuities and capital redemption policies.
+tai.iabdSummary.description-95=The value of Gift Aid payments.
+tai.iabdSummary.description-96=
+tai.iabdSummary.description-97=Married couple’s allowance transferred to your partner.
+tai.iabdSummary.description-98=Tax relief given when tax has been paid in another country.
+tai.iabdSummary.description-99=Relief for gifts of listed shares or securities to charities made on or after 6 April 2001.
+tai.iabdSummary.description-100=Tax relief on your investment in Enterprise Investment Schemes.
+tai.iabdSummary.description-101=Relief on professional subscriptions or flat-rate expenses for earlier years.
+tai.iabdSummary.description-102=Trading losses from self-employment claimed as an allowance to reduce your taxable income.
+tai.iabdSummary.description-103=
+tai.iabdSummary.description-104=Extra relief given for a 10% deduction of the value of overseas pensions, annuities and social security pensions.
+tai.iabdSummary.description-105=
+tai.iabdSummary.description-106=
+tai.iabdSummary.description-107=The amount of State Pension we think you will receive.
+tai.iabdSummary.description-108=The amount of Incapacity Benefit we think you will receive.
+tai.iabdSummary.description-109=The amount of allowance due because you and/or your spouse or civil partner were born before 6 April 1935.
+tai.iabdSummary.description-110=The amount of allowance due because you and/or your spouse or civil partner were born before 6 April 1935.
+tai.iabdSummary.description-111=
+tai.iabdSummary.description-112=The amount of allowance due because you and/or your spouse or civil partner were born before 6 April 1935.
+tai.iabdSummary.description-113=The amount of allowance due because you and/or your spouse or civil partner were born before 6 April 1935.
+tai.iabdSummary.description-114=Tax-free allowance received from your partner.
+tai.iabdSummary.description-115=Tax relief for one half of your trade union subscriptions that relates to superannuation, life assurance or death benefits paid for by the union, up to a maximum of £100.
+tai.iabdSummary.description-116=This is an adjustment in your main tax code to collect the higher rate tax due but not collected from your other jobs and/or pensions.
+tai.iabdSummary.description-117=A taxable benefit provided by your employer(s).
+tai.iabdSummary.description-118=The amount you can earn before you have to start paying tax. That tax-free amount depends on your circumstances.
+tai.iabdSummary.description-119=The amount you can earn before you have to start paying tax. That tax-free threshold depends on your circumstances. Yours is increased because of your age.
+tai.iabdSummary.description-120=The amount you can earn before you have to start paying tax. That tax-free threshold depends on your circumstances. Yours is increased because of your age.
+tai.iabdSummary.description-121=
+tai.iabdSummary.description-122=
+tai.iabdSummary.description-123=The amount of Employment and Support Allowance you received.
+tai.iabdSummary.description-124=The amount of Child Benefit you received.
+tai.iabdSummary.description-128=The Personal Savings Allowance is introduced from 6 April 2016. If you’re a basic rate taxpayer you’ll be able to receive up to £1,000 in savings income tax-free. Higher rate taxpayers will be able to earn up to £500. Additional rate taxpayers will have no allowance. Your tax code is adjusted to collect any additional tax due.
+tai.iabdSummary.description-marriage-allowance-given=The amount of Personal Allowance you’ve chosen to give to your spouse or civil partner.
+tai.iabdSummary.description-marriage-allowance-received=The amount of Personal Allowance your spouse or civil partner has chosen to give to you.
+
+##Others
+tai.link.income_tax.url=https://www.gov.uk/income-tax
+tai.link.income_tax.text=Income Tax
+tai.link.income_tax_rates_allowances.url=https://www.gov.uk/income-tax-rates
+tai.link.income_tax_rates_allowances.text=Income Tax rates and Personal Allowances
+tai.tax_codes.url=https://www.gov.uk/tax-codes
+tai.tax_codes.text=Tax codes
+
+#NonCoded
+tai.nonCodedIncome.text=This is included in your overall taxable income calculation. Tax is collected by self-assessment or as a lump sum payment from you.
+tai.iabdSummary.taxableStateBenefit.title=Taxable State Benefits
+tai.mergedIncomes.text=This is included in your overall taxable income calculation. Tax is collected by self-assessment or as a lump sum payment from you.
+
+#P800-Banner
+tai.p800.title=Tax you owe from {0} to {1}
+tai.p800.description=You were previously told that you paid too little tax in the tax year from {0} to {1}. Your tax code will be adjusted to collect the tax you owe in weekly or monthly part payments between {2} and {3}
+tai.p800.link=Check how much Income Tax you paid last year
+
+#Next Year Changes - New design
+tai.nextYearPayeChanges.totalTax.title=Changes from {0}
+tai.nextYearPayeChanges.totalTax.description=We estimate that you will pay {0} Income Tax in the tax year from {1} to {2}
+tai.nextYearPayeChanges.fullFigureForNextLink=Check all of next year’s changes
+tai.nextYearPayeChanges.more={0} more
+tai.nextYearPayeChanges.less={0} less
+tai.nextYearPayeChanges.taxCodes.title=Your tax codes will be
+tai.nextYearPayeChanges.taxCodes.question=Why your tax code will change
+tai.nextYearPayeChanges.nonP800.title=Tax you owe
+tai.nextYearPayeChanges.nonP800.description=You were previously told that you paid too little tax in an earlier tax year or will have paid too little tax in this tax year. Your tax code will be adjusted to collect the tax you owe in weekly or monthly part payments between {0} and {1}.
+tai.nextYearPayeChanges.nonP800.link=Check your tax code calculation
+tai.nextYearPayeChanges.pa.title=Personal allowance
+tai.nextYearPayeChanges.pa.value={0}
+tai.nextYearPayeChanges.pa.description=The standard Personal Allowance increases to {0} from {1}. Your Personal Allowance may be different depending on your circumstances.
+tai.nextYearPayeChanges.pa.link=Compare your Personal Allowance for the current and next tax year
+tai.nextYearPayeChanges.untaxedInterest.title=Untaxed interest
+tai.nextYearPayeChanges.untaxedInterest.subtitle1={0} untaxed interest received
+tai.nextYearPayeChanges.untaxedInterest.subtitle2={0} Income Tax due
+tai.nextYearPayeChanges.untaxedInterest.description=Since {0} banks and building societies have paid interest without deducting tax. They tell HMRC how much untaxed interest they have paid you. It is treated as income so Income Tax is due. This is included in your total for the year.<br/><br/>The interest you got last year is used to estimate how much you will get this year. Next year’s tax code is adjusted to collect any tax due.
+tai.nextYearPayeChanges.untaxedInterest.link=You must tell HMRC if the estimated interest is wrong
+tai.nextYearPayeChanges.employmentBenefits.title=Employment benefits
+tai.nextYearPayeChanges.employmentBenefits.description=Employment benefits, sometimes known as employee rewards or perks, are treated as income so you pay tax on them. The amount you’ll pay will change from {0} because the standard Personal Allowance will change.
+tai.nextYearPayeChanges.employmentBenefits.link=Compare your taxable income and employment benefits for the current and next tax year
+tai.nextYearPayeChanges.otherChanges=Other tax changes
+tai.nextYearPayeChanges.scottishrate.title=Scottish Income Tax
+tai.nextYearPayeChanges.scottishrate.description=From {0} you will pay the Scottish Income Tax. This will be shown by the letter S in your new tax code.
+tai.nextYearPayeChanges.scottishrate.link=Scottish Income Tax (opens in a new tab or window)
+tai.nextYearPayeChanges.psa.title=Personal Savings Allowance
+tai.nextYearPayeChanges.psa.value={0}
+tai.nextYearPayeChanges.psa.description=From {0} Personal Savings Allowance (PSA) will be a zero percent tax band. The PSA introduced from {0} will still apply but PSA will not be listed as a tax-free allowance.
+tai.nextYearPayeChanges.psa.description1=basic rate taxpayers will continue to have up to £1000 of tax free savings income
+tai.nextYearPayeChanges.psa.description2=higher rate taxpayers will continue to have up to £500 of tax free savings income
+tai.nextYearPayeChanges.psa.description3=additional rate tax payers are not entitled to PSA
+tai.nextYearPayeChanges.psa.link=Personal Savings Allowance (opens in a new tab or window)
+tai.nextYearPayeChanges.compareCode.linkText=Check all your tax code changes
+tai.nextYearPayeChanges.compareCode.link=next-year-tax-codes
+
+#Next Year Changes
+tai.nextYearChanges.heading=Next tax year: Changes to your Income tax
+tai.nextYearChanges.title=Next tax year:
+tai.nextYearChanges.subTitle=Changes to your Income tax
+tai.nextYearChanges.description=Your Income Tax estimate will show the following changes from {0}.
+tai.nextYearChanges.fullFigureForNext=Full figures for next tax year
+tai.nextYearChanges.newTaxYearChanges=New tax year
+tai.nextYearChanges.currentTaxYear=Current tax year
+tai.nextYearChanges.incomeTaxSummary=Income Tax Summary
+
+tai.nextYearChanges.underpayment.title=Underpayment from previous years
+tai.nextYearChanges.underpayment.value=£{0}
+tai.nextYearChanges.underpayment.description=You paid too little tax in the current or an earlier tax year. Your tax code is adjusted from {0} to collect the tax you owe by instalments over the tax year.
+tai.nextYearChanges.underpayment.link=How the underpayment is collected through your new tax code
+
+tai.nextYearChanges.scottish.title=Scottish Income Tax
+
+tai.nextYearChanges.scottish.description=From {0} you will pay the Scottish Income Tax. This will be shown by the letter S in your new tax code.
+tai.nextYearChanges.scottish.link=Scottish Income Tax
+
+tai.nextYearChanges.taxCode.single.title=Your new tax code
+tai.nextYearChanges.taxCode.multiple.title=Your new tax codes
+tai.nextYearChanges.taxCode.description=Your tax code changes when the amount of tax you have to pay changes. This is usually because the standard Personal Allowance or your income has changed.
+tai.nextYearChanges.taxCode.link=Compare your tax codes for the current tax year and next tax year
+
+tai.nextYearChanges.personalAllowance.title=Personal Allowance
+tai.nextYearChanges.personalAllowance.value=£{0}
+tai.nextYearChanges.personalAllowance.description.1=Your Personal Allowance changes to £{0} from {1}. It is more than the standard rate of £{2} and is based on your personal circumstances. Your tax code calculation from {3} includes this change.
+tai.nextYearChanges.personalAllowance.description.2=Your Personal Allowance changes to £{0} from {1}. It is less than the standard rate of £{2} and is based on your personal circumstances. Your tax code calculation from {3} includes this change.
+tai.nextYearChanges.personalAllowance.description.3=The standard Personal Allowance increases to {0} from {1}. Your allowance may be different depending on your circumstances.
+tai.nextYearChanges.personalAllowance.link=Compare your Personal Allowance for the current tax year and next tax year
+
+tai.nextYearChanges.totalTax.title=PAYE Income Tax estimate
+tai.nextYearChanges.totalTax.value=£{0}
+tai.nextYearChanges.totalTax.description=The amount you pay in the next year is based on what HMRC know about your income, allowances and tax-reliefs. When these change the amount of income tax you’ll pay will change.
+tai.nextYearChanges.totalTax.link=Compare your estimates for the current and next tax years
+
+tai.nextYearChanges.employmentBenefit.title=Employment benefit
+tai.nextYearChanges.employmentBenefit.description=Employment benefits are treated as income so you pay tax on them. The amount you pay will change from {0} when the tax rates change or if the benefits you receive change.
+tai.nextYearChanges.employmentBenefit.link=Compare your taxable income and employment benefits for this year and the next tax year
+
+tai.nextYearChanges.dividendsTax.title=Dividend Tax
+tai.nextYearChanges.dividendsTax.description=From 6 April 2016 a new tax-free Dividend Allowance will be introduced. You’ll pay tax on any dividends you receive over £5,000 at the following rates:
+tai.nextYearChanges.dividendsTax.message1=7.5% if you pay basic rate tax
+tai.nextYearChanges.dividendsTax.message2=32.5% if you pay higher rate tax
+tai.nextYearChanges.dividendsTax.message3=38.1% if you pay additional rate tax
+tai.nextYearChanges.dividendsTax.message4=Your tax calculation from 6 April 2016 includes this.
+tai.nextYearChanges.dividendsTax.link=<a href="{0}">Compare figures for this tax year and next tax year</a>.
+
+
+tai.nextYearChanges.personalSavingsAllowance.title=Personal Savings Allowance
+tai.nextYearChanges.personalSavingsAllowance.description=The Personal Savings Allowance is introduced from 6 April 2016. If you’re a basic rate taxpayer you’ll be able to receive up to £1,000 in savings income tax-free. Higher rate taxpayers will be able to earn up to £500. Additional rate taxpayers will have no allowance. Your tax code is adjusted to collect any additional tax due.
+
+tai.nextYearChanges.personalSavingsAllowance.message1=Basic rate taxpayers can have up to £1,000 of tax-free savings income.
+tai.nextYearChanges.personalSavingsAllowance.message2=Higher rate taxpayers can have up to £500 of tax-free savings income.
+tai.nextYearChanges.personalSavingsAllowance.message3=Additional rate tax payers aren’t entitled to any PSA.
+tai.nextYearChanges.personalSavingsAllowance.message4=Banks, building societies and National Savings & Investments will no longer deduct tax from interest they pay.
+tai.nextYearChanges.personalSavingsAllowance.message5=Your tax calculation from 6 April 2016 includes this.
+tai.nextYearChanges.personalSavingsAllowance.link=<a href="{0}">Compare figures for this tax year and next tax year</a>.
+
+#Next year comparison
+tai.nextYearComparison.title=Income Tax comparison:
+tai.nextYearComparison.subTitle=current and next tax years
+tai.nextYearComparison.lede=Based on what we know about your income, allowances and tax-reliefs, this is the Income Tax you’ll pay in the current and next tax year.
+tai.nextYearComparison.currentTaxYear=Current tax year
+tai.nextYearComparison.ending=Ending {0}
+tai.nextYearComparison.from=From {0}
+tai.nextYearComparison.nextTaxYear=Next tax year
+tai.nextYearComparison.changesToIncomeTax=Changes to your Income Tax next tax year
+tai.nextYearComparison.notApplicable=not applicable
+
+tai.nextYearComparison.currentAndNext.title=current and next tax years
+tai.nextYearComparison.taxCodeComparison.title=Tax codes:
+tai.nextYearComparison.taxCodeComparison.howTaxCodesChange=How your tax codes will change
+tai.nextYearComparison.taxCodeComparison.codeExplanation.p1=Your tax code is made up of:
+tai.nextYearComparison.taxCodeComparison.codeExplanation.listElement1=numbers - these refer to the total in your tax code calculation and how much income you can have before you pay tax
+tai.nextYearComparison.taxCodeComparison.codeExplanation.listElement2=usually one letter - it refers to your situation and how it affects your tax-free Personal Allowance
+tai.nextYearComparison.taxCodeComparison.isWrong.title=What to do if you think your tax code is wrong
+tai.nextYearComparison.taxCodeComparison.isWrong.p1=If your tax code is different from that on your payslip, check:
+tai.nextYearComparison.taxCodeComparison.isWrong.l1=the date the tax code is from as it may be too soon for a recent change to be shown
+tai.nextYearComparison.taxCodeComparison.isWrong.l2=that your employer knows the new code
+tai.nextYearComparison.taxCodeComparison.isWrong.p2=If there is still a problem then you can <a href="https://www-dev.tax.service.gov.uk/forms/form/tell-us-about-your-tax-code/new">tell us about changes that affect your tax code calculation</a>.
+tai.nextYearComparison.taxCodeComparison.underpayment.h1=Adjustment to collect an underpayment
+tai.nextYearComparison.taxCodeComparison.underpayment.p1=When you have an underpayment your tax code changes so it’s repaid through your PAYE income.
+tai.nextYearComparison.taxCodeComparison.underpayment.p2=The amount shown is not the amount underpaid it is a figure used to collect the underpayment. It reduces your tax free allowance so you’ll pay tax on more of your income. This extra tax repays the underpaid amount.
+tai.nextYearComparison.taxCodeComparison.taxCodeCalculations=Your tax code calculations
+tai.nextYearComparison.taxCodeComparison.adjustment.title=Adjustment to collect an underpayment
+tai.nextYearComparison.taxCodeComparison.adjustment.h2.multiple=How your tax codes are worked out
+tai.nextYearComparison.taxCodeComparison.adjustment.h2.single=How your tax code is worked out
+tai.nextYearComparison.taxCodeComparison.adjustment.p1=When you have an underpayment your tax code changes so it’s repaid through your PAYE income.
+tai.nextYearComparison.taxCodeComparison.adjustment.p2=The amount shown is not the amount underpaid it is a figure used to collect the underpayment. It reduces your tax free allowance so you’ll pay tax on more of your income. This extra tax repays the underpaid amount.
+tai.nextYearComparison.taxCodeComparison.adjustment.l1=your allowances, tax reliefs and expenses are added up to give your total tax-free allowance
+tai.nextYearComparison.taxCodeComparison.adjustment.l2=your total tax-free allowance is then adjusted to collect tax due on other things, (like company benefits or state pension) to leave you with an overall tax-free amount
+tai.nextYearComparison.taxCodeComparison.adjustment.l3.single=this tax-free amount is used in your tax code
+tai.nextYearComparison.taxCodeComparison.adjustment.l3.multiple=this tax-free amount is used in your tax code to reduce the tax on your main income
+tai.nextYearComparison.taxCodeComparison.adjustment.l4=any allowance left over is automatically applied to your other income
+tai.nextYearComparison.taxCodeComparison.adjustment.p3=The tax code is used by those paying you to work out much tax to take off you. Your tax-free amount is spread equally over the tax year. When you’re paid, you pay tax on any income over your tax-free amount for that pay period.
+
+tai.nextYearComparisonTFA.title=Tax-free allowances: current and next tax years
+tai.nextYearComparisonTFA.title=Tax-free allowances:
+tai.nextYearComparisonTFA.subTitle=current and next tax years
+tai.nextYearComparisonTFA.lede=This is the total of your tax-free allowances for the current and next tax year. Your tax-free allowance is the amount of income you can have before you start to pay Income Tax.
+tai.nextYearComparisonTFA.changeText=If your details here are wrong or if there is something missing, {0}.
+tai.nextYearComparisonTFA.changeLink=tell us about changes that affect your tax-free allowance
+
+tai.nextYearComparisonTaxableIncome.title=Taxable income:
+tai.nextYearComparisonTaxableIncome.subTitle=current and next tax years
+tai.nextYearComparisonTaxableIncome.lede=This is the taxable income we think you’ll have in the current and next tax year. The amounts are estimates based on information sent to us by your employer or pension provider.
+tai.nextYearComparisonTaxableIncome.changeText=If your details here are wrong or if there is something missing, tell us about changes to your:
+tai.nextYearComparisonTaxableIncome.companyBenefits=company benefits
+tai.nextYearComparisonTaxableIncome.employmentPension=employment or pension
+tai.nextYearComparisonTaxableIncome.investmentIncome=investment income
+tai.nextYearComparisonTaxableIncome.stateBenefits=state benefits
+tai.nextYearComparisonTaxableIncome.otherIncome=other income
+
+#Tax paid elsewhere
+tai.taxCollected.atSource.title=Reductions
+tai.taxCollected.atSource.description=Not all of the tax in your estimate is collected through PAYE using your tax code(s). The tax you won’t pay through PAYE includes:
+tai.taxCollected.atSource.heading.tax=Tax
+tai.taxCollected.atSource.heading.amount=Amount (£)
+
+tai.taxCollected.atSource.dividends.title=Tax on dividends
+tai.taxCollected.atSource.dividends.description=Interest from company dividends is taxed at the dividend ordinary rate ({0}%) before it is paid to you.
+
+tai.taxCollected.atSource.marriageAllowance.title=Married Couples Allowance
+tai.taxCollected.atSource.marriageAllowance.description=Married Couples Allowance reduces the amount of tax you pay. You will get tax relief at 10% of your Married Couples Allowance of £{0}. The amount shown in your {1} calculation may appear to be different to make sure you get the right amount for your tax rate.
+tai.taxCollected.atSource.marriageAllowance.description.linkText=tax code
+
+tai.taxCollected.atSource.maintenancePayments.title=Maintenance Payments
+tai.taxCollected.atSource.maintenancePayments.description=Tax relief on maintenance payments to your ex-spouse or partner until your child is 21.
+tai.taxCollected.atSource.enterpriseInvestmentSchemeRelief.title=Enterprise Investment Scheme Relief
+tai.taxCollected.atSource.enterpriseInvestmentSchemeRelief.description=Tax relief for your qualifying investment shares
+
+tai.taxCollected.atSource.concessionalRelief.title=Concessional Relief
+tai.taxCollected.atSource.concessionalRelief.description=Tax relief for your qualifying scheme
+
+tai.taxCollected.atSource.doubleTaxationRelief.title=Double Taxation Relief
+tai.taxCollected.atSource.doubleTaxationRelief.description=Tax Relief given for the tax you’ve paid abroad on foreign income.
+
+tai.taxCollected.atSource.bank.title=Tax on interest from savings and investments
+tai.taxCollected.atSource.bank.description=This is the interest that has been taxed by the basic rate of {0}% by your bank, building society or financial institution before it is paid to you.
+
+tai.taxCollected.atSource.otherIncome.title=Tax on other income
+tai.taxCollected.atSource.otherIncome.description=Tax on other income not collected through your tax code, for example tax paid through Self Assessment.
+
+tai.taxCollected.byPAYE.title=Tax collected through your tax code
+tai.taxCollected.byPAYE.description=Pay As You Earn (PAYE) does not include tax paid elsewhere. The tax you’ll pay through PAYE is £{0}.
+
+##Calculations
+tai.taxCalc.untaxedInterest.title=Untaxed Interest
+tai.taxCalc.untaxedInterest.description=Tax due on bank or building society interest not taxed at source.
+
+tai.taxCalc.bankInterest.title=Bank Interest
+tai.taxCalc.bankInterest.description=Tax due on interest received from a bank or building society. This doesn’t include interest already taxed at source.
+
+tai.taxCalc.noneCodedIncome.title=None Coded Income
+tai.taxCalc.noneCodedIncome.description=Basic rate tax already paid on your none coded income(tax at source).
+
+tai.taxCalc.dividends.title=Dividends
+tai.taxCalc.dividends.description=Basic rate tax already paid on your dividends (tax at source).
+
+tai.taxCalc.foreignInterest.title=Foreign Interest
+tai.taxCalc.foreignInterest.description=Tax due on interest received from Foreign Interest. This doesn’t include interest already taxed at source.
+
+tai.taxCalc.foreignDividends.title=Foreign Dividends
+tai.taxCalc.foreignDividends.description=Tax due on interest received from Foreign Dividends. This doesn’t include interest already taxed at source.
+
+tai.taxCalc.UnderpaymentPreviousYear.title=Underpayment from previous years
+tai.taxCalc.OutstandingDebt.title=Outstanding debt from previous year
+tai.taxCalc.childBenefit.title=Child Benefit
+
+tai.taxCalc.excessGiftAidTax.title=Excess Gift Aid Tax
+tai.taxCalc.excessWidowsAndOrphans.title=Excess Widows And Orphans
+tai.taxCalc.pensionPaymentsAdjustment.title=Pension Payments Adjustment
+
+tai.taxCalc.taxFreeAmount.all=Your entire income of £{0} is tax free.
+tai.taxCalc.taxFreeAmount.available={0}% tax on £{1}.
+tai.taxCalc.taxFreeAmount.extraBurden=Due to your extra taxable benefits you have an extra tax burden of £{0}.
+tai.taxCalcIncome.taxFreeAmount.all=Your entire income of £{0} is tax free.
+tai.taxCalcIncome.taxFreeAmount.available={0}% tax on £{1}.
+
+tai.taxCalc.bands.all=You pay {0}% tax on your entire income of £{1}.
+tai.taxCalc.bands.first=You pay {0}% tax on the first £{1}.
+tai.taxCalc.bands.lastBand=You pay {0}% tax on the remaining £{1}.
+tai.taxCalc.bands.range=You pay {0}% tax on the next £{1}.
+tai.taxCalcKey.bands.all={0}% tax on £{1}. You will pay £{2} tax.
+tai.taxCalcKey.bands.first={0}% tax on £{1}. You will pay £{2} tax.
+tai.taxCalcKey.bands.lastBand={0}% tax on £{1}. You will pay £{2} tax.
+tai.taxCalcKey.bands.range={0}% tax on £{1}. You will pay £{2} tax.
+tai.taxCalcIncome.bands.all={0}% tax on £{1}. You will pay £{2} tax.
+tai.taxCalcIncome.bands.first={0}% tax on £{1}. You will pay £{2} tax.
+tai.taxCalcIncome.bands.lastBand={0}% tax on £{1}. You will pay £{2} tax.
+tai.taxCalcIncome.bands.range={0}% tax on £{1}. You will pay £{2} tax.
+tai.taxCalc.tax=The total amount of tax you will pay is £{0}.
+tai.taxCalc.taxCodeDetails=Your {0} tax code is {1}
+tai.taxCalc.nextTaxBand=Income above £{0} will be taxed at a higher rate.
+
+tai.taxCalc.taxFreeAllocation.singleIncome=Your tax free amount of £{0} is allocated to your income to reduce the amount of tax you pay.
+tai.taxCalc.taxFreeAllocation.multiIncome=Your tax free amount of £{0} is spread across your sources of income to reduce the amount of tax you pay.
+tai.taxCalc.taxFreeAllocation.extraBurden=You owe tax on the remaining £{0}.
+
+#Tax band description
+tai.taxCode.kCode=A K code is used when your taxable benefits are more than your tax free amount. It tells your employer how much extra tax is due.
+tai.taxCode.BR=A BR tax code tells your employer to collect the basic rate of tax at {0}%.
+tai.taxCode.D0=A D0 tax code means all your income from this job or pension is taxed at the {0}% higher rate.
+tai.taxCode.D1=A D1 tax code means all your income from this job or pension is taxed at the {0}% additional rate.
+tai.taxCode.NT=A NT tax code means you’re not paying any tax on this income.
+tai.taxCode.SNT=A NT tax code means you’re not paying any tax on this income.
+tai.taxCode.T= A T tax code includes other calculations to work out your Personal Allowance (e.g., it’s been reduced because your income is over specific limits)
+tai.taxCode.0T=An 0T tax code means your Personal Allowance has been used up, or you’ve started a new job and don’t have a form P45, or you didn’t give your new employer the details they need to give you a tax code
+tai.taxCode.S0T=An 0T tax code means your Personal Allowance has been used up, or you’ve started a new job and don’t have a form P45, or you didn’t give your new employer the details they need to give you a tax code
+tai.taxCode.Y=A Y tax code means you were born before 6 April 1938 and you’re entitled to your full tax-free Personal Allowance
+tai.taxCode.P=A P tax code means that you were born between 6 April 1938 and 5 April 1948 and you’re entitled to your full tax-free Personal Allowance
+tai.taxCode.regular=An L tax code means entitled to the basic tax-free Personal Allowance
+
+beta.email_throttle.error.limit_reached=Sorry, we’ve reached today’s limit. You can’t use this service. Please try again tomorrow.
+
+##Potential Underpayment page
+tai.potential-underpayment.heading=Your underpayment estimate
+tai.potential-underpayment.paidTooLittle.title=You’ve paid too little tax
+tai.potential-underpayment.howMuch.description=Because your tax code has changed your tax-free amount has gone down. This means you may pay too little tax in the tax year to {0}.
+tai.potential-underpayment.none.text=You don’t have any potential underpayments
+tai.potential-underpayment.possible-amount=We think the amount you will owe will be £{0}.
+tai.potential-underpayment.willLetYouKnow=We will let you know if this amount is right when we check your income and tax information at the end of this tax year.
+tai.potential-underpayment.what-next.title=How you can repay
+tai.potential-underpayment.what-next.text=We usually change your tax code from {0}. This collects the underpayment from your income in equal amounts over 12 months.
+tai.potential-underpayment.what-next.text2=Or you can make a direct payment by contacting HMRC when you know the actual amount owed.
+
+tai.back-link.upper=Back
+tai.back-link.lower=back
+tai.backToHome-link.upper=Back to account home
+tai.backToHome-link.lower=back to account home
+tai.backToPAYEIncomeTax=Back to PAYE Income Tax
+tai.backToTaxableIncome=Back to your taxable income
+tai.change=Change <span class="visuallyhidden">{0}</span>
+tai.update=Update
+tai.viewDetails=View Details
+tai.forEmployer=for {0}
+
+
+##Error Messages
+error.invalid.date.past=Please enter a date in the current tax year
+error.invalid.date.future=Date must not be in the future
+error.invalid.date.format=Invalid date format
+
+
+##Attorney Banner
+tai.attorneyBanner.return.text=Return to trusted helpers
+
+
+##Gatekeeper
+tai.gatekeeper.heading=Your PAYE Income Tax estimate
+tai.gatekeeper.contact=If you need information about the Income Tax you paid in earlier years, or our records are wrong, contact us:
+tai.gatekeeper.telephone=telephone: 0300 200 3300
+tai.gatekeeper.textphone=textphone: 0300 200 3319
+tai.gatekeeper.outsideUk=from outside the UK: +44 135 535 9022
+
+tai.gateKeeper.description.p1=Our records show you have no taxable income in this tax year, because your employment ended before {0}.
+tai.gateKeeper.description.p2=Details can be shown only for the tax year from:
+tai.gateKeeper.description.p2.1={0} to {1}
+
+tai.gatekeeper.6=Manual Correspondence Indicator
+
+#Breadcrumbs
+tai.breadcrumb.PTA=Account home
+tai.breadcrumb.paye=PAYE home
+tai.breadcrumb.incomeTax=Income Tax
+tai.breadcrumb.taxCodeDetails=Tax codes
+tai.breadcrumb.serviceUnavailable=Service unavailable
+tai.breadcrumb.taxOnIncome=Tax on income
+tai.breadcrumb.taxEstimateUnavailable=Tax estimate unavailable
+tai.breadcrumb.taxRelief=Tax relief
+tai.breadcrumb.underpaymentEstimate=Underpayment estimate
+tai.breadcrumb.updateIncome=Update income
+tai.breadcrumb.select=Select
+tai.breadcrumb.howTo=Choose how to update
+tai.breadcrumb.workingHours=Working hours
+tai.breadcrumb.calcUnavailable=Calculation unavailable
+tai.breadcrumb.payPeriod=Pay period
+tai.breadcrumb.payslipAmounts=Payslip amounts
+tai.breadcrumb.payslipDeductions=Payslip deductions
+tai.breadcrumb.taxablePayFromPayslip=Taxable pay from payslip
+tai.breadcrumb.bonusPayments=Bonus and overtime
+tai.breadcrumb.bonusOvertimePayments=Bonus or overtime payments
+tai.breadcrumb.estimatedPay=Estimated pay
+tai.breadcrumb.taxablePay=Taxable pay
+tai.breadcrumb.totalPay=Total pay
+tai.breadcrumb.pension=Pension
+tai.breadcrumb.checkAndSave=Check and save
+tai.breadcrumb.success=Success
+tai.breadcrumb.change=Tell us about a change
+tai.breadcrumb.yourIncome=Your income
+tai.breadcrumb.yourIncomeCalculation=Your income calculation
+tai.breadcrumb.taxFreeAmount=Tax free amount
+tai.breadcrumb.yourTaxableIncome=Taxable income
+tai.breadcrumb.payeIncomeTaxEstimate=PAYE Income Tax Estimate
+tai.breadcrumb.payeIncomeTax=PAYE Income Tax
+tai.breadcrumb.yourTaxCodes=Tax codes
+tai.breadcrumb.nextYearChanges=Next Year Changes
+tai.breadcrumb.NextTaxYear=Next tax year
+
+#Tax code page
+tai.taxcode.link=View how we worked out your tax code(s)
+tai.taxcode.title=Your tax code
+tai.taxcodes.heading=Your tax codes
+tai.taxcode.heading=Your tax code
+tai.taxcode.sources.heading=How we’ve worked out your tax code
+tai.taxcode.deductions.text=Your tax-free amount is spread equally over the tax year. When you’re paid you pay tax on any income over your tax-free amount for that pay period.
+tai.taxcode.deductions.negative=You have no tax-free amount because the amount of tax you pay on income is more than your tax-free allowance, which is why the calculation ends in a negative amount.
+tai.taxcode.deductions.zero=You have no tax-free amount because the amount of tax you pay on income is more than your tax-free allowance.
+tai.taxcode.noDeductions.text=Your tax-free amount is {0}. This is income you don’t pay tax on. This figure is used to work out your tax code.
+tai.taxcode.sources.table.calc=Description
+tai.taxcode.codes.heading=Your tax code
+tai.taxcode.codes.description=The letter {0} means {1}.
+tai.taxcode.codes.table.job=Job or pension
+tai.taxcode.table=Tax code
+
+tai.taxcode.L=The last digit of {0} from your tax code calculation is removed to create the numbers in your tax code. L means you are entitled to the tax-free Personal Allowance. Your tax code will be updated automatically when the tax-free Personal Allowances change.
+tai.taxcode.LSplit=L means you are entitled to the tax-free Personal Allowance. Your tax code will be updated automatically when the tax-free Personal Allowances change.
+tai.taxcode.T=T means your tax code will not be updated automatically when the standard tax-free Personal Allowance changes. It may change if your income changes or when HMRC review it.
+tai.taxcode.Y=Y means you’re entitled to a tax-free Personal Allowance and were born before 6 April 1938.
+tai.taxcode.K=K means that you have untaxed income which is more than your tax-free allowance. It needs to be added to your pay or pension so the extra tax can be collected.
+tai.taxcode.BR=BR means that all your income from this job or pension is taxed at the basic rate of {0}%.
+tai.taxcode.NT=NT means no tax will be taken off this income.
+tai.taxcode.0T=0T means there is no tax-free allowance for this job or pension.
+tai.taxcode.D0=D0 means all your income from this job or pension is taxed at the higher rate of {0}%.
+tai.taxcode.D1=D1 means all your income from this job or pension is taxed at the additional rate of {0}%.
+tai.taxcode.D2=D2 means all your income from this job or pension is taxed at the additional rate of {0}%.
+tai.taxcode.D3=D3 means all your income from this job or pension is taxed at the additional rate of {0}%.
+tai.taxcode.D4=D4 means all your income from this job or pension is taxed at the additional rate of {0}%.
+tai.taxcode.M=M means you have received a transfer of 10% of your partner’s Personal Allowance.
+tai.taxcode.N=N means you have transferred 10% of your Personal Allowance to your partner.
+tai.taxcode.X=X means HMRC will review the tax you have paid after {0}.
+tai.taxcode.S=S means you pay the Scottish Income Tax.
+tai.taxCode.scottishExplanation.text=Read more about the
+tai.taxCode.scottishExplanation.link= Scottish Income Tax
+
+tai.taxcode.allowance.type-0=Your tax-free allowances
+tai.taxcode.allowance.type-1=Job expenses
+tai.taxcode.allowance.type-2=Flat rate job expenses
+tai.taxcode.allowance.type-3=Professional subscriptions
+tai.taxcode.allowance.type-4=Payments towards a retirement annuity
+tai.taxcode.allowance.type-5=Personal pension relief
+tai.taxcode.allowance.type-6=Gift Aid payments
+tai.taxcode.allowance.type-7=Enterprise investment scheme relief
+tai.taxcode.allowance.type-8=Loan interest
+tai.taxcode.allowance.type-9=Loss relief
+tai.taxcode.allowance.type-10=Maintenance payments
+tai.taxcode.allowance.type-11=Personal Allowance (standard)
+tai.taxcode.allowance.type-12=Personal Allowance (aged)
+tai.taxcode.allowance.type-13=Personal Allowance (elderly)
+tai.taxcode.allowance.type-14=Married couples allowance
+tai.taxcode.allowance.type-15=Married Couples Allowance
+tai.taxcode.allowance.type-16=Married couples allowance
+tai.taxcode.allowance.type-17=Married couples allowance
+tai.taxcode.allowance.type-18=Married couples allowance
+tai.taxcode.allowance.type-19=Married couples allowance from husband
+tai.taxcode.allowance.type-20=Married couples allowance from husband
+tai.taxcode.allowance.type-21=Married couples allowance
+tai.taxcode.allowance.type-22=Blind person’s allowance
+tai.taxcode.allowance.type-23=Balance of tax allowances
+tai.taxcode.allowance.type-24=Death, sickness or funeral benefits
+tai.taxcode.allowance.type-25=Death, sickness or funeral benefits
+tai.taxcode.allowance.type-26=Death, sickness or funeral benefits
+tai.taxcode.allowance.type-27=Starting rate adjustment
+tai.taxcode.allowance.type-28=Concessional relief
+tai.taxcode.allowance.type-29=Double taxation relief
+tai.taxcode.allowance.type-30=Foreign pension allowance
+tai.taxcode.allowance.type-31=Earlier years adjustment
+tai.taxcode.allowance.type-33=Personal Savings Allowance
+tai.taxcode.allowance.description=This is not the amount of relief you will receive. It is a figure to calculate the amount of relief due.
+tai.taxcode.allowance.type-5.desc=This is not the amount of relief you will receive. It is a figure to calculate the amount of relief due.
+tai.taxcode.allowance.type-6.desc=This is not the amount of relief you will receive. It is a figure to calculate the amount of relief due.
+tai.taxcode.allowance.type-10.desc=These allowances have been calculated to give you tax relief at 10%. Please tell us when your payments stop or the child becomes 21.
+tai.taxcode.allowance.type-7.desc=An allowance calculated to give you the correct tax relief against your qualifying investment shares.
+tai.taxcode.allowance.type-15.desc=Married Couples Allowance reduces the amount of tax you pay. The figure here ensures that you get tax relief at 10% of your Married Couples Allowance for your tax band. The amount shown in your <a href={0}>tax estimate</a> shows the value of tax relief you get for Married Couples allowance.
+tai.taxcode.allowance.type-28.desc=An allowance calculated to give you the correct tax relief against your qualifying scheme.
+tai.taxcode.allowance.type-29.desc=Tax Relief given for the tax you’ve paid abroad on foreign income.
+
+tai.taxcode.deduction.type-1=State Pension or other state benefits
+tai.taxcode.deduction.type-2=Public services pension
+tai.taxcode.deduction.type-3=Forces pension
+tai.taxcode.deduction.type-4=Other pension
+tai.taxcode.deduction.type-5=Taxable incapacity Benefit
+tai.taxcode.deduction.type-6=Married couple’s allowance to your wife
+tai.taxcode.deduction.type-7=Employer benefits
+tai.taxcode.deduction.type-8=Car benefit
+tai.taxcode.deduction.type-9=Van benefit
+tai.taxcode.deduction.type-10=Car fuel
+tai.taxcode.deduction.type-11=Service benefit
+tai.taxcode.deduction.type-12=Loan from your employer
+tai.taxcode.deduction.type-13=Medical insurance
+tai.taxcode.deduction.type-14=Telephone
+tai.taxcode.deduction.type-15=Balancing charge
+tai.taxcode.deduction.type-16=Taxable expenses payments
+tai.taxcode.deduction.type-17=Other earnings
+tai.taxcode.deduction.type-18=Jobseeker’s Allowance
+tai.taxcode.deduction.type-19=Part time earnings
+tai.taxcode.deduction.type-20=Tips
+tai.taxcode.deduction.type-21=Commission
+tai.taxcode.deduction.type-22=Other earnings
+tai.taxcode.deduction.type-23=Untaxed interest on savings and investments
+tai.taxcode.deduction.type-24=Other income (not earnings)
+tai.taxcode.deduction.type-25=Property income
+tai.taxcode.deduction.type-26=Annuity
+tai.taxcode.deduction.type-27=Property income
+tai.taxcode.deduction.type-28=Underpayment restriction
+tai.taxcode.deduction.type-29=Other earnings, (or pension)
+tai.taxcode.deduction.type-30=Gift Aid adjustment
+tai.taxcode.deduction.type-31=Widow’s and orphans’ adjustment
+tai.taxcode.deduction.type-32=Savings Income Taxable at higher rate
+tai.taxcode.deduction.type-33=Adjustment to basic rate band
+tai.taxcode.deduction.type-34=Adjustment to lower rate band
+tai.taxcode.deduction.type-35=Underpayment from previous years
+tai.taxcode.deduction.type-36=Van fuel benefit
+tai.taxcode.deduction.type-37=Higher Personal Allowance restriction
+tai.taxcode.deduction.type-38=Employment support allowance
+tai.taxcode.deduction.type-39=Non cash benefits
+tai.taxcode.deduction.type-40=Adjustment to rate band
+tai.taxcode.deduction.type-41=Outstanding debt from previous year
+tai.taxcode.deduction.type-42=Child Benefit charge  
+tai.taxcode.deduction.type-44=Dividend Tax
+tai.taxcode.deduction.child.benefit.description=This is the Child Benefit you owe HMRC. Your tax code has been adjusted to collect the £{0} due.
+tai.taxcode.deduction.underpayment.description=This is an underpayment you owe HMRC from a previous year. Your tax code has been adjusted to collect the £{0} due.
+tai.taxcode.deduction.outstanding.debt.description=This is outstanding debt you owe HMRC. Your tax code has been adjusted to collect the £{0} due.
+tai.taxcode.deduction.type-1.desc=This is the taxable amount we expect you to receive based on information provided by the Department for Work and Pensions.
+tai.taxcode.deduction.type-2.desc=Your taxable public service pension does not have tax deducted before it is paid to you. Your tax-free allowance has been adjusted so you pay the right amount of tax.
+tai.taxcode.deduction.type-3.desc=Your taxable forces pension does not have tax deducted before it is paid to you. Your tax-free allowance has been adjusted so you pay the right amount of tax.
+tai.taxcode.deduction.type-4.desc=Your other occupational pension does not have tax deducted before it is paid to you, so your tax-free allowance has been adjusted so you pay the right amount of tax.
+tai.taxcode.deduction.type-5.desc=This is the taxable amount we expect you to receive in the tax year based on information provided by the Department for Work and Pensions.
+tai.taxcode.deduction.type-17.desc=Your other earnings do not have tax deducted before they are paid to you. Your tax-free allowance has been adjusted so you pay the right amount of tax.
+tai.taxcode.deduction.type-22.desc=Your other earnings do not have tax deducted before they are paid to you. Your tax-free allowance has been adjusted so you pay the right amount of tax.
+tai.taxcode.deduction.type-18.desc=Based on information supplied by the Department for Work and Pensions (DWP) this amount is taxable but tax is not taken off before it is paid to you. Your tax-free allowance has been adjusted so you pay the right amount of tax.
+tai.taxcode.deduction.type-23.desc=This is interest paid to you before tax is taken off. We have reduced the tax-free amount to collect the tax due.
+tai.taxcode.deduction.type-24.desc=Unearned Income (for example, income from foreign dividends, profits from foreign property, foreign interest or other savings) does not have tax deducted before it is paid to you. Your tax-free allowance has been adjusted so you pay the right amount of tax.
+tai.taxcode.deduction.type-26.desc=Your personal pension annuity does not have tax deducted before it is paid to you. Your tax-free allowance has been adjusted so you pay the right amount of tax.
+tai.taxcode.deduction.type-27.desc=This is the profit from rental income that you get from property or land.
+tai.taxcode.deduction.type-30.desc=Your charity have reclaimed tax from your donation because you told them you were a basic rate taxpayer. As you did not pay basic rate tax in the tax year that your donation was made your tax-free allowance has been adjusted to collect the amount of tax they have reclaimed.
+tai.taxcode.deduction.type-32.desc=As you pay some of your tax at higher rate, extra tax is due on your savings and investment income. This adjustment is used to collect the extra tax due.
+tai.taxcode.deduction.type-33.desc=Personal savings allowance.
+tai.taxcode.deduction.type-38.desc=This is the taxable amount we expect you to receive in the tax year based on information provided by the Department for Work and Pensions.
+tai.taxcode.deduction.type-40.desc=We have included this adjustment as you have more than one job or pension and we estimate some of your income is taxable at a higher rate.
+tai.taxcode.deduction.type-44.desc=The amount shown is not your dividend amount. It is a figure used to reduce your tax-free allowance so you’ll pay the correct amount of tax on your dividends income at the basic rate of tax.
+
+#Company Car
+paye.companyCar.iabdType=31
+
+#split allowances
+tai.split.allowance.income.less.message=Because your main source of income is less than your tax-free amount we’ve split your tax-free amount with your other income(s) so you don’t pay too much tax.
+tai.split.allowance.income.greater.message.p1=If your highest source of income is less than your tax-free amount, any tax-free amount left over can reduce tax on your other income.
+tai.split.allowance.income.greater.message.p2=We estimate your highest source of income to be more than your tax-free amount. Splitting it across your other incomes does not reduce your overall tax.
+tai.split.allowance.income.greater.message.p3=Unless you have already asked us to split your allowances across your income we will review your tax codes before the end of this tax year, or if you change jobs. This is so you pay the right amount of tax.
+
+#your income calculation page
+
+tai.income.calculation.heading=Your income calculation
+tai.income.calculation.subheading=How we work out this amount
+
+tai.CurrentTaxYear=Current tax year
+tai.PreviousTaxYear=Previous tax year
+tai.BackToCurrentTaxYear=Back to current tax year records
+tai.income.calculation.taxableIncome=Taxable income
+
+tai.income.calculation.title=Your income from {0}
+tai.income.calculation.TaxableIncomeDetails=Taxable income from {0}
+tai.income.calculation.lede=This is the taxable income and National Insurance {0} told us you got in the tax year from {1} to {2}.
+
+tai.income.calculation.update.regular=You can {0} for this employer if it’s wrong.
+tai.income.calculation.update.pension=You can {0} for this pension provider if it’s wrong.
+tai.income.calculation.updateLink.regular=update your estimated taxable income
+tai.income.calculation.payrollingBik.message1=Your employer may be including your company benefits and expenses in their company payroll. If they do you must include their value in any change you make to your estimated income or you may pay too little tax.
+tai.income.calculation.payrollingBik.message2=Please contact your employer if you have questions about their value.
+tai.income.calculation.backLink=Back
+
+tai.income.calculation.incomeTable.dateHeader=Date
+tai.income.calculation.incomeTable.taxPaidHeader=Income Tax paid (£)
+tai.income.calculation.incomeTable.incomeHeader=Taxable income (£)
+tai.income.calculation.incomeTable.nationalInsuranceHeader=National Insurance paid (£)
+tai.income.calculation.incomeTable.print.nationalInsuranceHeader=National Insurance paid
+tai.income.calculation.incomeTable.print.taxPaidHeader=Income Tax paid
+tai.income.calculation.incomeTable.print.incomeHeader=Taxable income
+tai.income.calculation.noRtiDataPreviousYear.message.emp=Your employer has not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the tax year ending {0}.
+tai.income.calculation.noRtiDataPreviousYear.message.pension=Your pension provider has not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the tax year ending {0}.
+tai.income.calculation.rtiUnavailablePreviousYear.message=There is a temporary problem with one of our systems. It means we can’t show your actual taxable income or details of the income tax and national insurance you have paid.
+tai.income.calculation.rtiUnavailablePreviousYear.message.contact=You do not need to contact us about this.
+tai.income.calculation.heading=Income Tax and National Insurance paid from {0} to {1}
+tai.income.calculation.heading.withRti=Income Tax and National Insurance paid to {0}
+
+tai.income.calculation.totalNotMatching.emp.message=Your employer sent the individual and total amounts in the table above.
+tai.income.calculation.totalNotMatching.pension.message=Your pension provider sent the individual and total amounts in the table above.
+tai.income.calculation.totalNotMatching.message=The individual amounts do not add up to the total. When this happens we use the total amounts as your figures for the tax year.
+
+tai.taxcollected.column-2=Tax(£)
+tai.taxcollected.column-1=Description
+
+tai.income.calculation.Income.PayrollNumberEmployment.text = Your payroll number for this employment is {0}.
+tai.income.calculation.Income.PayrollNumberPension.text = Your payroll number for this pension is {0}.
+
+tai.income.calculation.rti.pension.same=This pension provider told us your taxable income between {0} and {1} is £{2}.
+tai.income.calculation.rti.emp.same=This employer told us your taxable income between {0} and {1} is £{2}.
+tai.income.calculation.rti.emp.same.estimate=Using the figures supplied by your employer we estimate your annual taxable income from them will be £{0}.
+tai.income.calculation.rti.pension.same.estimate=Using the figures supplied by your pension provider we estimate your annual taxable income from them will be £{0}.
+
+tai.income.calculation.rti.ceased.emp=This employer told us how much you were paid up to {0} when your employment with them ended.
+tai.income.calculation.rti.ceased.pension=This pension provider told us how much you were paid up to {0} when your employment with them ended.
+tai.income.calculation.rti.ceased.emp.noFinalPay.estimate=This employer hasn’t provided your final pay details yet.
+tai.income.calculation.rti.ceased.pension.noFinalPay=This pension provider hasn’t provided your final pay details yet.
+tai.income.calculation.rti.ceased.emp.noFinalPay=This employer hasn’t provided your final pay details yet.
+tai.income.calculation.rti.ceased.noFinalPay.estimate=We’ve used an estimated amount of £{0} until we know the actual amount.
+
+tai.income.calculation.rti.continuous.weekly.emp=This employer told us you’ve been paid £{0} up to {1}.
+tai.income.calculation.rti.continuous.weekly.pension=This pension provider told us you’ve been paid £{0} up to {1}.
+tai.income.calculation.rti.continuous.annually.emp=This employer told us you’ve been paid £{0} and that you are paid annually.
+tai.income.calculation.rti.continuous.annually.pension=This pension provider told us you’ve been paid £{0} and that you are paid annually.
+tai.income.calculation.rti.oneOff.emp=This employer told us you’ve been paid £{0} and that this is a one-off payment.
+tai.income.calculation.rti.oneOff.pension=This pension provider told us you’ve been paid £{0} and that this is a one-off payment.
+tai.income.calculation.rti.irregular.pension=This pension provider told us you aren’t paid regularly. We can’t estimate your annual taxable income from the information they’ve sent. So we’re using £{0} so you don’t pay too much tax.
+tai.income.calculation.rti.irregular.emp=This employer told us you aren’t paid regularly. We can’t estimate your annual taxable income from the information they’ve sent. So we’re using £{0} so you don’t pay too much tax.
+
+tai.income.calculation.rti.midYear.weekly=Your taxable pay between {0} and {1} is £{2}.
+tai.income.calculation.rti.emp.estimate=Using the figures supplied by your employer we estimate your annual taxable income from them will be £{0}.
+tai.income.calculation.rti.pension.estimate=Using the figures supplied by your pension provider we estimate your annual taxable income from them will be £{0}.
+
+tai.income.calculation.agent=Your agent updated this income.
+tai.income.calculation.agent.estimate=We’ve used the details they gave to estimate an annual taxable income of £{0}.
+tai.income.calculation.manual.update.email=We updated your income on {0} following receipt of your email on {1}.
+tai.income.calculation.manual.update.email.withoutDate=We updated your income following receipt of your email.
+tai.income.calculation.manual.update.informationLetter=We updated your income on {0} following receipt of a form on {1}.
+tai.income.calculation.manual.update.informationLetter.withoutDate=We updated your income following receipt of a form.
+tai.income.calculation.manual.update.letter=We updated your income on {0} following receipt of your letter on {1}.
+tai.income.calculation.manual.update.letter.withoutDate=We updated your income following receipt of your letter.
+tai.income.calculation.manual.update.internet=You updated your income using this service on {0}.
+tai.income.calculation.manual.update.internet.withoutDate=You updated this income using this service.
+tai.income.calculation.manual.update.phone=We updated your income on {0} following your telephone call on {1}.
+tai.income.calculation.manual.update.phone.withoutDate=We updated your income following your telephone call.
+tai.income.calculation.rti.manual.update.estimate=We’ve used the details you provided as your annual taxable income of £{0}.
+
+tai.income.calculation.default.emp=Your employer has not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the tax year ending {0}.
+tai.income.calculation.default.pension=Your pension provider has not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the tax year ending {0}.
+tai.income.calculation.default.estimate.emp=We’ve estimated your annual taxable income from this employer to be £{0}.
+tai.income.calculation.default.estimate.pension=We’ve estimated your annual taxable income from this pension provider to be £{0}.
+
+#new Your Tax Code Page
+tai.yourTaxCode.codes.taxCodeMadeUpOf.singular=Your tax code is made up of:
+tai.yourTaxCode.codes.taxCodeMadeUpOf.multiple=Your tax codes are made up of:
+tai.yourTaxCode.codes.numbers1.singular=numbers - these refer to the total in your tax code calculation and how much income you can have before you pay tax
+tai.yourTaxCode.codes.numbers1.multiple=numbers - these refer to how much income you can have from that employer or pension provider before you pay tax
+tai.yourTaxCode.codes.numbers2.singular=usually one letter - it refers to your situation and how it affects your Personal Allowance
+tai.yourTaxCode.codes.numbers2.multiple=usually one letter - it refers to your situation and how it affects your tax-free Personal Allowance
+tai.yourTaxCode.codes.whatTheyMean.link=Letters in your tax code: what they mean. Opens in new tab
+tai.yourTaxCode.codes.whatTheyMean.sentence={0}.
+tai.yourTaxCode.codes.yourTaxCodeCalculation=Your tax code calculation
+tai.yourTaxCode.codes.heading.text.list1=your tax-free pay
+tai.yourTaxCode.codes.heading.text.list2=how much tax to take off you
+tai.yourTaxCode.codes.heading.text.details=They’re generally made up of numbers and one or more letters. The numbers tell them how much tax-free pay you can have. The letters tell them the type of allowances you have and the tax rate to use.
+tai.yourTaxCode.codes.table.heading.singular=How your tax code is worked out
+tai.yourTaxCode.codes.table.heading.multiple=How your tax codes are worked out
+tai.yourTaxCode.codes.table.heading.text.list1.singular=your allowances, tax reliefs and expenses are added up to give your total tax-free allowance
+tai.yourTaxCode.codes.table.heading.text.list2.singular=your total tax-free allowance is then adjusted to collect tax due on other things, (like company benefits or state pension) to leave you with an overall tax-free amount
+tai.yourTaxCode.codes.table.heading.text.list3.singular=this tax-free amount is used in your tax code
+tai.yourTaxCode.codes.table.heading.text.list3.multiple=this tax-free amount is used in your tax code to reduce the tax on your main income
+tai.yourTaxCode.codes.table.heading.text.list4.multiple=any allowance left over is automatically applied to your other income
+tai.yourTaxCode.deductions.text=Your tax free amount is {0}. We take off the last number of your tax-free amount to make the number in your code.
+tai.yourTaxCode.deductions.zero=You have no tax free amount. We take off the last number of your tax-free amount to make the number in your code.
+tai.yourTaxCode.noDeductions.text=Your tax-free amount is {0}. This is income you don’t pay tax on. This figure is used to work out your tax code.
+tai.yourTaxCode.employment.taxCode={0} {1}
+tai.yourTaxCode.link.taxFreeAmount={0}.
+tai.yourTaxCode.linkText.taxFreeAmount=How we worked out your tax-free allowance
+
+#new Your Taxable Income page
+tai.yourTaxableIncome.heading=Your taxable income estimate
+tai.yourTaxableIncome.calculate.title=The income you’ll pay tax on
+tai.yourTaxableIncome.taxed.text=You will pay Income Tax through Pay As You Earn (PAYE) on all of the following.
+tai.yourTaxableIncome.employmentIncome.title=Income from employment and pensions
+tai.yourTaxableIncome.employmentIncome.OnlyPension.title=Income from pensions
+tai.yourTaxableIncome.employmentIncome.OnlyEmployment.title=Income from employment
+tai.yourTaxableIncome.employmentIncome.text=Only your employer(s) and pension provider(s) know what your total pay (also known as ‘gross pay’ or ‘top line pay’) is before tax. They tell us your ‘taxable pay’. We use the taxable pay amount in this estimate.
+tai.yourTaxableIncome.employmentIncome.OnlyPension.text=Only your pension provider(s) know what your total pay (also known as ‘gross pay’ or ‘top line pay’) is before tax. They tell us your ‘taxable pay’. We use the taxable pay amount in this estimate.
+tai.yourTaxableIncome.employmentIncome.OnlyEmployment.text=Only your employer(s) know what your total pay (also known as ‘gross pay’ or ‘top line pay’) is before tax. They tell us your ‘taxable pay’. We use the taxable pay amount in this estimate.
+tai.yourTaxableIncome.employerBenefits.title=Company benefits
+tai.yourTaxableIncome.employerBenefits.text=These are treated as income so you pay tax on them.
+tai.yourTaxableIncome.employerBenefits.Table.Header=Benefits
+tai.yourTaxableIncome.employerBenefits.Amount=Amount (£)
+tai.yourTaxableIncome.notMatching.heading=Why these numbers might not match your payslip or pension statement
+tai.yourTaxableIncome.notMatching.text=The amount of pay or pension you pay tax on may be less than your total pay or pension if for example:
+tai.yourTaxableIncome.notMatching.list1=you pay into your employer’s pension scheme
+tai.yourTaxableIncome.notMatching.list2=you get bonus or overtime payments
+tai.yourTaxableIncome.notMatching.list3=we’re waiting for an update from your employer or pension provider
+tai.yourTaxableIncome.detailsWrongIform=If there is an employer or pension that is missing, has ended or is duplicated, {0}.
+tai.yourTaxableIncome.detailsWrongIformLink=tell us what to change
+
+tai.companyBenefits.detailsWrongIform={0}.
+tai.companyBenefits.detailsWrongIformLink=Tell us about changes to your company benefits
+
+tai.taxableStateBenefit.detailsWrongIform={0}.
+tai.taxableStateBenefit.detailsWrongIformLink=Tell us about changes to your taxable state benefits
+
+tai.otherIncome.detailsWrongIform={0}.
+tai.otherIncome.detailsWrongIformLink=Tell us about changes to your other income
+
+tai.investmentIncome.detailsWrongIform={0}.
+tai.investmentIncome.detailsWrongIformLink=Tell us about changes to your investment income
+
+tai.taxCode.detailsWrongIform={0}.
+tai.taxCode.detailsWrongIformLink=Tell us about changes that affect your tax code calculation
+
+tai.taxFreeAllowance.detailsWrongIform={0}.
+tai.taxFreeAllowance.detailsWrongIformLink=Tell us about changes that affect your tax-free allowance
+
+tai.yourTaxableIncome.otherDetailsWrongIform=If other details for this employer are wrong {0}.
+tai.yourTaxableIncome.otherDetailsWrongIformLink=tell us what to change
+tai.yourTaxableIncome.otherDetailsWrongPensionIform=If other details for this pension are wrong {0}.
+
+tai.income.calculation.detailsWrongIform.emp={0} if income details from this employer are missing or wrong.
+tai.income.calculation.detailsWrongIform.pension={0} if income details from this pension provider are missing or wrong.
+tai.income.calculation.detailsWrongIformLink=Tell us what to change
+
+tai.yourTaxableIncome.investmentIncome.title=Savings and investment income
+tai.yourTaxableIncome.investmentIncome.text=This is income from savings and investments
+tai.yourTaxableIncome.investmentIncome.table.heading=Type
+tai.yourTaxableIncome.yourIncomeTax.link.title=Your Income Tax
+tai.yourTaxableIncome.yourIncome.link.title=Your Income
+tai.yourTaxableIncome.yourTaxFreeAmount.link.title=Your tax free amount
+tai.yourTaxableIncome.yourTaxCode.link.title=Your tax code
+tai.yourTaxableIncome.account.home.title=Back to account home
+tai.yourTaxableIncome.taxableStateBenefit.header=Taxable state benefit
+tai.yourTaxableIncome.taxableStateBenefit.text=You get the following taxable state benefits from JobCentre Plus or the Pension Service. They gave us the amounts shown. If they’re wrong contact HM Revenue and Customs. You can’t change the amounts using this service.
+tai.yourTaxableIncome.taxableStateBenefit.title=Benefits
+tai.yourTaxableIncome.taxableStateBenefit.Amount=Amount (£)
+tai.yourTaxableIncome.otherIncome.header=Other income
+tai.yourTaxableIncome.otherIncome.text=Other income
+tai.yourTaxableIncome.otherIncome.title=Type
+tai.yourTaxableIncome.otherIncome.Amount=Amount (£)
+tai.yourTaxableIncome.nextSteps.title=If any details are wrong you can:
+tai.yourTaxableIncome.nextSteps.updateIncome.link=<a href="{0}">update your income</a> to make this estimate more accurate.
+tai.yourTaxableIncome.nextSteps.carLink=<a href="{0}">check and update your company car</a>
+tai.yourTaxableIncome.nextSteps.medLink=<a href="{0}">check and change your medical insurance benefit</a>
+tai.yourTaxableIncome.employmentIncome.table.heading=Employer or pension provider
+tai.yourTaxableIncome.employmentIncome.OnlyEmployment.table.heading=Employer
+tai.yourTaxableIncome.employmentIncome.OnlyPension.table.heading=Pension provider
+tai.investmentIncome.heading.title=Type
+tai.investmentIncome.heading.amount=Amount (£)
+tai.investmentIncome.dividends.title=Dividends
+tai.investmentIncome.bankInterest.title=Bank interest
+tai.investmentIncome.otherIncome.title=Other income
+tai.iabdSummary.employmentBenefit.type-8=Employer provided services for {0}
+tai.iabdSummary.employmentBenefit.type-28=Employer benefits for {0}
+tai.iabdSummary.employmentBenefit.type-29=Car fuel benefit for {0}
+tai.iabdSummary.employmentBenefit.type-30=Medical insurance for {0}
+tai.iabdSummary.employmentBenefit.type-31=Car benefit for {0}
+tai.iabdSummary.employmentBenefit.type-31-link=Car benefit (opens Company Car service) for {0}
+tai.iabdSummary.employmentBenefit.type-32=Telephone for {0}
+tai.iabdSummary.employmentBenefit.type-33=Service benefits for {0}
+tai.iabdSummary.employmentBenefit.type-34=Taxable expenses benefits for {0}
+tai.iabdSummary.employmentBenefit.type-35=Van benefit for {0}
+tai.iabdSummary.employmentBenefit.type-36=Van fuel benefit for {0}
+tai.iabdSummary.employmentBenefit.type-37=Beneficial loan for {0}
+tai.iabdSummary.employmentBenefit.type-38=Accomodation for {0}
+tai.iabdSummary.employmentBenefit.type-39=Assets for {0}
+tai.iabdSummary.employmentBenefit.type-40=Assets transfered for {0}
+tai.iabdSummary.employmentBenefit.type-41=Education services for {0}
+tai.iabdSummary.employmentBenefit.type-42=Entertaining for {0}
+tai.iabdSummary.employmentBenefit.type-43=Expenses for {0}
+tai.iabdSummary.employmentBenefit.type-44=Mileage for {0}
+tai.iabdSummary.employmentBenefit.type-45=Non-qualifying relocation expenses for {0}
+tai.iabdSummary.employmentBenefit.type-46=Nursery places for {0}
+tai.iabdSummary.employmentBenefit.type-47=Other items for {0}
+tai.iabdSummary.employmentBenefit.type-48=Payments of employee’s behalf for {0}
+tai.iabdSummary.employmentBenefit.type-49=Personal incidental expenses for {0}
+tai.iabdSummary.employmentBenefit.type-50=Qualifying relocation expenses for {0}
+tai.iabdSummary.employmentBenefit.type-51=Employer provided professional subscriptions for {0}
+tai.iabdSummary.employmentBenefit.type-52=Income Tax paid but not deducted from director’s renumeration for {0}
+tai.iabdSummary.employmentBenefit.type-53=Travel and subsistence for {0}
+tai.iabdSummary.employmentBenefit.type-54=Vouchers and credit cards for {0}
+tai.iabdSummary.employmentBenefit.type-117=Non-Cash benefit for {0}
+tai.yourTaxableIncome.taxYear={0} to {1}
+
+tai.estimatedIncome.title=Your PAYE Income Tax estimate
+tai.estimatedIncome.subtitle=How this is collected
+tai.estimatedIncome.whyEstimate.link=Why is this an estimate?
+tai.estimatedIncome.whyEstimate.desc=The amount of tax you pay depends on your total income for the whole tax year. We can’t give an exact figure because we won’t know about all your income until after the tax year ends on {0}.
+tai.estimatedIncome.desc=Your employer or pension provider takes off Income Tax before they pay you. This is called Pay As You Earn (PAYE). {0} tells them how much tax-free income you can have before they deduct Income Tax.
+tai.estimatedIncome.taxCode-desc={0} this year is about {1}. {2} is {3}.
+tai.estimatedIncome.taxRelief=Because you’ve made a gift aid payment or personal pension payment you can have more income at a lower tax rate. This is called {0}.
+tai.estimatedIncome.taxRelief.link=Tax Relief
+tai.estimatedIncome.additionalTax.title=Additional tax due
+tai.estimatedIncome.additionalTax.desc=We adjust your tax code so you pay the tax due on the following.
+tai.estimatedIncome.reductionsTax.title=Reductions to your estimate
+tai.estimatedIncome.reductionsTax.desc=So that you don’t pay too much tax your estimate is adjusted for the following items:
+tai.estimatedIncome.reductionsTax.incomeTaxReducedToZeroMessage=As the reductions to your tax estimate are equal to, or more than the tax due on your income, your tax estimate is reduced to zero.
+tai.estimatedIncome.back-link=Back to account home
+tai.estimatedIncome.ukdividends.lessThanOrEqualToBasic=The first £{0} of dividend income is tax free. All of your dividend income is included in your tax free amount.
+tai.estimatedIncome.ukdividends.moreThanBasic=The first £{0} of your dividend income is tax free. It is included in your tax free amount. Dividend income above £{1} is taxed at {2}.
+tai.tables.column1=Description
+tai.tables.column2=Tax (£)
+tai.tables.total=Total
+
+
+
+tai.incomeTax.title=Income Tax
+tai.incomeTax.desc=Your employer or pension provider takes off Income Tax before they pay you. This is called Pay As You Earn (PAYE). The amount of tax you pay depends on your income, how much of it is tax-free, and your tax code.
+tai.incomeTax.payeIncomeTax.link=Your estimated PAYE Income Tax
+tai.incomeTax.payeIncomeTax.desc=This is the Income Tax we think you will have paid by the end of this tax year.
+tai.incomeTax.income.link=Your taxable income estimate
+tai.incomeTax.income.desc=This is how much of your income we think you will pay tax on this tax year.
+tai.incomeTax.taxFree.link=Your tax-free allowance
+tai.incomeTax.taxFree.desc=The total of all your tax allowances. Used to work out your tax code.
+tai.incomeTax.taxCode.link=Your tax code
+tai.incomeTax.taxCodes.link=Your tax codes
+tai.incomeTax.taxCode.desc=Tells those paying you, how much your tax-free amount is, and how much tax to take.
+tai.incomeTax.menu.title=Things that can affect your tax
+tai.incomeTax.menu.car.link=Check or update your company car tax
+tai.incomeTax.menu.car.desc=Tell HMRC about changes to your PAYE company car or fuel benefit details.
+tai.incomeTax.menu.marriage.link=Check if you’re eligible for Marriage Allowance
+tai.incomeTax.menu.marriage.desc=If you earn less than £10,600 you may benefit from applying for Marriage Allowance.
+
+tai.incomes.confirm.save.title=Check your changes
+tai.incomes.confirm.save.message=You have entered £{0}.
+tai.incomes.confirm.save.message.details=Changing your income may change your tax code and the amount of tax you pay.
+tai.incomes.confirm.save.messageEquals=The amount entered is £{0}
+tai.incomes.confirm.save.messageEquals.details=This is the same as the amount already held for {0} so your income does not need to be updated.
+
+tai.incomes.confirm.save=Save this change
+tai.incomes.confirm.same.result=The result from the calculator is £{0}.
+tai.incomes.confirm.same=This is the same as the amount already held for {0} so your income does not need to be updated.
+tai.incomes.confirm.No.Save=Start again
+tai.incomes.confirm.Cancel=Cancel
+
+##Error messages
+tai.errorMessage.heading=There is a problem
+tai.errorMessage.frontend404=Please check the URL used or {0}.
+tai.errorMessage.startAgain=start again
+tai.errorMessage.frontend400.message1=The page you want can’t be displayed.
+tai.errorMessage.frontend400.message1.nps=The page you want can’t be displayed because there may be a problem with your account.
+tai.errorMessage.frontend400.message1.version=The page you want can’t be displayed. Please sign out and try again in a few minutes.
+tai.errorMessage.frontend400.message2=Please tell us what you were trying to do using {0}.
+tai.errorMessage.frontend400.message2.nps=Please contact HM Revenue and Customs on 0300 200 3300.
+
+tai.noPrimary.heading=Sorry, there is a problem so you can’t use this service
+tai.noPrimary.para1=This could be because:
+tai.noPrimary.reasonItem1=you don’t pay Income Tax by Pay As You Earn (PAYE)
+tai.noPrimary.reasonItem2=you have more than one income and we don’t know which one is your main source of income
+tai.noPrimary.para2=PAYE is the system used to collect tax from your pay or pension during the tax year. Most people who work for an employer, or who get a pension, pay Income Tax by PAYE.
+tai.noPrimary.para3=If you’re not paying Income Tax by PAYE it may be because:
+tai.noPrimary.notPayingItem1=you’re self-employed and pay Income Tax by Self Assessment
+tai.noPrimary.notPayingItem2=you’ve never worked for an employer
+tai.noPrimary.para4=If you have paid Income Tax by PAYE, or think you should have done, please {0}.
+tai.noPrimary.contact=contact HMRC
+tai.errorMessage.reportAProblem=report a problem
+
+tai.comparison.payeIncTax.title=PAYE Income Tax estimate
+tai.comparison.payeIncTax.totalLabel=Total tax
+
+tai.comparison.taxInc.title=Taxable Income
+tai.comparison.taxInc.totalLabel=Total income
+
+tai.comparison.taxFree.title=Tax-free allowances
+tai.comparison.taxFree.totalLabel=Total tax-free allowances
+
+tai.comparison.taxCodeCalc.title=Tax code calculation
+tai.comparison.taxCodeCalc.totalLabel=Total calculation
+
+tai.comparison.taxCode.title=Tax codes
+
+#manualCorrespondencepage
+label.there_is_a_problem_accessing_your_account=There’s a problem logging you in
+label.we_need_to_speak_to_you_before_you_can_access=We need to speak to you before you can log in to your account.
+label.how_to_fix_this=How to fix this
+label.phone_0300_200_3300=Phone 0300 200 3300
+label.say_I_cannot_log_in=Say ‘I can’t log in’
+label.say_yes_when_asked=Say ‘Yes’ when asked if you are having problems logging in
+label.you_will_hear_a_recorded_message=You will hear a recorded message advising you to call another number&nbsp;-&nbsp;do not hang up and redial. Stay on the line and an adviser will help you.
+label.tell_the_adviser=Tell the adviser this is an ‘MCI issue’
+label.how_to_contact_us=Other ways to contact us
+label.textphone_0300_200_3319=Textphone: 0300 200 3319
+label.outside_uk_441355359022=Outside UK: +44 135 535 9022
+label.phone_lines_are_open_8am_to_8pm_monday_to_friday_and_8am_to_4pm_on_saturday=Phone lines are open 8am to 8pm Monday to Friday and 8am to 4pm on Saturday.
+label.closed_sundays_and_bank_holidays=Closed Sundays and bank holidays.
+label.phone_lines_are_less_busy_before_10am_monday-to_friday=Phone lines are less busy before 10am Monday to Friday.
+label.find_out_about_call_charges=Find out about call charges
+label.opens_in_a_new_window=(opens in a new window)
+
+#paye page rti unavailable messages
+tai.rti_unavailable_message=Your employer or pension provider has not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the current tax year from {0} to {1}.
+tai.rti_unavailable_message_previous_year=Your employer or pension provider has not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the tax year ending on {0}.
+tai.rti_unavailable_message_contact=If you think they should have done, please contact HM Revenue and Customs on:
+tai.rti_unavailable_message_contact_previous_year=If you need information about the Income Tax you paid in earlier years, or our records are wrong, contact us:
+tai.rti_unavailable_message_contact_telephone=telephone 0300 200 3300
+tai.rti_unavailable_message_contact_textphone=textphone 0300 200 3319
+tai.rti_unavailable_message_contact_outside_UK=from outside the UK +44 135 535 9022
+tai.rti_unavailable_link_estimate=Check your Income Tax estimate
+tai.rti_unavailable_link_estimate_previous_year=Check the Income Tax you paid
+tai.rti_unavailable_message_noCYPY=Your employer or pension provider has not yet sent us any data about your income, or the Income Tax and National Insurance you paid for the last 2 tax years from:
+tai.rti_down_message=There is a temporary problem with one of our systems. It means we can’t show your actual taxable income or details of the Income Tax and National Insurance you have already paid.
+tai.rti_down_message_contact=You do not need to contact us about this.
+tai.rti_unavailable_message_iForm_text={0} if income from this employer/pension provider is missing or wrong.
+tai.rti_unavailable_message_iForm_linkText=Tell us what to change
+tai.rti_unavailable_message_previous_year_iForm_text={0}
+tai.rti_unavailable_message_previous_year_iForm_linkText=Tell us about your income for the last tax year.
+tai.rti_unavailable_message_current_year_iForm_text={0}
+tai.rti_unavailable_message_current_year_iForm_linkText=Tell us about your income for the current tax year.
+tai.rti_unavailable_yearRange={0} to {1}
+tai.rti_unavailable_message_iForm_2Year_linkText=Tell us about your income for the last 2 tax years.
+
+#CY APD Page RTI unavailable messages
+tai.income.calculation.rtiUnavailableCurrentYear.message=There is a temporary problem with one of our systems. It means we can’t show your actual taxable income or details of the income tax and national insurance you have paid. For now we’re showing an estimate based on the information we do have.
+tai.income.calculation.rtiUnavailableCurrentYear.message.contact=You do not need to contact us about this.
+
+#Side Menu Bar
+menu.nextTaxYear=Next tax year
+menu.currentTaxYear=Current tax year
+menu.currentTaxYearLink=current-year-paye
+menu.lastTaxYear=Last tax year
+menu.lastTaxYearLink=last-year-paye
+menu.yearRange={0} to {1}&nbsp;{2}
+
+#print pages
+tai.label.print=Print
+tai.label.paye=Taxable Income
+tai.label.back=Back
