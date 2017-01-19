@@ -16,22 +16,34 @@
 
 package uk.gov.hmrc.personaltaxsummary.viewmodels
 
-import org.scalatest._
-import matchers._
+import org.scalatest.matchers._
 import play.api.Play.current
 import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits._
 
-trait MessageMatchers {
+trait WrappedDataMatchers {
   class ContainWrappedMessage(a:String, b:String, c:Option[String]=None) extends Matcher[List[MessageWrapper]] {
     def apply(left: List[MessageWrapper]): MatchResult = {
       val m: String = Messages(a)
-      val d: String = c.map(a => "\"" + a + "\"").getOrElse("")
+      val n: Option[String] = c.map(Messages(_))
 
       MatchResult(
-        left.contains(MessageWrapper(m, b, c)),
-        s"""List does not contain "$a", "$b", $d""",
-        s"""List contains "$a", "$b", $d"""
+        left.contains(MessageWrapper(m, b, n)),
+        s"""List does not contain "$m", "$b", $n""",
+        s"""List contains "$m", "$b", $n"""
+      )
+    }
+  }
+
+  class ContainWrappedBenefitsData(a:String, b:String, c:String, d:String, e:Option[Int], f:Option[Int]) extends Matcher[List[BenefitsDataWrapper]] {
+    def apply(left: List[BenefitsDataWrapper]): MatchResult = {
+      val m: String = if (a.contains(".")) Messages(a) else a
+      val n: String = Messages(c)
+
+      MatchResult(
+        left.contains(BenefitsDataWrapper(m, b, n, d, e, f)),
+        s"""List does not contain "$a", "$b", "$c", "$d", "$e", "$f"""",
+        s"""List contains "$a", "$b", "$c", "$d", "$e", "$f""""
       )
     }
   }
@@ -50,7 +62,11 @@ trait MessageMatchers {
 
   def containWrappedMessage(a:String, b:String, c:Option[String]=None) = new ContainWrappedMessage(a, b, c)
 
+  def containWrappedBenefitsData(a:String, b:String, c:String, d:String, e:Option[Int], f:Option[Int]) = new ContainWrappedBenefitsData(a, b, c, d, e, f)
+
   def beMessage(a: String) = new BeMessage(a)
+
+  def preformat(a: String, b: String) = Messages(a, b)
 }
 
-object MessageMatchers extends MessageMatchers
+object WrappedDataMatchers extends WrappedDataMatchers

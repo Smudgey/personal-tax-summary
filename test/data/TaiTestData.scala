@@ -26,6 +26,8 @@ import scala.io.BufferedSource
 trait TaiTestData {
   private val basePath = "test/data/"
 
+  private lazy val allEditableIncomesAndNonEditableCeaseFilename = "AllEditableIncomesAndNonEditableCease/TaxSummary.json"
+  private lazy val bankInterestTaxSummaryFilename = "BankInterest/TaxSummary.json"
   private lazy val currentYearTaxSummaryFilename = "SessionDetails/CurrentYearTaxSummaryDetails.json"
   private lazy val everythingTaxSummaryFilename = "Everything/TaxSummary.json"
   private lazy val nonCodedTaxSummaryFilename = "NonCodedIncome/TaxSummary.json"
@@ -45,6 +47,8 @@ trait TaiTestData {
     result.get
   }
 
+  def allEditableIncomesAndNonEditableCeaseTaxSummary: TaxSummaryDetails = getTaxSummary(allEditableIncomesAndNonEditableCeaseFilename)
+  def bankIntestTaxSummary: TaxSummaryDetails = getTaxSummary(bankInterestTaxSummaryFilename)
   def currentYearTaxSummary: TaxSummaryDetails = getTaxSummary(currentYearTaxSummaryFilename)
   def everythingTaxSummary: TaxSummaryDetails = getTaxSummary(everythingTaxSummaryFilename)
   def nonCodedTaxSummary: TaxSummaryDetails = getTaxSummary(nonCodedTaxSummaryFilename)

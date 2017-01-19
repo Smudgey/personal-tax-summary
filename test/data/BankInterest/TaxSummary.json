@@ -1,0 +1,476 @@
+{
+  "nino": "ZY140415",
+  "version": 1,
+  "accounts":[],
+  "increasesTax": {
+    "incomes": {
+      "taxCodeIncomes": {
+        "employments": {
+          "taxCodeIncomes": [
+            {
+              "name": "",
+              "taxCode": "500T",
+              "employmentId": 2,
+              "employmentPayeRef": "S47019",
+              "employmentType": 2,
+              "incomeType": 0,
+              "employmentStatus": 1,
+              "tax": {
+                "totalIncome": 5000,
+                "totalTaxableIncome": 0,
+                "totalTax": 0,
+                "taxBands": [
+                  {
+                    "lowerBand": 0,
+                    "upperBand": 31785,
+                    "rate": 20
+                  },
+                  {
+                    "lowerBand": 31785,
+                    "upperBand": 150000,
+                    "rate": 40
+                  },
+                  {
+                    "lowerBand": 150000,
+                    "upperBand": 0,
+                    "rate": 45
+                  }
+                ],
+                "allowReliefDeducts": 5009.16
+              },
+              "worksNumber": "123",
+              "startDate": "2014-01-01",
+              "income": 5000,
+              "otherIncomeSourceIndicator": false,
+              "isEditable": true,
+              "isLive": true,
+              "isOccupationalPension": false,
+              "isPrimary": false
+            }
+          ],
+          "totalIncome": 5000,
+          "totalTax": 0,
+          "totalTaxableIncome": 0
+        },
+        "taxableStateBenefitIncomes": {
+          "taxCodeIncomes": [
+            {
+              "name": "PAYESCHEMEOPERATORNAME53446",
+              "taxCode": "1341T",
+              "employmentId": 1,
+              "employmentPayeRef": "LDS",
+              "employmentType": 1,
+              "incomeType": 4,
+              "employmentStatus": 1,
+              "tax": {
+                "totalIncome": 5000,
+                "totalTaxableIncome": 0,
+                "totalTax": 0,
+                "taxBands": [
+                  {
+                    "lowerBand": 0,
+                    "upperBand": 31785,
+                    "rate": 20
+                  },
+                  {
+                    "lowerBand": 31785,
+                    "upperBand": 150000,
+                    "rate": 40
+                  },
+                  {
+                    "lowerBand": 150000,
+                    "upperBand": 0,
+                    "rate": 45
+                  }
+                ],
+                "allowReliefDeducts": 13419.64
+              },
+              "worksNumber": "90-502",
+              "startDate": "2015-07-05",
+              "income": 5000,
+              "otherIncomeSourceIndicator": true,
+              "isEditable": false,
+              "isLive": true,
+              "isOccupationalPension": false,
+              "isPrimary": true
+            }
+          ],
+          "totalIncome": 5000,
+          "totalTax": 0,
+          "totalTaxableIncome": 0
+        },
+        "hasDuplicateEmploymentNames": false,
+        "totalIncome": 10000,
+        "totalTaxableIncome": 0,
+        "totalTax": 0
+      },
+      "noneTaxCodeIncomes": {
+        "taxableStateBenefit": {
+          "amount": 300,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 123,
+              "description": "Employment and Support Allowance",
+              "amount": 100,
+              "employmentId": 0
+            },
+            {
+              "iabdType": 84,
+              "description": "Job Seekers Allowance",
+              "amount": 100,
+              "employmentId": 0
+            },
+            {
+              "iabdType": 83,
+              "description": "Incapacity Benefit",
+              "amount": 100,
+              "employmentId": 0
+            }
+          ]
+        },
+        "statePension": 100,
+        "otherPensions": {
+          "amount": 2500,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 67,
+              "description": "Occupational Pension",
+              "amount": 2500
+            }
+          ]
+        },
+        "otherIncome": {
+          "amount": 800,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 25,
+              "description": "Other Earnings",
+              "amount": 800
+            }
+          ]
+        },
+        "untaxedInterest":
+        {
+          "amount": 3000,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries":
+          [
+            {
+              "iabdType": 82,
+              "description": "Untaxed Interest",
+              "amount": 3000
+            }
+          ]
+        },
+        "bankBsInterest": {
+          "amount": 5000,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 75,
+              "description": "Bank / Building Society Interest",
+              "amount": 5000,
+              "employmentId": 0
+            }
+          ]
+        },
+        "dividends": {
+          "amount": 20000,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 76,
+              "description": "UK Dividend",
+              "amount": 20000,
+              "employmentId": 0
+            }
+          ]
+        },
+        "totalIncome": 3300
+      },
+      "total": 13300
+    },
+    "benefitsFromEmployment": {
+      "amount": 1250,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 44,
+          "description": "Mileage",
+          "amount": 800,
+          "employmentId": 1,
+          "employmentName": "PAYESCHEMEOPERATORNAME53446"
+        },
+        {
+          "iabdType": 30,
+          "description": "Medical Insurance",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "PAYESCHEMEOPERATORNAME53446"
+        },
+        {
+          "iabdType": 31,
+          "description": "Car Benefit",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "PAYESCHEMEOPERATORNAME53446"
+        },
+        {
+          "iabdType": 47,
+          "description": "Other Items",
+          "amount": 250,
+          "employmentId": 1,
+          "employmentName": "PAYESCHEMEOPERATORNAME53446"
+        }
+      ]
+    },
+    "total": 14350
+  },
+  "decreasesTax": {
+    "personalAllowance": 10600,
+    "personalAllowanceSourceAmount": 10600,
+    "blindPerson": {
+      "amount": 2290,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 14,
+          "description": "Blind Persons Allowance",
+          "amount": 2290
+        }
+      ]
+    },
+    "expenses": {
+      "amount": 2500,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 56,
+          "description": "Flat Rate Job Expenses",
+          "amount": 2500
+        }
+      ]
+    },
+    "jobExpenses": {
+      "amount": 950,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 59,
+          "description": "Other Expenses",
+          "amount": 950
+        }
+      ]
+    },
+    "miscellaneous": {
+      "amount": 500,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 93,
+          "description": "Trade Union Subscriptions",
+          "amount": 500
+        }
+      ]
+    },
+    "pensionContributions": {
+      "amount": 7000,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 104,
+          "description": "Foreign Pension Allowance",
+          "amount": 7000
+        }
+      ]
+    },
+    "paTransferredAmount" : 0,
+    "paReceivedAmount" : 0,
+    "paTapered": false,
+    "total": 23840
+  },
+  "other": {
+    "amount": 21040,
+    "componentType": 0,
+    "description": "",
+    "iabdSummaries": [
+      {
+        "iabdType": 75,
+        "description": "Bank / Building Society Interest",
+        "amount": 20000
+      },
+      {
+        "iabdType": 62,
+        "description": "Foreign Dividend Income",
+        "amount": 890
+      },
+      {
+        "iabdType": 82,
+        "description": "Untaxed Interest",
+        "amount": 150
+      }
+    ]
+  },
+  "totalLiability": {
+    "nonSavings": {
+      "totalIncome": 14350,
+      "totalTaxableIncome": 0,
+      "totalTax": 0,
+      "taxBands": [
+        {
+          "lowerBand": 0,
+          "upperBand": 31785,
+          "rate": 20
+        },
+        {
+          "lowerBand": 31785,
+          "upperBand": 150000,
+          "rate": 40
+        },
+        {
+          "lowerBand": 150000,
+          "upperBand": 0,
+          "rate": 45
+        }
+      ],
+      "allowReliefDeducts": 14500
+    },
+    "untaxedInterest": {
+      "totalIncome": 150,
+      "totalTaxableIncome": 0,
+      "totalTax": 2000,
+      "taxBands": [
+        {
+          "lowerBand": 0,
+          "upperBand": 5000,
+          "rate": 0
+        },
+        {
+          "lowerBand": 5000,
+          "upperBand": 31785,
+          "rate": 20
+        },
+        {
+          "lowerBand": 31785,
+          "upperBand": 150000,
+          "rate": 40
+        },
+        {
+          "lowerBand": 150000,
+          "upperBand": 0,
+          "rate": 45
+        }
+      ],
+      "allowReliefDeducts": 150
+    },
+    "bankInterest": {
+      "totalIncome": 20000,
+      "totalTaxableIncome": 10660,
+      "totalTax": 1132,
+      "taxBands": [
+        {
+          "lowerBand": 0,
+          "upperBand": 5000,
+          "rate": 0
+        },
+        {
+          "income": 5660,
+          "tax": 1132,
+          "lowerBand": 5000,
+          "upperBand": 31785,
+          "rate": 20
+        },
+        {
+          "lowerBand": 31785,
+          "upperBand": 150000,
+          "rate": 40
+        },
+        {
+          "lowerBand": 150000,
+          "upperBand": 0,
+          "rate": 45
+        }
+      ],
+      "allowReliefDeducts": 9340,
+      "actualTaxDueAssumingBasicRateAlreadyPaid": 2000,
+      "actualTaxDueAssumingAllAtBasicRate": 2000
+    },
+    "foreignDividends": {
+      "totalIncome": 890,
+      "totalTaxableIncome": 890,
+      "totalTax": 89,
+      "taxBands": [
+        {
+          "income": 890,
+          "tax": 89,
+          "lowerBand": 0,
+          "upperBand": 31785,
+          "rate": 10
+        },
+        {
+          "lowerBand": 31785,
+          "upperBand": 150000,
+          "rate": 32.5
+        },
+        {
+          "lowerBand": 150000,
+          "upperBand": 0,
+          "rate": 37.5
+        }
+      ],
+      "allowReliefDeducts": 0,
+      "actualTaxDueAssumingBasicRateAlreadyPaid": 0
+    },
+    "mergedIncomes": {
+      "totalIncome": 34500,
+      "totalTaxableIncome": 10660,
+      "totalTax": 1132,
+      "taxBands": [
+        {
+          "income": 5660,
+          "tax": 1132,
+          "lowerBand": 0,
+          "upperBand": 31785,
+          "rate": 20
+        },
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 31785,
+          "upperBand": 150000,
+          "rate": 40
+        },
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 150000,
+          "upperBand": 0,
+          "rate": 45
+        }
+      ],
+      "allowReliefDeducts": 14500
+    },
+    "totalTax": 89,
+    "totalTaxOnIncome":89,
+    "underpaymentPreviousYear": 0,
+    "outstandingDebt":0,
+    "childBenefitAmount": 0,
+    "childBenefitTaxDue": 0
+  },
+  "adjustedNetIncome": 24940
+}

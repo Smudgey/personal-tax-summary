@@ -22,7 +22,7 @@ import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.EstimatedIncomeViewModelFactory
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
-import MessageMatchers._
+import WrappedDataMatchers._
 
 class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplication with StubApplicationConfiguration with TaiTestData {
 
