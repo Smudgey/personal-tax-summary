@@ -22,8 +22,9 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model._
 import uk.gov.hmrc.model.nps2.IabdType._
+import uk.gov.hmrc.personaltaxsummary.domain.{BenefitsDataWrapper, MessageWrapper}
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
-import uk.gov.hmrc.personaltaxsummary.viewmodels.{BenefitsDataWrapper, EmploymentPension, MessageWrapper, YourTaxableIncomeViewModel}
+import uk.gov.hmrc.personaltaxsummary.viewmodels.{EmploymentPension, YourTaxableIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
 object YourTaxableIncomeViewModelFactory extends ViewModelFactory[YourTaxableIncomeViewModel] {

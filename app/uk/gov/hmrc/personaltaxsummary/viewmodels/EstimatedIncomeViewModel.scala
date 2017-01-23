@@ -18,6 +18,7 @@ package uk.gov.hmrc.personaltaxsummary.viewmodels
 
 import play.api.libs.json.Json
 import uk.gov.hmrc.model.{TaxBand, TaxComponent}
+import uk.gov.hmrc.personaltaxsummary.domain.MessageWrapper
 
 case class EstimatedIncomeViewModel(
                             increasesTax: Boolean = false,

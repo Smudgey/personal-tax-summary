@@ -20,6 +20,7 @@ import org.scalatest.matchers._
 import play.api.Play.current
 import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits._
+import uk.gov.hmrc.personaltaxsummary.domain.{BenefitsDataWrapper, MessageWrapper}
 
 trait WrappedDataMatchers {
   class ContainWrappedMessage(a:String, b:String, c:Option[String]=None) extends Matcher[List[MessageWrapper]] {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.personaltaxsummary.viewmodels
+package uk.gov.hmrc.personaltaxsummary.domain
 
 import play.api.libs.json.Json
 

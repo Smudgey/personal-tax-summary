@@ -18,7 +18,7 @@ package data
 
 import java.io.File
 
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 import uk.gov.hmrc.model.TaxSummaryDetails
 
 import scala.io.BufferedSource
@@ -26,16 +26,17 @@ import scala.io.BufferedSource
 trait TaiTestData {
   private val basePath = "test/data/"
 
-  private lazy val allEditableIncomesAndNonEditableCeaseFilename = "AllEditableIncomesAndNonEditableCease/TaxSummary.json"
-  private lazy val bankInterestTaxSummaryFilename = "BankInterest/TaxSummary.json"
-  private lazy val currentYearTaxSummaryFilename = "SessionDetails/CurrentYearTaxSummaryDetails.json"
-  private lazy val everythingTaxSummaryFilename = "Everything/TaxSummary.json"
-  private lazy val nonCodedTaxSummaryFilename = "NonCodedIncome/TaxSummary.json"
-  private lazy val outstandingDebtFilename = "OutstandingDebt/TaxSummary.json"
-  private lazy val potentialUnderpaymentFilename = "PotentialUnderpayment/TaxSummary.json"
-  private lazy val reductionsEqualToIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsEqualToIncomeTaxLiabilityTaxSummary.json"
-  private lazy val reductionsGreaterThanIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsGreaterThanIncomeTaxLiabilityTaxSummary.json"
-  private lazy val reductionsLessThanIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsLessThanIncomeTaxLiabilityTaxSummary.json"
+  private val allEditableIncomesAndNonEditableCeaseFilename = "AllEditableIncomesAndNonEditableCease/TaxSummary.json"
+  private val bankInterestTaxSummaryFilename = "BankInterest/TaxSummary.json"
+  private val currentYearTaxSummaryFilename = "SessionDetails/CurrentYearTaxSummaryDetails.json"
+  private val everythingTaxSummaryFilename = "Everything/TaxSummary.json"
+  private val gateKeeperUserTaxSummaryFilename = "GateKeeperUser/TaxSummary.json"
+  private val nonCodedTaxSummaryFilename = "NonCodedIncome/TaxSummary.json"
+  private val outstandingDebtFilename = "OutstandingDebt/TaxSummary.json"
+  private val potentialUnderpaymentFilename = "PotentialUnderpayment/TaxSummary.json"
+  private val reductionsEqualToIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsEqualToIncomeTaxLiabilityTaxSummary.json"
+  private val reductionsGreaterThanIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsGreaterThanIncomeTaxLiabilityTaxSummary.json"
+  private val reductionsLessThanIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsLessThanIncomeTaxLiabilityTaxSummary.json"
 
   private def getTaxSummary(fileName: String): TaxSummaryDetails = {
     val jsonFilePath = basePath + fileName
@@ -48,9 +49,10 @@ trait TaiTestData {
   }
 
   def allEditableIncomesAndNonEditableCeaseTaxSummary: TaxSummaryDetails = getTaxSummary(allEditableIncomesAndNonEditableCeaseFilename)
-  def bankIntestTaxSummary: TaxSummaryDetails = getTaxSummary(bankInterestTaxSummaryFilename)
+  def bankInterestTaxSummary: TaxSummaryDetails = getTaxSummary(bankInterestTaxSummaryFilename)
   def currentYearTaxSummary: TaxSummaryDetails = getTaxSummary(currentYearTaxSummaryFilename)
   def everythingTaxSummary: TaxSummaryDetails = getTaxSummary(everythingTaxSummaryFilename)
+  def gateKeeperUserTaxSummary: TaxSummaryDetails = getTaxSummary(gateKeeperUserTaxSummaryFilename)
   def nonCodedTaxSummary: TaxSummaryDetails = getTaxSummary(nonCodedTaxSummaryFilename)
   def outstandingDebtTaxSummary: TaxSummaryDetails = getTaxSummary(outstandingDebtFilename)
   def potentialUnderpaymentTaxSummary: TaxSummaryDetails = getTaxSummary(potentialUnderpaymentFilename)

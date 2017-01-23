@@ -384,30 +384,3 @@ case class TaxSummaryDetails(nino: String,
 object TaxSummaryDetails {
   implicit val formats = Json.format[TaxSummaryDetails]
 }
-
-
-//case class SessionData(
-//                        nino: String,
-//                        taiRoot: Option[TaiRoot] = None,
-//                        taxSummaryDetailsCY: TaxSummaryDetails,
-//                        taxSummaryDetailsNY: Option[TaxSummaryDetails] = None,
-//                        annualAccountPY: Option[AnnualAccount] = None,
-//                        editIncomeForm: Option[EditIncomeForm] = None,
-//                        incomeCalculation: Option[IncomeCalculation] = None,
-//                        taxCalculation: Option[TaxCalculation] = None,
-//                        misc: Map[String, JsValue] = Map.empty
-//                      )
-//
-//object SessionData {
-//  implicit val jsmapFormat = new Format[Map[String, JsValue]] {
-//    def reads(j: JsValue): JsResult[Map[String, JsValue]] = j match {
-//      case JsObject(vs) => JsSuccess(Map(vs: _*))
-//      case weird => throw new IllegalArgumentException(
-//        s"Expected a JsObject, found a $weird"
-//      )
-//    }
-//
-//    def writes(o: Map[String, JsValue]): JsValue = JsObject(o.toSeq)
-//  }
-//  implicit val formats = Json.format[SessionData]
-//}

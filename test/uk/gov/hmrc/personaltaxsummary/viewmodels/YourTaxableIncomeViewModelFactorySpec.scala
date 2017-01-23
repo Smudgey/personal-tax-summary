@@ -46,7 +46,7 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
     }
 
     "create the your taxable income view page model with benefits data" in {
-      val result = YourTaxableIncomeViewModelFactory.createObject(Nino("CZ629113A"), bankIntestTaxSummary)
+      val result = YourTaxableIncomeViewModelFactory.createObject(Nino("CZ629113A"), bankInterestTaxSummary)
 
       result.benefitsData.size shouldBe 4
       result.benefitsData should containWrappedBenefitsData(preformat("tai.iabdSummary.employmentBenefit.type-44", "PAYESCHEMEOPERATORNAME53446"), MoneyPounds(800, 0).quantity, "tai.iabdSummary.description-44", "", Some(1), Some(44))
@@ -57,7 +57,7 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
     }
 
     "create the your taxable income view page model with investment and other income data" in {
-      val result = YourTaxableIncomeViewModelFactory.createObject(Nino("CZ629113A"), bankIntestTaxSummary)
+      val result = YourTaxableIncomeViewModelFactory.createObject(Nino("CZ629113A"), bankInterestTaxSummary)
 
       result.investmentIncomeData should containWrappedMessage("tai.iabdSummary.type-82", MoneyPounds(3000, 0).quantity, Option("tai.iabdSummary.description-82"))
       result.investmentIncomeData should containWrappedMessage("tai.iabdSummary.type-75", MoneyPounds(5000, 0).quantity, Option("tai.iabdSummary.description-75"))
@@ -68,7 +68,7 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
     }
 
     "create the your taxable income view page model with pension data" in {
-      val result = YourTaxableIncomeViewModelFactory.createObject(Nino("CZ629113A"), bankIntestTaxSummary)
+      val result = YourTaxableIncomeViewModelFactory.createObject(Nino("CZ629113A"), bankInterestTaxSummary)
 
       result.employmentPension.hasEmployment shouldBe true
       result.employmentPension.totalEmploymentPensionAmt shouldBe 5000
