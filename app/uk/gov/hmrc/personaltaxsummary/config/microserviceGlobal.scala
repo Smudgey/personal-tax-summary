@@ -66,7 +66,7 @@ object MicroserviceAuthFilter extends AuthorisationFilter with MicroserviceFilte
   override def controllerNeedsAuth(controllerName: String): Boolean = ControllerConfiguration.paramsForController(controllerName).needsAuth
 }
 
-object MicroserviceGlobal extends DefaultMicroserviceGlobal with RunMode with ServiceLocatorConfig with ServiceLocatorRegistration {
+object MicroserviceGlobal extends DefaultMicroserviceGlobal with RunMode {
   override val auditConnector = MicroserviceAuditConnector
 
   override def microserviceMetricsConfig(implicit app: Application): Option[Configuration] = app.configuration.getConfig(s"microservice.metrics")
@@ -76,10 +76,6 @@ object MicroserviceGlobal extends DefaultMicroserviceGlobal with RunMode with Se
   override val microserviceAuditFilter = MicroserviceAuditFilter
 
   override val authFilter = Some(MicroserviceAuthFilter)
-
-  override val slConnector: ServiceLocatorConnector = ServiceLocatorConnector(WSHttp)
-
-  override implicit val hc: HeaderCarrier = HeaderCarrier()
 
   override def onError(request: RequestHeader, ex: Throwable): Future[Result] = {
     super.onError(request, ex) map (res => {

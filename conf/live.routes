@@ -1,0 +1,3 @@
+# microservice specific routes
+
+GET     /personal-tax/:nino/summary/:year           uk.gov.hmrc.personaltaxsummary.controllers.LivePersonalTaxSummaryController.getSummary(nino: uk.gov.hmrc.domain.Nino, year: Int, journeyId: Option[String])
