@@ -18,11 +18,11 @@ package uk.gov.hmrc.personaltaxsummary.services
 
 import uk.gov.hmrc.api.service.Auditor
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.model.TaxSummaryDetails
+import uk.gov.hmrc.personaltaxsummary.config.MicroserviceAuditConnector
 import uk.gov.hmrc.personaltaxsummary.connectors.TaiConnector
-import uk.gov.hmrc.personaltaxsummary.domain.{EstimatedIncomeWrapper, TaxSummaryContainer}
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.{EstimatedIncomeViewModelFactory, IncomeTaxViewModelFactory, YourTaxableIncomeViewModelFactory}
+import uk.gov.hmrc.personaltaxsummary.domain.TaxSummaryContainer
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.TaxSummaryContainerFactory
+import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -32,55 +32,15 @@ trait TaiService extends Auditor {
 
   def getSummary(nino: Nino, year:Int)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Option[TaxSummaryContainer]] = {
     withAudit("getSummary", Map("nino" -> nino.value, "year" -> year.toString)) {
-
       taiConnector.taxSummary(nino, year).map {
-        case Some(taxSummaryDetails) =>
-          val incomeTax = IncomeTaxViewModelFactory.createObject(nino, taxSummaryDetails)
-          if (!isGateKeepered(taxSummaryDetails)) {
-            val estimatedIncome = EstimatedIncomeViewModelFactory.createObject(nino, taxSummaryDetails)
-            val potentialUnderPayment = getPotentialUnderpayment(taxSummaryDetails)
-            val taxableIncome = YourTaxableIncomeViewModelFactory.createObject(nino, taxSummaryDetails)
-            val wrappedEstimatedIncome = EstimatedIncomeWrapper(estimatedIncome, potentialUnderPayment)
-            Some(
-              TaxSummaryContainer(
-                taxSummaryDetails,
-                incomeTax,
-                Some(wrappedEstimatedIncome),
-                Some(taxableIncome),
-                None
-              )
-            )
-          } else {
-            Some(
-              TaxSummaryContainer(
-                taxSummaryDetails,
-                incomeTax,
-                None,
-                None,
-                taxSummaryDetails.gateKeeper
-              )
-            )
-          }
+        case Some(taxSummaryDetails) => Some(TaxSummaryContainerFactory.createObject(nino, taxSummaryDetails))
         case _ => None
       }
     }
   }
+}
 
-  def isGateKeepered(taxSummary: TaxSummaryDetails): Boolean = {
-    taxSummary.gateKeeper.exists(_.gateKeepered)
-  }
-
-  def getPotentialUnderpayment(taxDetails : TaxSummaryDetails): Option[BigDecimal] = {
-    val incomesWithUnderpayment = taxDetails.increasesTax
-      .flatMap(_.incomes.map(incomes =>
-        TaxSummaryHelper.sortedTaxableIncomes(incomes.taxCodeIncomes).filter(_.tax.potentialUnderpayment.isDefined)))
-      .getOrElse(Nil)
-
-    incomesWithUnderpayment.foldLeft(BigDecimal(0))((total, income) =>
-      income.tax.potentialUnderpayment.getOrElse(BigDecimal(0)) + total)
-    match {
-      case x if x > 0 => Some(x)
-      case _ => None
-    }
-  }
+object LiveTaiService extends TaiService {
+  override val taiConnector = TaiConnector
+  override val auditConnector: AuditConnector = MicroserviceAuditConnector
 }

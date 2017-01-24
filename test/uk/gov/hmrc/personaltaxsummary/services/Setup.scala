@@ -34,9 +34,8 @@ trait Setup extends TaiTestData with MockitoSugar {
   val mockAuditConnector: AuditConnector = mock[AuditConnector]
 
   val nino = Nino("KM569110B")
-  val nonCoded = Nino("CZ629113A")
-  val gateKeepered = Nino("CS700100A")
-  val currentYear = 1
+  val currentYear = 2017
+  val distantFuture = 2321
 
   object TaiServiceTest extends TaiService {
     override val taiConnector: TaiConnector = mockTaiConnector
@@ -44,6 +43,5 @@ trait Setup extends TaiTestData with MockitoSugar {
   }
 
   Mockito.when(mockTaiConnector.taxSummary(Matchers.eq(nino), Matchers.eq(currentYear))(any(), any())).thenReturn(Future.successful(Option(currentYearTaxSummary)))
-  Mockito.when(mockTaiConnector.taxSummary(Matchers.eq(nonCoded), Matchers.eq(currentYear))(any(), any())).thenReturn(Future.successful(Option(nonCodedTaxSummary)))
-  Mockito.when(mockTaiConnector.taxSummary(Matchers.eq(gateKeepered), Matchers.eq(currentYear))(any(), any())).thenReturn(Future.successful(Option(gateKeeperUserTaxSummary)))
+  Mockito.when(mockTaiConnector.taxSummary(Matchers.eq(nino), Matchers.eq(distantFuture))(any(), any())).thenReturn(Future.successful(None))
 }

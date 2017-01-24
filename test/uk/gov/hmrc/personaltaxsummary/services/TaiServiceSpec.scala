@@ -34,31 +34,10 @@ class TaiServiceSpec extends UnitSpec with WithFakeApplication with Setup {
       result.isDefined shouldBe true
     }
 
-    "populate the base view model" in {
-      val result: TaxSummaryContainer = await(TaiServiceTest.getSummary(nino, currentYear)).getOrElse(fail("missing TaxSummaryContainer"))
+    "not return a tax summary when no summary is found" in {
+      val result: Option[TaxSummaryContainer] = await(TaiServiceTest.getSummary(nino, distantFuture))
 
-      result.baseViewModel.estimatedIncomeTax shouldBe 1361.4
-    }
-
-    "populate estimated income wrapper" in {
-      val result: TaxSummaryContainer = await(TaiServiceTest.getSummary(nonCoded, currentYear)).getOrElse(fail("missing TaxSummaryContainer"))
-
-      result.estimatedIncomeWrapper.map(_.estimatedIncome.incomeEstimate) shouldBe Some(62219)
-    }
-
-    "populated taxable income" in {
-      val result: TaxSummaryContainer = await(TaiServiceTest.getSummary(nino, currentYear)).getOrElse(fail("missing TaxSummaryContainer"))
-
-      result.taxableIncome.map(_.income) shouldBe Some(17467)
-    }
-
-    "populate gate keeper details and mask estimated and taxable incomes given a user who is gatekeepered" in {
-      val result: TaxSummaryContainer = await(TaiServiceTest.getSummary(gateKeepered, currentYear)).getOrElse(fail("missing TaxSummaryContainer"))
-
-      result.gatekeeper.isDefined shouldBe true
-      result.gatekeeper.map(_.gateKeepered) shouldBe Some(true)
-      result.estimatedIncomeWrapper.map(_.estimatedIncome.incomeEstimate) shouldBe None
-      result.taxableIncome.map(_.income) shouldBe None
+      result.isEmpty shouldBe true
     }
 
     "log an audit message" in {
@@ -73,34 +52,6 @@ class TaiServiceSpec extends UnitSpec with WithFakeApplication with Setup {
       actual.tags.get("transactionName") shouldBe Some("getSummary")
       actual.detail.get("nino") shouldBe Some(nino.nino)
       actual.detail.get("year") shouldBe Some(currentYear.toString)
-    }
-  }
-
-  "TaiService isGateKeepered" should {
-    "should return true given a nino that is gatekeepered" in {
-      val result: Boolean = TaiServiceTest.isGateKeepered(gateKeeperUserTaxSummary)
-
-      result shouldBe true
-    }
-
-    "should return false given a nino that is not gatekeepered" in {
-      val result: Boolean = TaiServiceTest.isGateKeepered(potentialUnderpaymentTaxSummary)
-
-      result shouldBe false
-    }
-  }
-
-  "TaiService getPotentialUnderpayment" should {
-    "return potential underpayments given a nino with underpayment" in {
-      val result: Option[BigDecimal] = TaiServiceTest.getPotentialUnderpayment(potentialUnderpaymentTaxSummary)
-
-      result shouldBe Some(4123.29)
-    }
-
-    "not return potential underpayments given a nino with no underpayments" in {
-      val result: Option[BigDecimal] = TaiServiceTest.getPotentialUnderpayment(currentYearTaxSummary)
-
-      result shouldBe None
     }
   }
 }
