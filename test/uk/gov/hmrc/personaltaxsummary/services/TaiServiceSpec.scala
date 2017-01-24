@@ -16,8 +16,11 @@
 
 package uk.gov.hmrc.personaltaxsummary.services
 
-import uk.gov.hmrc.model.GateKeeperRule
+import org.mockito.Matchers.any
+import org.mockito.Mockito.verify
+import org.mockito.{ArgumentCaptor, Mockito}
 import uk.gov.hmrc.personaltaxsummary.domain.TaxSummaryContainer
+import uk.gov.hmrc.play.audit.model.DataEvent
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -56,6 +59,20 @@ class TaiServiceSpec extends UnitSpec with WithFakeApplication with Setup {
       result.gatekeeper.map(_.gateKeepered) shouldBe Some(true)
       result.estimatedIncomeWrapper.map(_.estimatedIncome.incomeEstimate) shouldBe None
       result.taxableIncome.map(_.income) shouldBe None
+    }
+
+    "log an audit message" in {
+      await(TaiServiceTest.getSummary(nino, currentYear))
+
+      val auditCaptor = ArgumentCaptor.forClass(classOf[DataEvent])
+      verify(mockAuditConnector, Mockito.atLeast(1)).sendEvent(auditCaptor.capture())(any(),any())
+
+      val actual: DataEvent = auditCaptor.getValue
+
+      actual.auditSource shouldBe "personal-tax-summary"
+      actual.tags.get("transactionName") shouldBe Some("getSummary")
+      actual.detail.get("nino") shouldBe Some(nino.nino)
+      actual.detail.get("year") shouldBe Some(currentYear.toString)
     }
   }
 

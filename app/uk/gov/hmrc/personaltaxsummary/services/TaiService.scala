@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.personaltaxsummary.services
 
+import uk.gov.hmrc.api.service.Auditor
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.TaxSummaryDetails
 import uk.gov.hmrc.personaltaxsummary.connectors.TaiConnector
@@ -26,39 +27,42 @@ import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait TaiService {
+trait TaiService extends Auditor {
   val taiConnector: TaiConnector
 
   def getSummary(nino: Nino, year:Int)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Option[TaxSummaryContainer]] = {
-    taiConnector.taxSummary(nino, year).map {
-      case Some(taxSummaryDetails) =>
-        val incomeTax = IncomeTaxViewModelFactory.createObject(nino, taxSummaryDetails)
-        if (!isGateKeepered(taxSummaryDetails)) {
-          val estimatedIncome = EstimatedIncomeViewModelFactory.createObject(nino, taxSummaryDetails)
-          val potentialUnderPayment = getPotentialUnderpayment(taxSummaryDetails)
-          val taxableIncome = YourTaxableIncomeViewModelFactory.createObject(nino, taxSummaryDetails)
-          val wrappedEstimatedIncome = EstimatedIncomeWrapper(estimatedIncome, potentialUnderPayment)
-          Some(
-            TaxSummaryContainer(
-              taxSummaryDetails,
-              incomeTax,
-              Some(wrappedEstimatedIncome),
-              Some(taxableIncome),
-              None
+    withAudit("getSummary", Map("nino" -> nino.value, "year" -> year.toString)) {
+
+      taiConnector.taxSummary(nino, year).map {
+        case Some(taxSummaryDetails) =>
+          val incomeTax = IncomeTaxViewModelFactory.createObject(nino, taxSummaryDetails)
+          if (!isGateKeepered(taxSummaryDetails)) {
+            val estimatedIncome = EstimatedIncomeViewModelFactory.createObject(nino, taxSummaryDetails)
+            val potentialUnderPayment = getPotentialUnderpayment(taxSummaryDetails)
+            val taxableIncome = YourTaxableIncomeViewModelFactory.createObject(nino, taxSummaryDetails)
+            val wrappedEstimatedIncome = EstimatedIncomeWrapper(estimatedIncome, potentialUnderPayment)
+            Some(
+              TaxSummaryContainer(
+                taxSummaryDetails,
+                incomeTax,
+                Some(wrappedEstimatedIncome),
+                Some(taxableIncome),
+                None
+              )
             )
-          )
-        } else {
-          Some(
-            TaxSummaryContainer(
-              taxSummaryDetails,
-              incomeTax,
-              None,
-              None,
-              taxSummaryDetails.gateKeeper
+          } else {
+            Some(
+              TaxSummaryContainer(
+                taxSummaryDetails,
+                incomeTax,
+                None,
+                None,
+                taxSummaryDetails.gateKeeper
+              )
             )
-          )
-        }
-      case _ => None
+          }
+        case _ => None
+      }
     }
   }
 

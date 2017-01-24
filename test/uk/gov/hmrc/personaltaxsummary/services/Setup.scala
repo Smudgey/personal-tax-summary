@@ -22,6 +22,7 @@ import org.mockito.{Matchers, Mockito}
 import org.scalatest.mock.MockitoSugar
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.personaltaxsummary.connectors.TaiConnector
+import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -30,6 +31,7 @@ trait Setup extends TaiTestData with MockitoSugar {
   implicit val hc = HeaderCarrier()
 
   val mockTaiConnector: TaiConnector = mock[TaiConnector]
+  val mockAuditConnector: AuditConnector = mock[AuditConnector]
 
   val nino = Nino("KM569110B")
   val nonCoded = Nino("CZ629113A")
@@ -38,6 +40,7 @@ trait Setup extends TaiTestData with MockitoSugar {
 
   object TaiServiceTest extends TaiService {
     override val taiConnector: TaiConnector = mockTaiConnector
+    override val auditConnector: AuditConnector = mockAuditConnector
   }
 
   Mockito.when(mockTaiConnector.taxSummary(Matchers.eq(nino), Matchers.eq(currentYear))(any(), any())).thenReturn(Future.successful(Option(currentYearTaxSummary)))
