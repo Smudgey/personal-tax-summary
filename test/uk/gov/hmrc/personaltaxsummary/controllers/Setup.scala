@@ -16,13 +16,16 @@
 
 package uk.gov.hmrc.personaltaxsummary.controllers
 
+import java.util.UUID
+import java.util.concurrent.TimeUnit
+
 import data.TaiTestData
-import org.mockito.{Matchers, Mockito}
+import org.mockito.{ArgumentCaptor, Matchers, Mockito}
 import org.scalatest.mock.MockitoSugar
-import play.api.mvc.AnyContentAsEmpty
+import play.api.libs.json.{JsValue, Json}
 import play.api.test.FakeRequest
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.personaltaxsummary.connectors.AuthConnector
+import uk.gov.hmrc.personaltaxsummary.connectors.{AccountWithLowCL, AuthConnector, FailToMatchTaxIdOnAuth, NinoNotFoundOnAccount}
 import uk.gov.hmrc.personaltaxsummary.controllers.action.{AccountAccessControl, AccountAccessControlWithHeaderCheck}
 import uk.gov.hmrc.personaltaxsummary.domain.TaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.services.TaiService
@@ -33,13 +36,25 @@ import scala.concurrent.Future
 
 trait Setup extends TaiTestData with MockitoSugar {
   implicit val hc = HeaderCarrier()
+  implicit val timeout = akka.util.Timeout(1000, TimeUnit.MILLISECONDS)
 
-  val emptyRequest = FakeRequest()
   val mockTaiService: TaiService = mock[TaiService]
   val mockAuthConnector: AuthConnector = mock[AuthConnector]
+  val auditCaptor: ArgumentCaptor[Nino] = ArgumentCaptor.forClass(classOf[Nino])
+  val yearCaptor: ArgumentCaptor[Int] = ArgumentCaptor.forClass(classOf[Int])
+
+  val emptyRequest = FakeRequest()
 
   val currentYear = 2017
+  val journeyId: String = UUID.randomUUID().toString
   val nino = Nino("CS700100A")
+  val ninoIncorrect = Nino("CS333100A")
+
+  val someContainer: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, currentYearTaxSummary)
+  val gatekeeperedContainer: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, gateKeeperUserTaxSummary)
+
+  val lowConfidence: JsValue = Json.parse("""{"code":"LOW_CONFIDENCE_LEVEL","message":"Confidence Level on account does not allow access"}""")
+  val noNinoOnAccont: JsValue = Json.parse("""{"code":"UNAUTHORIZED","message":"NINO does not exist on account"}""")
 
   val accountAccessControl: AccountAccessControl = new AccountAccessControl {
     override val authConnector: AuthConnector = mockAuthConnector
@@ -47,15 +62,38 @@ trait Setup extends TaiTestData with MockitoSugar {
   val accountAccessControlWithHeaderCheck: AccountAccessControlWithHeaderCheck = new AccountAccessControlWithHeaderCheck {
     override val accessControl: AccountAccessControl = accountAccessControl
   }
-}
-
-trait Success extends Setup {
   val controller = new PersonalTaxSummaryController {
     override val accessControl: AccountAccessControlWithHeaderCheck = accountAccessControlWithHeaderCheck
     override val service: TaiService = mockTaiService
   }
+}
 
-  val container: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, currentYearTaxSummary)
-  Mockito.when(mockTaiService.getSummary(Matchers.eq(nino), Matchers.eq(currentYear))(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Some(container)))
+trait Success extends Setup {
+  Mockito.when(mockTaiService.getSummary(Matchers.eq(nino), Matchers.eq(currentYear))(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Some(someContainer)))
+  Mockito.when(mockAuthConnector.grantAccess(Matchers.any())(Matchers.any(),Matchers.any())).thenReturn(Future.successful({}))
+}
+
+trait AccessCheck extends Setup {
+  Mockito.when(mockTaiService.getSummary(Matchers.any(), Matchers.eq(currentYear))(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Some(someContainer)))
+  Mockito.when(mockAuthConnector.grantAccess(Matchers.any())(Matchers.any(),Matchers.any())).thenReturn(Future.failed({new FailToMatchTaxIdOnAuth("BOOM!")}))
+}
+
+trait NoNino extends Setup {
+  Mockito.when(mockTaiService.getSummary(Matchers.any(), Matchers.eq(currentYear))(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Some(someContainer)))
+  Mockito.when(mockAuthConnector.grantAccess(Matchers.any())(Matchers.any(),Matchers.any())).thenReturn(Future.failed({new NinoNotFoundOnAccount("NADA!")}))
+}
+
+trait AuthWithLowConfidence extends Setup {
+  Mockito.when(mockTaiService.getSummary(Matchers.any(), Matchers.eq(currentYear))(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Some(someContainer)))
+  Mockito.when(mockAuthConnector.grantAccess(Matchers.any())(Matchers.any(),Matchers.any())).thenReturn(Future.failed({new AccountWithLowCL("TOO LOW!")}))
+}
+
+trait NotFound extends Setup {
+  Mockito.when(mockTaiService.getSummary(Matchers.eq(nino), Matchers.eq(currentYear))(Matchers.any(),Matchers.any())).thenReturn(Future.successful(None))
+  Mockito.when(mockAuthConnector.grantAccess(Matchers.any())(Matchers.any(),Matchers.any())).thenReturn(Future.successful({}))
+}
+
+trait GateKeepered extends Setup {
+  Mockito.when(mockTaiService.getSummary(Matchers.eq(nino), Matchers.eq(currentYear))(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Some(gatekeeperedContainer)))
   Mockito.when(mockAuthConnector.grantAccess(Matchers.any())(Matchers.any(),Matchers.any())).thenReturn(Future.successful({}))
 }

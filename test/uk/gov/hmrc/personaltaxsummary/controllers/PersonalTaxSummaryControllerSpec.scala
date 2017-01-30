@@ -16,9 +16,13 @@
 
 package uk.gov.hmrc.personaltaxsummary.controllers
 
+import org.mockito.Matchers.any
+import org.mockito.Mockito.verify
 import org.scalatest.concurrent.ScalaFutures
-import play.api.mvc.Result
+import play.api.libs.json.Json
 import play.api.test.FakeApplication
+import play.api.test.Helpers.contentAsJson
+import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
@@ -33,17 +37,67 @@ class PersonalTaxSummaryControllerSpec  extends UnitSpec with WithFakeApplicatio
       val result = await(controller.getSummary(nino, currentYear)(emptyRequest))
 
       status(result) shouldBe 200
-
-      // TODO: extend test
+      contentAsJson(result) shouldBe Json.toJson(someContainer)
     }
 
-    // TODO: add tests
-//    "return 401 when the nino in the request does not match the authority nino"
-//    "return the summary successfully when journeyId is supplied"
-//    "return 404 when summary returned is None"
-//    "return the gateKeeper summary successfully"
-//    "return unauthorized when authority record does not contain a NINO"
-//    "return unauthorized when authority record has a low CL"
-//    "return status code 406 when the headers are invalid"
+    "process the authentication successfully when journeyId is supplied" in new Success {
+
+      val result = await(controller.getSummary(nino, currentYear, Some(journeyId))(emptyRequest))
+
+      status(result) shouldBe 200
+      contentAsJson(result) shouldBe Json.toJson(someContainer)
+    }
+
+    "return the gate keeper details given a gatekeepered user" in new GateKeepered {
+
+      val result = await(controller.getSummary(nino, currentYear, Some(journeyId))(emptyRequest))
+
+      status(result) shouldBe 200
+      contentAsJson(result) shouldBe Json.toJson(gatekeeperedContainer)
+
+      verify(mockTaiService).getSummary(auditCaptor.capture(), yearCaptor.capture())(any(),any())
+      val actualNino: Nino = auditCaptor.getValue
+      val actualYear: Int = yearCaptor.getValue
+
+      actualNino shouldBe nino
+      actualYear shouldBe currentYear
+    }
+
+    "return not found when summary returned is None" in new NotFound {
+
+      val result = await(controller.getSummary(nino, currentYear)(emptyRequest))
+
+      status(result) shouldBe 404
+
+      verify(mockTaiService).getSummary(auditCaptor.capture(), yearCaptor.capture())(any(),any())
+      val actualNino: Nino = auditCaptor.getValue
+      val actualYear: Int = yearCaptor.getValue
+
+      actualNino shouldBe nino
+      actualYear shouldBe currentYear
+    }
+
+    "return unauthorized when the nino in the request does not match the authority nino" in new AccessCheck {
+
+      val result = await(controller.getSummary(ninoIncorrect, currentYear)(emptyRequest))
+
+      status(result) shouldBe 401
+    }
+
+    "return unauthorized when authority record does not contain a NINO" in new NoNino {
+
+      val result = await(controller.getSummary(nino, currentYear)(emptyRequest))
+
+      status(result) shouldBe 401
+      contentAsJson(result) shouldBe noNinoOnAccont
+    }
+
+    "return unauthorized when authority record has a low CL" in new AuthWithLowConfidence {
+
+      val result = await(controller.getSummary(nino, currentYear)(emptyRequest))
+
+      status(result) shouldBe 401
+      contentAsJson(result) shouldBe lowConfidence
+    }
   }
 }
