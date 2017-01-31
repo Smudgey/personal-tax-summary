@@ -17,17 +17,14 @@
 package uk.gov.hmrc.personaltaxsummary.domain
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.model.{GateKeeper, TaxSummaryDetails}
-import uk.gov.hmrc.personaltaxsummary.viewmodels._
+import uk.gov.hmrc.model.{DecreasesTax, IncreasesTax, TotalLiability}
 
-case class TaxSummaryContainer(
-                                taxSummaryDetails: TaxSummaryDetails,
-                                baseViewModel: IncomeTaxViewModel,
-                                estimatedIncomeWrapper: Option[EstimatedIncomeWrapper],
-                                taxableIncome: Option[YourTaxableIncomeViewModel],
-                                gatekeeper: Option[GateKeeperDetails]
-                              )
+case class GateKeeperDetails (totalLiability: TotalLiability,
+                              decreasesTax: DecreasesTax,
+                              employmentList: List[MessageWrapper] = List(),
+                              increasesTax: IncreasesTax
+                             )
 
-object TaxSummaryContainer {
-  implicit val format = Json.format[TaxSummaryContainer]
+object GateKeeperDetails {
+  implicit val format = Json.format[GateKeeperDetails]
 }

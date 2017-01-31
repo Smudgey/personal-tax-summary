@@ -17,12 +17,14 @@
 package uk.gov.hmrc.personaltaxsummary.viewmodelfactories
 
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.model.TaxSummaryDetails
-import uk.gov.hmrc.personaltaxsummary.domain.{EstimatedIncomeWrapper, TaxSummaryContainer}
+import uk.gov.hmrc.model.{DecreasesTax, IncreasesTax, TaxSummaryDetails, TotalLiability}
+import uk.gov.hmrc.personaltaxsummary.domain.{EstimatedIncomeWrapper, GateKeeperDetails, TaxSummaryContainer}
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
 
 
 object TaxSummaryContainerFactory extends ViewModelFactory[TaxSummaryContainer] {
+
+
   override def createObject(nino: Nino, details: TaxSummaryDetails): TaxSummaryContainer = {
     val incomeTax = IncomeTaxViewModelFactory.createObject(nino, details)
     if (!isGateKeepered(details)) {
@@ -31,19 +33,20 @@ object TaxSummaryContainerFactory extends ViewModelFactory[TaxSummaryContainer] 
       val taxableIncome = YourTaxableIncomeViewModelFactory.createObject(nino, details)
       val wrappedEstimatedIncome = EstimatedIncomeWrapper(estimatedIncome, potentialUnderPayment)
       TaxSummaryContainer(
-        details,
-        incomeTax,
-        Some(wrappedEstimatedIncome),
-        Some(taxableIncome),
-        None
+      details,
+      incomeTax,
+      Some(wrappedEstimatedIncome),
+      Some(taxableIncome),
+      None
       )
     } else {
+      val gatekeeper = GateKeeperDetails(TotalLiability(totalTax = 0), DecreasesTax(total = 0), increasesTax = IncreasesTax(total = 0))
       TaxSummaryContainer(
         details,
         incomeTax,
         None,
         None,
-        details.gateKeeper
+        Option(gatekeeper)
       )
     }
   }

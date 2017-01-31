@@ -50,7 +50,7 @@ class TaxSummaryContainerFactorySpec extends UnitSpec with WithFakeApplication w
       val result: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, gateKeeperUserTaxSummary)
 
       result.gatekeeper.isDefined shouldBe true
-      result.gatekeeper.map(_.gateKeepered) shouldBe Some(true)
+      result.gatekeeper.map(_.totalLiability.totalTax) shouldBe Some(0)
       result.estimatedIncomeWrapper.map(_.estimatedIncome.incomeEstimate) shouldBe None
       result.taxableIncome.map(_.income) shouldBe None
     }
