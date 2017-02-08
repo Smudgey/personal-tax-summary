@@ -17,6 +17,8 @@
 package uk.gov.hmrc.model
 
 import org.joda.time.LocalDate
+import play.api.libs.functional.syntax._
+import play.api.libs.json.Reads._
 import play.api.libs.json._
 import uk.gov.hmrc.model.rti._
 import uk.gov.hmrc.model.tai.{AnnualAccount, TaxYear}
@@ -36,25 +38,25 @@ object EditableDetails {
   implicit val formats = Json.format[EditableDetails]
 }
 
-case class IncomeExplanation(employerName : String,
-                             incomeId : Int = 0,
+case class IncomeExplanation(employerName: String,
+                             incomeId: Int = 0,
                              hasDuplicateEmploymentNames: Boolean = false,
-                             worksNumber : Option[String] = None,
-                             paymentDate : Option[LocalDate] = None,
-                             notificationDate : Option[LocalDate] = None,
-                             updateActionDate : Option[LocalDate] = None,
-                             startDate :  Option[LocalDate] = None,
-                             endDate :  Option[LocalDate] = None,
-                             employmentStatus : Option[Int] = None,
+                             worksNumber: Option[String] = None,
+                             paymentDate: Option[LocalDate] = None,
+                             notificationDate: Option[LocalDate] = None,
+                             updateActionDate: Option[LocalDate] = None,
+                             startDate: Option[LocalDate] = None,
+                             endDate: Option[LocalDate] = None,
+                             employmentStatus: Option[Int] = None,
                              employmentType: Option[Int] = None,
-                             isPension : Boolean = false,
-                             iabdSource : Option[Int] = None,
-                             payToDate : BigDecimal = BigDecimal(0),
-                             calcAmount : Option[BigDecimal] = None,
-                             grossAmount : Option[BigDecimal] = None,
-                             payFrequency : Option[PayFrequency.Value] = None,
+                             isPension: Boolean = false,
+                             iabdSource: Option[Int] = None,
+                             payToDate: BigDecimal = BigDecimal(0),
+                             calcAmount: Option[BigDecimal] = None,
+                             grossAmount: Option[BigDecimal] = None,
+                             payFrequency: Option[PayFrequency.Value] = None,
                              cessationPay: Option[BigDecimal] = None,
-                             editableDetails : EditableDetails = EditableDetails())
+                             editableDetails: EditableDetails = EditableDetails())
 
 object IncomeExplanation {
   implicit val formats = Json.format[IncomeExplanation]
@@ -350,37 +352,72 @@ object Change {
 case class CYPlusOneChange(
                             employmentsTaxCode: Option[List[Employments]] = None,
                             scottishTaxCodes: Option[Boolean] = None,
-                            personalAllowance: Option[Change[BigDecimal,BigDecimal]] = None,
-                            underPayment: Option[Change[BigDecimal,BigDecimal]] = None,
-                            totalTax: Option[Change[BigDecimal,BigDecimal]] = None,
+                            personalAllowance: Option[Change[BigDecimal, BigDecimal]] = None,
+                            underPayment: Option[Change[BigDecimal, BigDecimal]] = None,
+                            totalTax: Option[Change[BigDecimal, BigDecimal]] = None,
                             standardPA: Option[BigDecimal] = None,
                             employmentBenefits: Option[Boolean] = None,
-                            personalSavingsAllowance :Option[Change[BigDecimal,BigDecimal]] = None
-                            )
+                            personalSavingsAllowance: Option[Change[BigDecimal, BigDecimal]] = None
+                          )
 
 object CYPlusOneChange {
   implicit val formats = Json.format[CYPlusOneChange]
 }
 
-case class TaxSummaryDetails(nino: String,
-                             version: Int,
-                             increasesTax: Option[IncreasesTax] = None,
-                             decreasesTax: Option[DecreasesTax] = None,
-                             totalLiability: Option[TotalLiability] = None,
-                             adjustedNetIncome: BigDecimal = BigDecimal(0),
-                             extensionReliefs: Option[ExtensionReliefs] = None,
-                             gateKeeper: Option[GateKeeper] = None,
-                             taxCodeDetails: Option[TaxCodeDetails] = None,
-                             incomeData: Option[IncomeData] = None,
-                             cyPlusOneChange: Option[CYPlusOneChange] = None,
-                             cyPlusOneSummary: Option[TaxSummaryDetails] = None,
-                             accounts: Seq[AnnualAccount] = Nil
-                            ) {
-  def currentYearAccounts = accounts.find { annualAccounts =>
-    annualAccounts.year == TaxYear()
-  }
-}
+//case class TaxSummaryDetails(nino: String,
+//                             version: Int,
+//                             increasesTax: Option[IncreasesTax] = None,
+//                             decreasesTax: Option[DecreasesTax] = None,
+//                             totalLiability: Option[TotalLiability] = None,
+//                             adjustedNetIncome: BigDecimal = BigDecimal(0),
+//                             extensionReliefs: Option[ExtensionReliefs] = None,
+//                             gateKeeper: Option[GateKeeper] = None,
+//                             taxCodeDetails: Option[TaxCodeDetails] = None,
+//                             incomeData: Option[IncomeData] = None,
+//                             cyPlusOneChange: Option[CYPlusOneChange] = None,
+//                             cyPlusOneSummary: Option[TaxSummaryDetails] = None,
+//                             accounts: Seq[AnnualAccount] = Nil
+//                            ) {
+//  def currentYearAccounts = accounts.find { annualAccounts =>
+//    annualAccounts.year == TaxYear()
+//  }
+//}
 
+case class TaxSummaryDetails( nino: String,
+                              version: Int,
+                              increasesTax: Option[IncreasesTax] = None,
+                              decreasesTax: Option[DecreasesTax] = None,
+                              totalLiability : Option[TotalLiability] = None,
+                              extensionReliefs: Option[ExtensionReliefs] = None,
+                              gateKeeper:Option[GateKeeper]=None,
+                              taxCodeDetails : Option[TaxCodeDetails] = None,
+                              cyPlusOneChange:Option[CYPlusOneChange] = None)
 object TaxSummaryDetails {
-  implicit val formats = Json.format[TaxSummaryDetails]
+
+  implicit val reads: Reads[TaxSummaryDetails] =
+    (
+      (JsPath \ "nino").read[String] and
+        (JsPath \ "version").read[Int] and
+        (JsPath \ "increasesTax").readNullable[IncreasesTax] and
+        (JsPath \ "decreasesTax").readNullable[DecreasesTax] and
+        (JsPath \ "totalLiability").readNullable[TotalLiability] and
+        (JsPath \ "extensionReliefs").readNullable[ExtensionReliefs] and
+        (JsPath \ "gateKeeper").readNullable[GateKeeper] and
+        (JsPath \ "taxCodeDetails").readNullable[TaxCodeDetails] and
+        (JsPath \ "cyPlusOneChange").readNullable[CYPlusOneChange]
+      )(TaxSummaryDetails.apply _)
+
+  implicit val writes: Writes[TaxSummaryDetails] =
+    (
+      (JsPath \ "nino").write[String] and
+        (JsPath \ "version").write[Int] and
+        (JsPath \ "increasesTax").writeNullable[IncreasesTax] and
+        (JsPath \ "decreasesTax").writeNullable[DecreasesTax] and
+        (JsPath \ "totalLiability").writeNullable[TotalLiability] and
+        (JsPath \ "extensionReliefs").writeNullable[ExtensionReliefs] and
+        (JsPath \ "gateKeeper").writeNullable[GateKeeper] and
+        (JsPath \ "taxCodeDetails").writeNullable[TaxCodeDetails] and
+        (JsPath \ "cyPlusOneChange").writeNullable[CYPlusOneChange]
+      )(unlift(TaxSummaryDetails.unapply))
+
 }
