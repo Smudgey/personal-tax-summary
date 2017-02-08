@@ -364,25 +364,6 @@ object CYPlusOneChange {
   implicit val formats = Json.format[CYPlusOneChange]
 }
 
-//case class TaxSummaryDetails(nino: String,
-//                             version: Int,
-//                             increasesTax: Option[IncreasesTax] = None,
-//                             decreasesTax: Option[DecreasesTax] = None,
-//                             totalLiability: Option[TotalLiability] = None,
-//                             adjustedNetIncome: BigDecimal = BigDecimal(0),
-//                             extensionReliefs: Option[ExtensionReliefs] = None,
-//                             gateKeeper: Option[GateKeeper] = None,
-//                             taxCodeDetails: Option[TaxCodeDetails] = None,
-//                             incomeData: Option[IncomeData] = None,
-//                             cyPlusOneChange: Option[CYPlusOneChange] = None,
-//                             cyPlusOneSummary: Option[TaxSummaryDetails] = None,
-//                             accounts: Seq[AnnualAccount] = Nil
-//                            ) {
-//  def currentYearAccounts = accounts.find { annualAccounts =>
-//    annualAccounts.year == TaxYear()
-//  }
-//}
-
 case class TaxSummaryDetails( nino: String,
                               version: Int,
                               increasesTax: Option[IncreasesTax] = None,
