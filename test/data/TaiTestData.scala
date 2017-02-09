@@ -37,6 +37,7 @@ trait TaiTestData {
   private val reductionsEqualToIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsEqualToIncomeTaxLiabilityTaxSummary.json"
   private val reductionsGreaterThanIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsGreaterThanIncomeTaxLiabilityTaxSummary.json"
   private val reductionsLessThanIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsLessThanIncomeTaxLiabilityTaxSummary.json"
+  private val syncTaxSummaryFilename = "Sync/TaxSummary.json"
 
   private def getTaxSummary(fileName: String): TaxSummaryDetails = {
     val jsonFilePath = basePath + fileName
@@ -59,5 +60,6 @@ trait TaiTestData {
   def reductionsEqualToIncomeTaxLiabilityTaxSummary: TaxSummaryDetails = getTaxSummary(reductionsEqualToIncomeTaxLiabilityFilename)
   def reductionsGreaterThanIncomeTaxLiabilityTaxSummary: TaxSummaryDetails = getTaxSummary(reductionsGreaterThanIncomeTaxLiabilityFilename)
   def reductionsLessThanIncomeTaxLiabilityTaxSummary: TaxSummaryDetails = getTaxSummary(reductionsLessThanIncomeTaxLiabilityFilename)
+  def syncTaxSummary: TaxSummaryDetails = getTaxSummary(syncTaxSummaryFilename)
 
 }

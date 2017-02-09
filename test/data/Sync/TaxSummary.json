@@ -1,0 +1,384 @@
+{
+  "nino": "CS700100",
+  "version": 1,
+  "accounts": [
+    {
+      "year": 2015,
+      "rtiStatus": {
+        "status": 404,
+        "response": ""
+      }
+    },
+    {
+      "year": 2016,
+      "nps": {
+        "date": "09/12/2014",
+        "totalEstTax": 10241.8,
+        "incomeSources": [
+          {
+            "employmentId": 1,
+            "employmentType": 1,
+            "employmentStatus": 1,
+            "employmentTaxDistrictNumber": 65,
+            "employmentPayeRef": "TZ99924",
+            "pensionIndicator": true,
+            "jsaIndicator": false,
+            "otherIncomeSourceIndicator": false,
+            "name": "PAYESCHEMEOPERATORNAME52603",
+            "endDate": null,
+            "worksNumber": null,
+            "taxCode": "K804",
+            "potentialUnderpayment": 0,
+            "employmentRecord": {
+              "employerName": "PAYESCHEMEOPERATORNAME52603",
+              "employmentType": 1,
+              "sequenceNumber": 1,
+              "taxDistrictNumber": "65",
+              "iabds": [],
+              "startDate": "01/01/2012"
+            }
+          }
+        ]
+      },
+      "rtiStatus": {
+        "status": 404,
+        "response": ""
+      }
+    }
+  ],
+  "increasesTax": {
+    "incomes": {
+      "taxCodeIncomes": {
+        "occupationalPensions": {
+          "taxCodeIncomes": [
+            {
+              "name": "PAYESCHEMEOPERATORNAME52603",
+              "taxCode": "K804",
+              "employmentId": 1,
+              "employmentPayeRef": "TZ99924",
+              "employmentType": 1,
+              "incomeType": 1,
+              "employmentStatus": 2,
+              "tax": {
+                "totalIncome": 33488,
+                "totalTaxableIncome": 41545,
+                "totalTax": 10245,
+                "taxBands": [
+                  {
+                    "income": 31865,
+                    "tax": 6373,
+                    "lowerBand": 0,
+                    "upperBand": 31865,
+                    "rate": 20
+                  },
+                  {
+                    "income": 9680,
+                    "tax": 3872,
+                    "lowerBand": 31865,
+                    "upperBand": 150000,
+                    "rate": 40
+                  },
+                  {
+                    "income": 0,
+                    "tax": 0,
+                    "lowerBand": 150000,
+                    "upperBand": 0,
+                    "rate": 45
+                  }
+                ],
+                "allowReliefDeducts": -8057,
+                "actualTaxDueAssumingBasicRateAlreadyPaid": 3547.4
+              },
+              "startDate": "2012-01-01",
+              "income": 33488,
+              "otherIncomeSourceIndicator": false,
+              "isEditable": true,
+              "isLive": false,
+              "isOccupationalPension": true,
+              "isPrimary": true
+            }
+          ],
+          "totalIncome": 33488,
+          "totalTax": 10245,
+          "totalTaxableIncome": 41545
+        },
+        "hasDuplicateEmploymentNames": false,
+        "totalIncome": 33488,
+        "totalTaxableIncome": 41545,
+        "totalTax": 10245
+      },
+      "noneTaxCodeIncomes": {
+        "statePension": 25557,
+        "totalIncome": 25557
+      },
+      "total": 59045
+    },
+    "benefitsFromEmployment": {
+      "amount": 8889,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 31,
+          "description": "Fuel Benefit",
+          "amount": 4444,
+          "employmentId": 2
+        },
+        {
+          "iabdType": 31,
+          "description": "Car Benefit",
+          "amount": 2223,
+          "employmentId": 1,
+          "employmentName": "PAYESCHEMEOPERATORNAME52603"
+        },
+        {
+          "iabdType": 31,
+          "description": "Car Benefit",
+          "amount": 2222,
+          "employmentId": 1,
+          "employmentName": "PAYESCHEMEOPERATORNAME52603"
+        }
+      ]
+    },
+    "total": 67934
+  },
+  "decreasesTax": {
+    "personalAllowance": 10000,
+    "miscellaneous": {
+      "amount": 15000,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 93,
+          "description": "Trade Union Subscriptions",
+          "amount": 15000
+        }
+      ]
+    },
+    "paTapered": false,
+    "total": 25000
+  },
+  "totalLiability": {
+    "nonSavings": {
+      "totalIncome": 59045,
+      "totalTaxableIncome": 34045,
+      "totalTax": 7245,
+      "taxBands": [
+        {
+          "income": 31865,
+          "tax": 6373,
+          "lowerBand": 0,
+          "upperBand": 31865,
+          "rate": 20
+        },
+        {
+          "income": 2180,
+          "tax": 872,
+          "lowerBand": 31865,
+          "upperBand": 150000,
+          "rate": 40
+        },
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 150000,
+          "upperBand": 0,
+          "rate": 45
+        }
+      ],
+      "allowReliefDeducts": 25000
+    },
+    "bankInterest": {
+      "totalIncome": 15000,
+      "totalTaxableIncome": 15000,
+      "totalTax": 6000,
+      "taxBands": [
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 0,
+          "upperBand": 2880,
+          "rate": 10
+        },
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 2880,
+          "upperBand": 31865,
+          "rate": 20
+        },
+        {
+          "income": 15000,
+          "tax": 6000,
+          "lowerBand": 31865,
+          "upperBand": 150000,
+          "rate": 40
+        },
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 150000,
+          "upperBand": 0,
+          "rate": 45
+        }
+      ],
+      "allowReliefDeducts": 0,
+      "actualTaxDueAssumingBasicRateAlreadyPaid": 4500.0,
+      "actualTaxDueAssumingAllAtBasicRate": 0
+    },
+    "mergedIncomes": {
+      "totalIncome": 74045,
+      "totalTaxableIncome": 49045,
+      "totalTax": 13245,
+      "taxBands": [
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 0,
+          "upperBand": 2880,
+          "rate": 10
+        },
+        {
+          "income": 31865,
+          "tax": 6373,
+          "lowerBand": 0,
+          "upperBand": 31865,
+          "rate": 20
+        },
+        {
+          "income": 17180,
+          "tax": 6872,
+          "lowerBand": 31865,
+          "upperBand": 150000,
+          "rate": 40
+        },
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 150000,
+          "upperBand": 0,
+          "rate": 45
+        }
+      ],
+      "allowReliefDeducts": 25000
+    },
+    "totalLiability": 10245,
+    "totalTax": 13345,
+    "totalTaxOnIncome": 13245,
+    "underpaymentPreviousYear": 0,
+    "outstandingDebt": 0,
+    "childBenefitAmount": 100,
+    "childBenefitTaxDue": 100,
+    "liabilityReductions": {
+      "enterpriseInvestmentSchemeRelief": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "concessionalRelief": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "maintenancePayments": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "doubleTaxationRelief": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      }
+    },
+    "liabilityAdditions": {
+      "excessGiftAidTax": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "excessWidowsAndOrphans": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "pensionPaymentsAdjustment": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      }
+    }
+  },
+  "adjustedNetIncome": 74045,
+  "extensionReliefs": {
+    "giftAid": {
+      "sourceAmount": 0,
+      "reliefAmount": 0
+    },
+    "personalPension": {
+      "sourceAmount": 0,
+      "reliefAmount": 0
+    }
+  },
+  "taxCodeDetails": {
+    "employment": [
+      {
+        "id": 1,
+        "name": "PAYESCHEMEOPERATORNAME52603",
+        "taxCode": "K804"
+      }
+    ],
+    "taxCode": [
+      {
+        "taxCode": "K"
+      }
+    ],
+    "taxCodeDescriptions": [
+      {
+        "taxCode": "K804",
+        "name": "PAYESCHEMEOPERATORNAME52603",
+        "taxCodeDescriptors": [
+          {
+            "taxCode": "K"
+          }
+        ]
+      }
+    ],
+    "deductions": [
+      {
+        "description": "savings income taxable at higher rate",
+        "amount": 7500,
+        "componentType": 32
+      },
+      {
+        "description": "state pension/state benefits",
+        "amount": 25557,
+        "componentType": 1
+      }
+    ],
+    "allowances": [
+      {
+        "description": "Tax Free Amount",
+        "amount": 25000,
+        "componentType": 0
+      }
+    ],
+    "splitAllowances": false,
+    "total": -8057
+  },
+  "incomeData": {
+    "incomeExplanations": [
+      {
+        "employerName": "PAYESCHEMEOPERATORNAME52603",
+        "incomeId": 1,
+        "hasDuplicateEmploymentNames": false,
+        "updateActionDate": "2014-11-20",
+        "startDate": "2012-01-01",
+        "employmentStatus": 2,
+        "employmentType": 1,
+        "isPension": true,
+        "iabdSource": 17,
+        "payToDate": 0,
+        "grossAmount": 9999,
+        "editableDetails": {
+          "isEditable": true,
+          "payRollingBiks": true
+        }
+      }
+    ]
+  }
+}

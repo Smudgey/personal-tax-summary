@@ -54,6 +54,12 @@ class TaxSummaryContainerFactorySpec extends UnitSpec with WithFakeApplication w
       result.estimatedIncomeWrapper.map(_.estimatedIncome.incomeEstimate) shouldBe None
       result.taxableIncome.map(_.income) shouldBe None
     }
+
+    "populate the base view model given latest version of tai data" in {
+      val result: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, syncTaxSummary)
+
+      result.baseViewModel.estimatedIncomeTax shouldBe 13345.0
+    }
   }
 
   "TaxSummaryContainerFactory isGateKeepered" should {

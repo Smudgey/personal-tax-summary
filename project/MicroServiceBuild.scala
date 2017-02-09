@@ -37,10 +37,12 @@ private object AppDependencies {
   private val cucumberVersion = "1.2.5"
   private val playUI: String = "5.3.0"
   private val circuitBreaker = "2.0.0"
+  private val icu4jVersion = "54.1.1"
 
   val compile = Seq(
 
     ws,
+    "com.ibm.icu" %  "icu4j" % icu4jVersion,
     "uk.gov.hmrc" %% "microservice-bootstrap" % microserviceBootstrapVersion,
     "uk.gov.hmrc" %% "play-hmrc-api" % playHmrcApiVersion,
     "uk.gov.hmrc" %% "play-authorisation" % playAuthVersion,
