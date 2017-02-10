@@ -28,36 +28,32 @@ import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
 object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] {
   override def createObject(nino: Nino, container: PersonalTaxSummaryContainer): EstimatedIncomeViewModel = {
-    println(container.links)
-    createObject(nino, container.details)
-  }
+    val details = container.details
 
-  override def createObject(nino: Nino, details: TaxSummaryDetails): EstimatedIncomeViewModel = {
-
-    val incTax:Boolean = details.increasesTax match {
+    val incTax: Boolean = details.increasesTax match {
       case Some(_) => true
       case _ => false
     }
 
-    val estimatedTotalTax:BigDecimal = details.totalLiability.get.totalTax
-    val decTaxTotal:BigDecimal = details.decreasesTax.get.total
-    val incTotal:BigDecimal = details.increasesTax.get.total
-    val reliefs:Boolean = TaxSummaryHelper.getPPR(details)._1 > BigDecimal(0) || TaxSummaryHelper.getGiftAid(details)._1 > BigDecimal(0)
+    val estimatedTotalTax: BigDecimal = details.totalLiability.get.totalTax
+    val decTaxTotal: BigDecimal = details.decreasesTax.get.total
+    val incTotal: BigDecimal = details.increasesTax.get.total
+    val reliefs: Boolean = TaxSummaryHelper.getPPR(details)._1 > BigDecimal(0) || TaxSummaryHelper.getGiftAid(details)._1 > BigDecimal(0)
     val emps = details.taxCodeDetails.flatMap(_.employment)
     val listEmps = fetchTaxCodeList(emps)
     val potentialUnderpayment = fetchPotentialUnderpayment(details)
 
     val totalLiability = details.totalLiability.get
     val additionalTable = createAdditionalTable(totalLiability)
-    val additionalTableTotal = MoneyPounds(getTotalAdditionalTaxDue(totalLiability),2).quantity
-    val reductionsTable: List[(String, String, String)] = createReductionsTable(totalLiability)
-    val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability),2).quantity
+    val additionalTableTotal = MoneyPounds(getTotalAdditionalTaxDue(totalLiability), 2).quantity
+    val reductionsTable: List[(String, String, String)] = createReductionsTable(totalLiability, container.links)
+    val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability), 2).quantity
     val mergedIncome = totalLiability.mergedIncomes.getOrElse(throw new RuntimeException("No data"))
     val td = TaxDecorator(mergedIncome, paAmount = getActualPA(details.decreasesTax))
     val bands: List[Band] = createTaxBands(td)
 
     val incomeAsPerc = td.incomeAsPercentage
-    val graph = BandedGraph("taxGraph",bands,td.taxBandLabelFirstAmount,td.taxBandLabelLastAmount,td.totalIncome,incomeAsPerc,td.taxBandDecorator.totalTax)
+    val graph = BandedGraph("taxGraph", bands, td.taxBandLabelFirstAmount, td.taxBandLabelLastAmount, td.totalIncome, incomeAsPerc, td.taxBandDecorator.totalTax)
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
     val taxBands = totalLiability.ukDividends.flatMap(_.taxBands)
     val incomeTaxReducedToZeroMessage = fetchIncomeTaxDueAmount(totalLiability, td)
@@ -169,7 +165,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       totalLiability.liabilityAdditions.flatMap(_.pensionPaymentsAdjustment.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0))
   }
 
-  private def createReductionsTable(totalLiability: TotalLiability): List[(String, String, String)] = {
+  private def createReductionsTable(totalLiability: TotalLiability, links: Map[String, String]): List[(String, String, String)] = {
     val nci = totalLiability.nonCodedIncome.map(_.totalTax.getOrElse(BigDecimal(0))).getOrElse(BigDecimal(0))
     val nonCodedIncome = fetchTaxAmountTitleAndDescription(nci, "tai.taxCollected.atSource.otherIncome.title",
       "tai.taxCollected.atSource.otherIncome.description")
@@ -185,10 +181,10 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       "tai.taxCollected.atSource.bank.description", basicRate)
     val maNet = totalLiability.liabilityReductions.flatMap(_.marriageAllowance.map(_.marriageAllowanceRelief)).getOrElse(BigDecimal(0))
     val maGross = totalLiability.liabilityReductions.flatMap(_.marriageAllowance.map(_.marriageAllowance)).getOrElse(BigDecimal(0))
-    val maValue = fetchMarriageAllowanceAmount(maNet, maGross)
+    val maValue = fetchMarriageAllowanceAmount(maNet, maGross, links.getOrElse("marriageAllowance", ""))
     val mp = totalLiability.liabilityReductions.flatMap(_.maintenancePayments.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0))
     val mpCoding = totalLiability.liabilityReductions.flatMap(_.maintenancePayments.map(_.codingAmount)).getOrElse(BigDecimal(0))
-    val maint = fetchMaintenancePayments(mp, mpCoding)
+    val maint = fetchMaintenancePayments(mp, mpCoding, links.getOrElse("maintenancePayments",""))
 
     val enterpriseInvestmentScheme = totalLiability.liabilityReductions.flatMap(_.enterpriseInvestmentSchemeRelief.map(
       _.amountInTermsOfTax)).getOrElse(BigDecimal(0))
@@ -249,8 +245,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  // TODO: check desired Link behaviour
-  private def fetchMarriageAllowanceAmount(maNet: BigDecimal, maGross: BigDecimal): Option[(String, String, String)] = {
+  private def fetchMarriageAllowanceAmount(maNet: BigDecimal, maGross: BigDecimal, link: String): Option[(String, String, String)] = {
     if (maNet > 0) {
       Some(
         Messages("tai.taxCollected.atSource.marriageAllowance.title"),
@@ -258,7 +253,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
         Messages(
           "tai.taxCollected.atSource.marriageAllowance.description",
           MoneyPounds(maGross).quantity,
-          "<!-- TODO -->"
+          link
         )
       )
     } else {
@@ -266,8 +261,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  // TODO: check desired Link behaviour
-  private def fetchMaintenancePayments(mp: BigDecimal, mpCoding: BigDecimal): Option[(String, String, String)] = {
+  private def fetchMaintenancePayments(mp: BigDecimal, mpCoding: BigDecimal, link: String): Option[(String, String, String)] = {
     if (mp > 0) {
       Some(
         Messages("tai.taxCollected.atSource.maintenancePayments.title"),
@@ -275,7 +269,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
         Messages(
           "tai.taxCollected.atSource.maintenancePayments.description",
           MoneyPounds(mpCoding).quantity,
-          "<!-- TODO -->"
+          link
         )
       )
     } else {
@@ -302,4 +296,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     decreasesTax.map(_.personalAllowance.getOrElse(BigDecimal(0))).getOrElse(BigDecimal(0))
   }
 
+  override def createObject(nino: Nino, details: TaxSummaryDetails): EstimatedIncomeViewModel = {
+    createObject(nino, PersonalTaxSummaryContainer(details, Map.empty))
+  }
 }
