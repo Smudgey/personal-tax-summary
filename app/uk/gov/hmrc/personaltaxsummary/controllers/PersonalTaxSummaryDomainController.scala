@@ -16,14 +16,13 @@
 
 package uk.gov.hmrc.personaltaxsummary.controllers
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request
-import play.api.libs.json.{Writes, JsValue, JsError, Json}
-import play.api.mvc.{Result, AnyContent, BodyParsers, Action}
-import play.api.{mvc, Logger}
+import play.api.libs.json.{JsError, JsValue, Json, Writes}
+import play.api.mvc.{Action, BodyParsers, Result}
+import play.api.{Logger, mvc}
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.model.TaxSummaryDetails
+import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.services.{LiveTaiService, TaiService}
-import uk.gov.hmrc.personaltaxsummary.viewmodels.{YourTaxableIncomeViewModel, EstimatedIncomeViewModel}
+import uk.gov.hmrc.personaltaxsummary.viewmodels.{EstimatedIncomeViewModel, YourTaxableIncomeViewModel}
 import uk.gov.hmrc.play.microservice.controller.BaseController
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -38,7 +37,7 @@ trait PersonalTaxSummaryDomainController extends BaseController {
 
       implicit val format = Json.format[EstimatedIncomeViewModel]
       buildDomain[EstimatedIncomeViewModel](nino,request) {
-        nino => details => service.buildEstimatedIncome(nino, details)
+        nino => container => service.buildEstimatedIncome(nino, container)
       }
   }
 
@@ -47,19 +46,19 @@ trait PersonalTaxSummaryDomainController extends BaseController {
 
       implicit val format = Json.format[YourTaxableIncomeViewModel]
       buildDomain[YourTaxableIncomeViewModel](nino,request) {
-        nino => details =>  service.buildYourTaxableIncome(nino, details)
+        nino => container =>  service.buildYourTaxableIncome(nino, container)
       }
   }
 
-  def buildDomain[T](nino:Nino,request:mvc.Request[JsValue])(func: => Nino => TaxSummaryDetails => T)(implicit tjs: Writes[T]) : Future[Result] = {
-    request.body.validate[TaxSummaryDetails].fold(
+  def buildDomain[T](nino:Nino,request:mvc.Request[JsValue])(func: => Nino => PersonalTaxSummaryContainer => T)(implicit tjs: Writes[T]) : Future[Result] = {
+    request.body.validate[PersonalTaxSummaryContainer].fold(
       errors => {
         val failure = JsError.toJson(errors)
         Logger.warn("Received error with parsing tax summary details: " + failure)
         Future.successful(BadRequest(Json.obj("message" -> failure)))
       },
-      taxSummary => {
-        Future.successful(Ok(Json.toJson(func(nino)(taxSummary))))
+      container => {
+        Future.successful(Ok(Json.toJson(func(nino)(container))))
       }
     )
   }

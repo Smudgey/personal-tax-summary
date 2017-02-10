@@ -21,12 +21,17 @@ import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.{DecreasesTax, Employments, TaxSummaryDetails, TotalLiability}
-import uk.gov.hmrc.personaltaxsummary.domain.MessageWrapper
+import uk.gov.hmrc.personaltaxsummary.domain.{MessageWrapper, PersonalTaxSummaryContainer}
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.{TaxDecorator, TaxSummaryHelper}
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{Band, BandedGraph, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
 object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] {
+  override def createObject(nino: Nino, container: PersonalTaxSummaryContainer): EstimatedIncomeViewModel = {
+    println(container.links)
+    createObject(nino, container.details)
+  }
+
   override def createObject(nino: Nino, details: TaxSummaryDetails): EstimatedIncomeViewModel = {
 
     val incTax:Boolean = details.increasesTax match {

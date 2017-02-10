@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.personaltaxsummary.viewmodelfactories
+package uk.gov.hmrc.personaltaxsummary.domain
 
-import uk.gov.hmrc.domain.Nino
+import play.api.libs.json.Json
 import uk.gov.hmrc.model.TaxSummaryDetails
-import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 
-trait ViewModelFactory[T] {
-  def createObject(nino: Nino, details: TaxSummaryDetails): T
-  def createObject(nino: Nino, container: PersonalTaxSummaryContainer): T
+case class PersonalTaxSummaryContainer(details: TaxSummaryDetails, links: Map[String, String])
+
+object PersonalTaxSummaryContainer {
+  implicit val personalTaxSummaryContainerFmt = {
+    Json.format[PersonalTaxSummaryContainer]
+  }
 }

@@ -18,9 +18,14 @@ package uk.gov.hmrc.personaltaxsummary.viewmodelfactories
 
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.TaxSummaryDetails
+import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.viewmodels.IncomeTaxViewModel
 
 object IncomeTaxViewModelFactory extends ViewModelFactory[IncomeTaxViewModel] {
+  override def createObject(nino: Nino, container: PersonalTaxSummaryContainer): IncomeTaxViewModel = {
+    createObject(nino, container.details)
+  }
+
   override def createObject(nino: Nino, details: TaxSummaryDetails): IncomeTaxViewModel = {
     val totalLiability = details.totalLiability
 
