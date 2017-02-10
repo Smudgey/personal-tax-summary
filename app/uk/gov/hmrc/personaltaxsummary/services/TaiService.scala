@@ -18,10 +18,12 @@ package uk.gov.hmrc.personaltaxsummary.services
 
 import uk.gov.hmrc.api.service.Auditor
 import uk.gov.hmrc.domain.Nino
+import uk.gov.hmrc.model.TaxSummaryDetails
 import uk.gov.hmrc.personaltaxsummary.config.MicroserviceAuditConnector
 import uk.gov.hmrc.personaltaxsummary.connectors.TaiConnector
 import uk.gov.hmrc.personaltaxsummary.domain.TaxSummaryContainer
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.TaxSummaryContainerFactory
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.{YourTaxableIncomeViewModelFactory, EstimatedIncomeViewModelFactory, TaxSummaryContainerFactory}
+import uk.gov.hmrc.personaltaxsummary.viewmodels.{YourTaxableIncomeViewModel, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -29,6 +31,14 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait TaiService extends Auditor {
   val taiConnector: TaiConnector
+
+  def buildEstimatedIncome(nino: Nino, details: TaxSummaryDetails): EstimatedIncomeViewModel = {
+    EstimatedIncomeViewModelFactory.createObject(nino, details)
+  }
+
+  def buildYourTaxableIncome(nino: Nino, details: TaxSummaryDetails): YourTaxableIncomeViewModel = {
+    YourTaxableIncomeViewModelFactory.createObject(nino, details)
+  }
 
   def getSummary(nino: Nino, year:Int)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[Option[TaxSummaryContainer]] = {
     withAudit("getSummary", Map("nino" -> nino.value, "year" -> year.toString)) {

@@ -1,3 +1,6 @@
 # microservice specific routes
 
 GET     /personal-tax/:nino/summary/:year           uk.gov.hmrc.personaltaxsummary.controllers.LivePersonalTaxSummaryController.getSummary(nino: uk.gov.hmrc.domain.Nino, year: Int, journeyId: Option[String])
+
+POST     /personal-tax/:nino/buildestimatedincome    uk.gov.hmrc.personaltaxsummary.controllers.PersonalTaxSummaryDomainController.buildEstimatedIncome(nino: uk.gov.hmrc.domain.Nino)
+POST     /personal-tax/:nino/buildyourtaxableincome  uk.gov.hmrc.personaltaxsummary.controllers.PersonalTaxSummaryDomainController.buildYourTaxableIncome(nino: uk.gov.hmrc.domain.Nino)

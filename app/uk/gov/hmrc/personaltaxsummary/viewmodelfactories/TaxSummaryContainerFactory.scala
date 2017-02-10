@@ -33,11 +33,11 @@ object TaxSummaryContainerFactory extends ViewModelFactory[TaxSummaryContainer] 
       val taxableIncome = YourTaxableIncomeViewModelFactory.createObject(nino, details)
       val wrappedEstimatedIncome = EstimatedIncomeWrapper(estimatedIncome, potentialUnderPayment)
       TaxSummaryContainer(
-      details,
-      incomeTax,
-      Some(wrappedEstimatedIncome),
-      Some(taxableIncome),
-      None
+        details,
+        incomeTax,
+        Some(wrappedEstimatedIncome),
+        Some(taxableIncome),
+        None
       )
     } else {
       val gatekeeper = GateKeeperDetails(TotalLiability(totalTax = 0), DecreasesTax(total = 0), increasesTax = IncreasesTax(total = 0))
