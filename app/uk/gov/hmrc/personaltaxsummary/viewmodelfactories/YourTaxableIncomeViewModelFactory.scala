@@ -75,13 +75,13 @@ object YourTaxableIncomeViewModelFactory extends ViewModelFactory[YourTaxableInc
       taxCodeList,
       increasesTax,
       EmploymentPension(taxCodeIncomes = taxCodeIncomes,employmentPension._1,employmentPension._2,employmentPension._3),
-      MessageWrapper.applyForList3(investmentIncomeData._1),
+      investmentIncomeData._1,
       investmentIncomeData._2,
-      MessageWrapper.applyForList3(otherIncomeData._1),
+      otherIncomeData._1,
       otherIncomeData._2,
       BenefitsDataWrapper.applyBenefit(benefitsData._1),
       benefitsData._2,
-      MessageWrapper.applyForList3(taxableBenefitsData._1),
+      taxableBenefitsData._1,
       taxableBenefitsData._2,
       TaxSummaryHelper.cyPlusOneAvailable(details)
     )

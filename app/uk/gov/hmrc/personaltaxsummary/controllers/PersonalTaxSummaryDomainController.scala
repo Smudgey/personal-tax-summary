@@ -16,14 +16,15 @@
 
 package uk.gov.hmrc.personaltaxsummary.controllers
 
-import play.api.libs.json.{JsError, JsValue, Json, Writes}
+import play.api.libs.json._
 import play.api.mvc.{Action, BodyParsers, Result}
 import play.api.{Logger, mvc}
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.services.{LiveTaiService, TaiService}
-import uk.gov.hmrc.personaltaxsummary.viewmodels.{EstimatedIncomeViewModel, YourTaxableIncomeViewModel}
+import uk.gov.hmrc.personaltaxsummary.viewmodels.TupleFormats
 import uk.gov.hmrc.play.microservice.controller.BaseController
+import TupleFormats._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -35,8 +36,7 @@ trait PersonalTaxSummaryDomainController extends BaseController {
   final def buildEstimatedIncome(nino: Nino, journeyId: Option[String] = None) = Action.async(BodyParsers.parse.json) {
     implicit request =>
 
-      implicit val format = Json.format[EstimatedIncomeViewModel]
-      buildDomain[EstimatedIncomeViewModel](nino,request) {
+      buildDomain(nino,request) {
         nino => container => service.buildEstimatedIncome(nino, container)
       }
   }
@@ -44,8 +44,7 @@ trait PersonalTaxSummaryDomainController extends BaseController {
   final def buildYourTaxableIncome(nino: Nino, journeyId: Option[String] = None) = Action.async(BodyParsers.parse.json) {
     implicit request =>
 
-      implicit val format = Json.format[YourTaxableIncomeViewModel]
-      buildDomain[YourTaxableIncomeViewModel](nino,request) {
+      buildDomain(nino,request) {
         nino => container =>  service.buildYourTaxableIncome(nino, container)
       }
   }
@@ -54,10 +53,12 @@ trait PersonalTaxSummaryDomainController extends BaseController {
     request.body.validate[PersonalTaxSummaryContainer].fold(
       errors => {
         val failure = JsError.toJson(errors)
-        Logger.warn("Received error with parsing tax summary details: " + failure)
+        Logger.warn("Received error with parsing container: " + failure)
         Future.successful(BadRequest(Json.obj("message" -> failure)))
       },
       container => {
+// TODO: REMOVE
+println(" RESPONSE IS " + Json.toJson(func(nino)(container)))
         Future.successful(Ok(Json.toJson(func(nino)(container))))
       }
     )
