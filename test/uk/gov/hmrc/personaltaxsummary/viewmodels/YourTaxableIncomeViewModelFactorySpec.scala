@@ -156,22 +156,33 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
     }
 
     "create an Employer Benefits table given employment benefits are available" in {
-      val empBenefitsIabd = List(IabdSummary(53, "Travel and Subsistence", 100, Some(1), Some("Sainsburys")),
-        IabdSummary(29, "Car Fuel Benefit", 100, Some(1), Some("Sainsburys")),
-        IabdSummary(30, "Medical Insurance", 100, Some(1), Some("Sainsburys")))
+      val expectedUrl = "/link/to/med/benefits/service"
+      val expectedBenefit = "Medical insurance"
+      val expectedEmployer = "Sainsburys"
+
+      val links = Map(
+        "companyCarServiceUrl" -> "/link/to/company/car/service",
+        "medBenefitServiceUrl" -> expectedUrl
+      )
+
+      val empBenefitsIabd = List(IabdSummary(53, "Travel and Subsistence", 100, Some(1), Some(expectedEmployer)),
+        IabdSummary(29, "Car fuel benefit", 100, Some(1), Some(expectedEmployer)),
+        IabdSummary(30, expectedBenefit, 100, Some(1), Some(expectedEmployer)))
 
       val taxComponent = TaxComponent(300, 0, "Employer Benefits", empBenefitsIabd)
 
-      val result = YourTaxableIncomeHelper.createBenefitsTable(taxComponent)
+      val result: (List[(String, String, String, String, Option[Int], Option[Int])], BigDecimal) = YourTaxableIncomeHelper.createBenefitsTable(taxComponent, links)
 
       result._1.size shouldBe 3
       result._2 shouldBe 300
+      result._1.last._1 shouldBe s"$expectedBenefit for $expectedEmployer"
+      result._1.last._4 shouldBe expectedUrl
     }
 
     "create an Employer Benefits table given no employment benefits" in {
       val taxComponent = TaxComponent(0, 0, "Employer Benefits", List())
 
-      val result = YourTaxableIncomeHelper.createBenefitsTable(taxComponent)
+      val result = YourTaxableIncomeHelper.createBenefitsTable(taxComponent, Map.empty)
 
       result._1.size shouldBe 0
       result._2 shouldBe 0

@@ -24,15 +24,18 @@ import uk.gov.hmrc.model._
 import uk.gov.hmrc.model.nps2.IabdType._
 import uk.gov.hmrc.personaltaxsummary.domain.{BenefitsDataWrapper, MessageWrapper, PersonalTaxSummaryContainer}
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
-import uk.gov.hmrc.personaltaxsummary.viewmodels.{EmploymentPension, YourTaxableIncomeViewModel}
+import uk.gov.hmrc.personaltaxsummary.viewmodels.{EmploymentPension, EstimatedIncomeViewModel, YourTaxableIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
 object YourTaxableIncomeViewModelFactory extends ViewModelFactory[YourTaxableIncomeViewModel] {
-  override def createObject(nino: Nino, container: PersonalTaxSummaryContainer): YourTaxableIncomeViewModel = {
-    createObject(nino, container.details)
-  }
 
   override def createObject(nino: Nino, details: TaxSummaryDetails): YourTaxableIncomeViewModel = {
+    createObject(nino, PersonalTaxSummaryContainer(details, Map.empty))
+  }
+
+  override def createObject(nino: Nino, container: PersonalTaxSummaryContainer): YourTaxableIncomeViewModel = {
+
+    val details = container.details
 
     val increasesTax: Option[IncreasesTax] = details.increasesTax
     val totalLiability: Option[TotalLiability] = details.totalLiability
@@ -62,7 +65,7 @@ object YourTaxableIncomeViewModelFactory extends ViewModelFactory[YourTaxableInc
     val otherIncomeData = YourTaxableIncomeHelper.createOtherIncomeTable(nonTaxCodeIncomes, otherIncomeIabds)
     val employmentPension: (BigDecimal, Boolean, Boolean) = fetchEmploymentPension(increasesTax)
     val benefitsFromEmployment = fetchEmploymentBenefits(increasesTax)
-    val benefitsData = YourTaxableIncomeHelper.createBenefitsTable(benefitsFromEmployment)
+    val benefitsData = YourTaxableIncomeHelper.createBenefitsTable(benefitsFromEmployment, container.links)
     val taxableBenefitsData = YourTaxableIncomeHelper.createTaxableBenefitTable(nonTaxCodeIncomes, taxCodeIncomes)
 
     YourTaxableIncomeViewModel(
@@ -288,32 +291,33 @@ object YourTaxableIncomeHelper {
 
   }
 
-  def createBenefitsTable(benefitsFromEmployment: TaxComponent): (List[(String, String, String, String, Option[Int], Option[Int])], BigDecimal) = {
+  def createBenefitsTable(benefitsFromEmployment: TaxComponent, links: Map[String, String]): (List[(String, String, String, String, Option[Int], Option[Int])], BigDecimal) = {
     val benefitsRows: List[Option[(String, String, String, String, Option[Int], Option[Int])]] =
       for {iabdSummary <- benefitsFromEmployment.iabdSummaries
 
-           message: (String, String) = iabdSummary.iabdType match {
-             case MedicalInsurance.code => {
+           message: (String, String, String) = iabdSummary.iabdType match {
+             case MedicalInsurance.code =>
                (Messages(s"tai.iabdSummary.employmentBenefit.type-${iabdSummary.iabdType}",
-                 iabdSummary.employmentName.getOrElse("")), Messages(s"tai.iabdSummary.description-${iabdSummary.iabdType}"))
-             }
-             case CarBenefit.code => {
+                 iabdSummary.employmentName.getOrElse("")), Messages(s"tai.iabdSummary.description-${iabdSummary.iabdType}"),
+                 links.getOrElse("medBenefitServiceUrl", ""))
+
+             case CarBenefit.code =>
                (Messages(s"tai.iabdSummary.employmentBenefit.type-${iabdSummary.iabdType}",
-                 iabdSummary.employmentName.getOrElse("")), Messages(s"tai.iabdSummary.description-${iabdSummary.iabdType}"))
-             }
-             case _ => {
+                 iabdSummary.employmentName.getOrElse("")), Messages(s"tai.iabdSummary.description-${iabdSummary.iabdType}"),
+                 links.getOrElse("companyCarServiceUrl", ""))
+
+             case _ =>
                (Messages(s"tai.iabdSummary.employmentBenefit.type-${iabdSummary.iabdType}",
                  iabdSummary.employmentName.getOrElse("")),
-                 Messages(s"tai.iabdSummary.description-${iabdSummary.iabdType}"))
-             }
+                 Messages(s"tai.iabdSummary.description-${iabdSummary.iabdType}"),
+                 "")
            }
 
            rawAmt = iabdSummary.amount
            amount = MoneyPounds(rawAmt, 0).quantity
 
            benefitsData = if (rawAmt > 0) {
-             // TODO: check desired Link behaviour
-             Some(message._1, amount, message._2, "", iabdSummary.employmentId, Some(iabdSummary.iabdType))
+             Some(message._1, amount, message._2, message._3, iabdSummary.employmentId, Some(iabdSummary.iabdType))
            } else {
              None
            }
