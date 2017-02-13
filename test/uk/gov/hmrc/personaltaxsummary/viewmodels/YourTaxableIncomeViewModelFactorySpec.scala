@@ -56,6 +56,7 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
       result.benefitsTotal shouldBe 1250
 
       result.taxableBenefitsData.size shouldBe 5
+      result.taxableBenefitsData.contains((Messages("tai.income.statePension.title"), MoneyPounds(100, 0).quantity, Messages("tai.iabdSummary.description-state-pension"))) shouldBe true
       result.taxableBenefitsTotal shouldBe 5400
     }
 
