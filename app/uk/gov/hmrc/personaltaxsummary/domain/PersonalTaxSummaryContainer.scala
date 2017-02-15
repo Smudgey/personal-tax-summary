@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.personaltaxsummary.controllers
+package uk.gov.hmrc.personaltaxsummary.domain
 
-import uk.gov.hmrc.play.microservice.controller.BaseController
-import uk.gov.hmrc.play.http.logging.MdcLoggingExecutionContext._
-import play.api.mvc._
-import scala.concurrent.Future
+import play.api.libs.json.Json
+import uk.gov.hmrc.model.TaxSummaryDetails
 
-object MicroserviceHelloWorld extends MicroserviceHelloWorld
+case class PersonalTaxSummaryContainer(details: TaxSummaryDetails, links: Map[String, String])
 
-trait MicroserviceHelloWorld extends BaseController {
-
-	def hello() = Action.async { implicit request =>
-		Future.successful(Ok("Hello world"))
-	}
+object PersonalTaxSummaryContainer {
+  implicit val personalTaxSummaryContainerFmt = {
+    Json.format[PersonalTaxSummaryContainer]
+  }
 }

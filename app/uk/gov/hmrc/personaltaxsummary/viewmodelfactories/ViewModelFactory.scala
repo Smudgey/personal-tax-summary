@@ -18,7 +18,9 @@ package uk.gov.hmrc.personaltaxsummary.viewmodelfactories
 
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.TaxSummaryDetails
+import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 
 trait ViewModelFactory[T] {
   def createObject(nino: Nino, details: TaxSummaryDetails): T
+  def createObject(nino: Nino, container: PersonalTaxSummaryContainer): T
 }

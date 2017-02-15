@@ -62,6 +62,12 @@ object IncomeExplanation {
   implicit val formats: Format[IncomeExplanation] = Json.format[IncomeExplanation]
 }
 
+case class CeasedEmploymentDetails(endDate: Option[LocalDate], isPension: Option[Boolean], ceasedStatus: Option[String])
+
+object CeasedEmploymentDetails {
+  implicit val formats = Json.format[CeasedEmploymentDetails]
+}
+
 case class RtiCalc(employmentType: Int,
                    employmentStatus: Int,
                    employerName: String,
@@ -376,7 +382,8 @@ case class TaxSummaryDetails(nino: String,
                              incomeData: Option[IncomeData] = None,
                              cyPlusOneChange: Option[CYPlusOneChange] = None,
                              cyPlusOneSummary: Option[TaxSummaryDetails] = None,
-                             accounts: Seq[AnnualAccount] = Nil
+                             accounts: Seq[AnnualAccount] = Nil,
+                             ceasedEmploymentDetail: Option[CeasedEmploymentDetails] = None
                             ) {
   def currentYearAccounts: Option[AnnualAccount] = accounts.find { annualAccounts =>
     annualAccounts.year == TaxYear()

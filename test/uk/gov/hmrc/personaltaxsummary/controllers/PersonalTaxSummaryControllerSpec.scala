@@ -34,7 +34,7 @@ class PersonalTaxSummaryControllerSpec  extends UnitSpec with WithFakeApplicatio
 
     "return a summary" in new Success {
 
-      val result = await(controller.getSummary(nino, currentYear)(emptyRequest))
+      val result = await(personalTaxSummaryController.getSummary(nino, currentYear)(emptyRequest))
 
       status(result) shouldBe 200
       contentAsJson(result) shouldBe Json.toJson(someContainer)
@@ -42,7 +42,7 @@ class PersonalTaxSummaryControllerSpec  extends UnitSpec with WithFakeApplicatio
 
     "process the authentication successfully when journeyId is supplied" in new Success {
 
-      val result = await(controller.getSummary(nino, currentYear, Some(journeyId))(emptyRequest))
+      val result = await(personalTaxSummaryController.getSummary(nino, currentYear, Some(journeyId))(emptyRequest))
 
       status(result) shouldBe 200
       contentAsJson(result) shouldBe Json.toJson(someContainer)
@@ -50,7 +50,7 @@ class PersonalTaxSummaryControllerSpec  extends UnitSpec with WithFakeApplicatio
 
     "return the gate keeper details given a gatekeepered user" in new GateKeepered {
 
-      val result = await(controller.getSummary(nino, currentYear, Some(journeyId))(emptyRequest))
+      val result = await(personalTaxSummaryController.getSummary(nino, currentYear, Some(journeyId))(emptyRequest))
 
       status(result) shouldBe 200
       contentAsJson(result) shouldBe Json.toJson(gatekeeperedContainer)
@@ -65,7 +65,7 @@ class PersonalTaxSummaryControllerSpec  extends UnitSpec with WithFakeApplicatio
 
     "return not found when summary returned is None" in new NotFound {
 
-      val result = await(controller.getSummary(nino, currentYear)(emptyRequest))
+      val result = await(personalTaxSummaryController.getSummary(nino, currentYear)(emptyRequest))
 
       status(result) shouldBe 404
 
@@ -79,14 +79,14 @@ class PersonalTaxSummaryControllerSpec  extends UnitSpec with WithFakeApplicatio
 
     "return unauthorized when the nino in the request does not match the authority nino" in new AccessCheck {
 
-      val result = await(controller.getSummary(ninoIncorrect, currentYear)(emptyRequest))
+      val result = await(personalTaxSummaryController.getSummary(ninoIncorrect, currentYear)(emptyRequest))
 
       status(result) shouldBe 401
     }
 
     "return unauthorized when authority record does not contain a NINO" in new NoNino {
 
-      val result = await(controller.getSummary(nino, currentYear)(emptyRequest))
+      val result = await(personalTaxSummaryController.getSummary(nino, currentYear)(emptyRequest))
 
       status(result) shouldBe 401
       contentAsJson(result) shouldBe noNinoOnAccont
@@ -94,7 +94,7 @@ class PersonalTaxSummaryControllerSpec  extends UnitSpec with WithFakeApplicatio
 
     "return unauthorized when authority record has a low CL" in new AuthWithLowConfidence {
 
-      val result = await(controller.getSummary(nino, currentYear)(emptyRequest))
+      val result = await(personalTaxSummaryController.getSummary(nino, currentYear)(emptyRequest))
 
       status(result) shouldBe 401
       contentAsJson(result) shouldBe lowConfidence

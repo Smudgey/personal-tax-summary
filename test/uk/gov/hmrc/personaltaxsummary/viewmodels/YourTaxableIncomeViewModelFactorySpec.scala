@@ -17,6 +17,7 @@
 package uk.gov.hmrc.personaltaxsummary.viewmodels
 
 import data.TaiTestData
+import play.api.i18n.Messages
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.{IabdSummary, NoneTaxCodeIncomes, TaxComponent}
 import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
@@ -24,6 +25,8 @@ import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.{YourTaxableIncomeHelpe
 import uk.gov.hmrc.personaltaxsummary.viewmodels.WrappedDataMatchers._
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
 
 class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplication with StubApplicationConfiguration with TaiTestData {
   "IncomeTaxViewModelFactory createObject" should {
@@ -53,17 +56,18 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
       result.benefitsTotal shouldBe 1250
 
       result.taxableBenefitsData.size shouldBe 5
+      result.taxableBenefitsData.contains((Messages("tai.income.statePension.title"), MoneyPounds(100, 0).quantity, Messages("tai.iabdSummary.description-state-pension"))) shouldBe true
       result.taxableBenefitsTotal shouldBe 5400
     }
 
     "create the your taxable income view page model with investment and other income data" in {
       val result = YourTaxableIncomeViewModelFactory.createObject(Nino("CZ629113A"), bankInterestTaxSummary)
 
-      result.investmentIncomeData should containWrappedMessage("tai.iabdSummary.type-82", MoneyPounds(3000, 0).quantity, Option("tai.iabdSummary.description-82"))
-      result.investmentIncomeData should containWrappedMessage("tai.iabdSummary.type-75", MoneyPounds(5000, 0).quantity, Option("tai.iabdSummary.description-75"))
+      result.investmentIncomeData.contains((Messages("tai.iabdSummary.type-82"), MoneyPounds(3000, 0).quantity, Messages("tai.iabdSummary.description-82"))) shouldBe true
+      result.investmentIncomeData.contains((Messages("tai.iabdSummary.type-75"), MoneyPounds(5000, 0).quantity, Messages("tai.iabdSummary.description-75"))) shouldBe true
       result.investmentIncomeTotal shouldBe 28000
 
-      result.otherIncomeData should containWrappedMessage("tai.iabdSummary.type-25", MoneyPounds(800, 0).quantity, Option("tai.iabdSummary.description-25"))
+      result.otherIncomeData.contains((Messages("tai.iabdSummary.type-25"), MoneyPounds(800, 0).quantity, Messages("tai.iabdSummary.description-25"))) shouldBe true
       result.otherIncomeTotal shouldBe 3300
     }
 
@@ -156,22 +160,33 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
     }
 
     "create an Employer Benefits table given employment benefits are available" in {
-      val empBenefitsIabd = List(IabdSummary(53, "Travel and Subsistence", 100, Some(1), Some("Sainsburys")),
-        IabdSummary(29, "Car Fuel Benefit", 100, Some(1), Some("Sainsburys")),
-        IabdSummary(30, "Medical Insurance", 100, Some(1), Some("Sainsburys")))
+      val expectedUrl = "/link/to/med/benefits/service"
+      val expectedBenefit = "Medical insurance"
+      val expectedEmployer = "Sainsburys"
+
+      val links = Map(
+        "companyCarServiceUrl" -> "/link/to/company/car/service",
+        "medBenefitServiceUrl" -> expectedUrl
+      )
+
+      val empBenefitsIabd = List(IabdSummary(53, "Travel and Subsistence", 100, Some(1), Some(expectedEmployer)),
+        IabdSummary(29, "Car fuel benefit", 100, Some(1), Some(expectedEmployer)),
+        IabdSummary(30, expectedBenefit, 100, Some(1), Some(expectedEmployer)))
 
       val taxComponent = TaxComponent(300, 0, "Employer Benefits", empBenefitsIabd)
 
-      val result = YourTaxableIncomeHelper.createBenefitsTable(taxComponent)
+      val result: (List[(String, String, String, String, Option[Int], Option[Int])], BigDecimal) = YourTaxableIncomeHelper.createBenefitsTable(taxComponent, links)
 
       result._1.size shouldBe 3
       result._2 shouldBe 300
+      result._1.last._1 shouldBe s"$expectedBenefit for $expectedEmployer"
+      result._1.last._4 shouldBe expectedUrl
     }
 
     "create an Employer Benefits table given no employment benefits" in {
       val taxComponent = TaxComponent(0, 0, "Employer Benefits", List())
 
-      val result = YourTaxableIncomeHelper.createBenefitsTable(taxComponent)
+      val result = YourTaxableIncomeHelper.createBenefitsTable(taxComponent, Map.empty)
 
       result._1.size shouldBe 0
       result._2 shouldBe 0

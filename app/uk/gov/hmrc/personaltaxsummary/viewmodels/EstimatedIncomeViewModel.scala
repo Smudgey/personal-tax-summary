@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.personaltaxsummary.viewmodels
 
-import play.api.libs.json.Json
+import play.api.libs.json._
 import uk.gov.hmrc.model.{TaxBand, TaxComponent}
-import uk.gov.hmrc.personaltaxsummary.domain.MessageWrapper
+
 
 case class EstimatedIncomeViewModel(
                             increasesTax: Boolean = false,
@@ -28,9 +28,9 @@ case class EstimatedIncomeViewModel(
                             taxRelief: Boolean = false,
                             taxCodes: List[String] = List(),
                             potentialUnderpayment: Boolean = false,
-                            additionalTaxTable: List[MessageWrapper] = List(),
+                            additionalTaxTable :List[(String,String)] = List(),
                             additionalTaxTableTotal: String = "",
-                            reductionsTable: List[MessageWrapper] = List(),
+                            reductionsTable: List[(String,String,String)] = List(),
                             reductionsTableTotal: String = "",
                             graph: BandedGraph,
                             hasChanges: Boolean = false,
@@ -66,6 +66,8 @@ object BandedGraph {
 }
 
 object EstimatedIncomeViewModel {
+import TupleFormats._
+
   implicit val format = Json.format[EstimatedIncomeViewModel]
 }
 

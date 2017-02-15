@@ -23,6 +23,9 @@ import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.EstimatedIncomeViewMode
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 import WrappedDataMatchers._
+import play.api.Play.current
+import play.api.i18n.Messages
+import play.api.i18n.Messages.Implicits._
 
 class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplication with StubApplicationConfiguration with TaiTestData {
 
@@ -50,13 +53,13 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
     "have outstanding debt" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), outstandingDebtTaxSummary)
 
-      result.additionalTaxTable should containWrappedMessage("tai.taxCalc.OutstandingDebt.title", MoneyPounds(200, 2).quantity)
+      result.additionalTaxTable shouldBe List((Messages("tai.taxCalc.OutstandingDebt.title"), MoneyPounds(200, 2).quantity))
     }
 
     "have child benefit" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), everythingTaxSummary)
 
-      result.additionalTaxTable should containWrappedMessage("tai.taxCalc.childBenefit.title", MoneyPounds(1500, 2).quantity)
+      result.additionalTaxTable.contains((Messages("tai.taxCalc.childBenefit.title"), MoneyPounds(1500, 2).quantity)) shouldBe true
     }
 
     "return a zero income tax estimate message as reductions are greater than the income tax due" in {

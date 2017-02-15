@@ -27,13 +27,13 @@ case class YourTaxableIncomeViewModel(
                                        taxCodeList: List[String],
                                        increasesTax: Option[IncreasesTax] = None,
                                        employmentPension: EmploymentPension,
-                                       investmentIncomeData: List[MessageWrapper] = List(),
+                                       investmentIncomeData: List[(String, String, String)] = List(),
                                        investmentIncomeTotal: BigDecimal,
-                                       otherIncomeData: List[MessageWrapper] = List(),
+                                       otherIncomeData: List[(String, String, String)] = List(),
                                        otherIncomeTotal: BigDecimal,
                                        benefitsData: List[BenefitsDataWrapper] = List(),
                                        benefitsTotal: BigDecimal,
-                                       taxableBenefitsData: List[MessageWrapper] = List(),
+                                       taxableBenefitsData: List[(String, String, String)] = List(),
                                        taxableBenefitsTotal: BigDecimal,
                                        hasChanges: Boolean = false
                                      )
@@ -50,5 +50,7 @@ object EmploymentPension {
 }
 
 object YourTaxableIncomeViewModel {
+  import TupleFormats._
+
   implicit val format = Json.format[YourTaxableIncomeViewModel]
 }
