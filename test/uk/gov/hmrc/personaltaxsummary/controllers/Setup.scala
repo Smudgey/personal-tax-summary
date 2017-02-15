@@ -24,12 +24,13 @@ import org.mockito.{ArgumentCaptor, Matchers, Mockito}
 import org.scalatest.mock.MockitoSugar
 import play.api.libs.json.{JsValue, Json}
 import play.api.test.FakeRequest
+import play.api.test.Helpers.POST
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.personaltaxsummary.connectors.{AccountWithLowCL, AuthConnector, FailToMatchTaxIdOnAuth, NinoNotFoundOnAccount}
 import uk.gov.hmrc.personaltaxsummary.controllers.action.{AccountAccessControl, AccountAccessControlWithHeaderCheck}
-import uk.gov.hmrc.personaltaxsummary.domain.TaxSummaryContainer
-import uk.gov.hmrc.personaltaxsummary.services.TaiService
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.TaxSummaryContainerFactory
+import uk.gov.hmrc.personaltaxsummary.domain.{PersonalTaxSummaryContainer, TaxSummaryContainer}
+import uk.gov.hmrc.personaltaxsummary.services.{LiveTaiService, TaiService}
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.{EstimatedIncomeViewModelFactory, TaxSummaryContainerFactory, YourTaxableIncomeViewModelFactory}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -43,8 +44,6 @@ trait Setup extends TaiTestData with MockitoSugar {
   val auditCaptor: ArgumentCaptor[Nino] = ArgumentCaptor.forClass(classOf[Nino])
   val yearCaptor: ArgumentCaptor[Int] = ArgumentCaptor.forClass(classOf[Int])
 
-  val emptyRequest = FakeRequest()
-
   val currentYear = 2017
   val journeyId: String = UUID.randomUUID().toString
   val nino = Nino("CS700100A")
@@ -52,9 +51,18 @@ trait Setup extends TaiTestData with MockitoSugar {
 
   val someContainer: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, currentYearTaxSummary)
   val gatekeeperedContainer: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, gateKeeperUserTaxSummary)
+  val currentYearTaxSummaryContainer = PersonalTaxSummaryContainer(currentYearTaxSummary, Map.empty)
+  val estimatedIncomeViewModel = EstimatedIncomeViewModelFactory.createObject(nino, currentYearTaxSummaryContainer)
+  val yourTaxableIncomeViewModel = YourTaxableIncomeViewModelFactory.createObject(nino, currentYearTaxSummaryContainer)
 
   val lowConfidence: JsValue = Json.parse("""{"code":"LOW_CONFIDENCE_LEVEL","message":"Confidence Level on account does not allow access"}""")
   val noNinoOnAccont: JsValue = Json.parse("""{"code":"UNAUTHORIZED","message":"NINO does not exist on account"}""")
+
+  val emptyRequest = FakeRequest()
+  val personalTaxSummaryContainerRequest: FakeRequest[JsValue] = FakeRequest(POST, "/some/url").withBody(Json.toJson(currentYearTaxSummaryContainer))
+    .withHeaders("Content-Type" -> "application/json")
+  val badRequest: FakeRequest[JsValue] = FakeRequest(POST, "/some/url").withBody(Json.toJson(someContainer))
+    .withHeaders("Content-Type" -> "application/json")
 
   val accountAccessControl: AccountAccessControl = new AccountAccessControl {
     override val authConnector: AuthConnector = mockAuthConnector
@@ -62,9 +70,12 @@ trait Setup extends TaiTestData with MockitoSugar {
   val accountAccessControlWithHeaderCheck: AccountAccessControlWithHeaderCheck = new AccountAccessControlWithHeaderCheck {
     override val accessControl: AccountAccessControl = accountAccessControl
   }
-  val controller = new PersonalTaxSummaryController {
+  val personalTaxSummaryController = new PersonalTaxSummaryController {
     override val accessControl: AccountAccessControlWithHeaderCheck = accountAccessControlWithHeaderCheck
     override val service: TaiService = mockTaiService
+  }
+  val domainController = new PersonalTaxSummaryDomainController {
+    override val service: TaiService = LiveTaiService
   }
 }
 

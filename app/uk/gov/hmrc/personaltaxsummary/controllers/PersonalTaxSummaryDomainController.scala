@@ -57,8 +57,6 @@ trait PersonalTaxSummaryDomainController extends BaseController {
         Future.successful(BadRequest(Json.obj("message" -> failure)))
       },
       container => {
-// TODO: REMOVE
-println(" RESPONSE IS " + Json.toJson(func(nino)(container)))
         Future.successful(Ok(Json.toJson(func(nino)(container))))
       }
     )
