@@ -32,11 +32,11 @@ case class EstimatedIncomeViewModel(
                                      additionalTaxTableTotal: String = "",
                                      reductionsTable :List[(String,String,String)] = List(),
                                      reductionsTableTotal:String = "",
+                                     graph: BandedGraph,
                                      hasChanges:Boolean = false,
                                      ukDividends: Option[TaxComponent],
                                      taxBands: Option[List[TaxBand]],
-                                     incomeTaxReducedToZeroMessage: Option[String],
-                                     newGraph: BandedGraph = BandedGraph(id = "ID")
+                                     incomeTaxReducedToZeroMessage: Option[String]
                                    )
 
 case class BandedGraph(

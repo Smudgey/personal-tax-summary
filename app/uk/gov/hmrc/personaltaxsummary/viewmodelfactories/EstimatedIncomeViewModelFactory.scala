@@ -49,8 +49,8 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val additionalTableTotal = MoneyPounds(getTotalAdditionalTaxDue(totalLiability), 2).quantity
     val reductionsTable: List[(String, String, String)] = createReductionsTable(totalLiability, container.links)
     val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability), 2).quantity
+    val graph = createBandedGraph(details)
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
-    val newGraph = createBandedGraph(details)
 
     EstimatedIncomeViewModel(
       incTax,
@@ -64,11 +64,11 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       additionalTableTotal,
       reductionsTable,
       reductionsTableTotal,
+      graph,
       TaxSummaryHelper.cyPlusOneAvailable(details),
       dividends,
       None,
-      None,
-      newGraph
+      None
     )
   }
 
