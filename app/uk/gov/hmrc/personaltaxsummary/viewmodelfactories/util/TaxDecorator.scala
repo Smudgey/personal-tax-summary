@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/*
 package uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util
 
 import play.api.Play.current
@@ -358,3 +359,4 @@ class TaxBandDecorator(startTax:Tax, maxDisplayValueIsIncome:Boolean=false, paAm
     calcPercentage(totalIncome)
   }
 }
+*/

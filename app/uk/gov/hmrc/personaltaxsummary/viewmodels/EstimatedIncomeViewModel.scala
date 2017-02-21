@@ -21,36 +21,36 @@ import uk.gov.hmrc.model.{TaxBand, TaxComponent}
 
 
 case class EstimatedIncomeViewModel(
-                            increasesTax: Boolean = false,
-                            incomeTaxEstimate: BigDecimal = 0,
-                            incomeEstimate: BigDecimal = 0,
-                            taxFreeEstimate: BigDecimal = 0,
-                            taxRelief: Boolean = false,
-                            taxCodes: List[String] = List(),
-                            potentialUnderpayment: Boolean = false,
-                            additionalTaxTable :List[(String,String)] = List(),
-                            additionalTaxTableTotal: String = "",
-                            reductionsTable: List[(String,String,String)] = List(),
-                            reductionsTableTotal: String = "",
-                            graph: BandedGraph,
-                            hasChanges: Boolean = false,
-                            ukDividends: Option[TaxComponent],
-                            taxBands: Option[List[TaxBand]],
-                            incomeTaxReducedToZeroMessage: Option[String]
-                          )
+                                     increasesTax: Boolean = false,
+                                     incomeTaxEstimate: BigDecimal = 0,
+                                     incomeEstimate: BigDecimal = 0,
+                                     taxFreeEstimate: BigDecimal = 0,
+                                     taxRelief: Boolean = false,
+                                     taxCodes: List[String] = List(),
+                                     potentialUnderpayment:Boolean = false,
+                                     additionalTaxTable :List[(String,String)] = List(),
+                                     additionalTaxTableTotal: String = "",
+                                     reductionsTable :List[(String,String,String)] = List(),
+                                     reductionsTableTotal:String = "",
+                                     hasChanges:Boolean = false,
+                                     ukDividends: Option[TaxComponent],
+                                     taxBands: Option[List[TaxBand]],
+                                     incomeTaxReducedToZeroMessage: Option[String],
+                                     newGraph: BandedGraph = BandedGraph(id = "ID")
+                                   )
 
 case class BandedGraph(
-                        id: String,
-                        bands: List[Band] = List(),
-                        minBand: BigDecimal = 0,
-                        nextBand: BigDecimal = 0,
-                        incomeTotal: BigDecimal = 0,
-                        incomeAsPercentage: BigDecimal = 0,
-                        taxTotal: BigDecimal = 0
+                        id:String,
+                        bands:List[Band] = List(),
+                        minBand :BigDecimal =0,
+                        nextBand :BigDecimal = 0,
+                        incomeTotal:BigDecimal = 0,
+                        incomeAsPercentage: BigDecimal =0,
+                        taxTotal:BigDecimal =0
                       )
 
 case class Band(
-                 colour: String,
+                 colour:String,
                  barPercentage: BigDecimal = 0,
                  tablePercentage: String = "0",
                  income: BigDecimal = 0,

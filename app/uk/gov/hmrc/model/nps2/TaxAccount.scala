@@ -43,8 +43,9 @@ case class TaxAccount (
                          */
                         tax: BigDecimal,
 
-                        incomes: Seq[Income] = Nil
+                        taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map.empty,
 
+                        incomes: Seq[Income] = Nil
                         ) {
   def withEmployments(emps: Seq[NpsEmployment]): TaxAccount = {
     val newIncomes = incomes.map{ i =>

@@ -18,6 +18,9 @@ package uk.gov.hmrc.personaltaxsummary.viewmodels
 
 import data.TaiTestData
 import uk.gov.hmrc.domain.Nino
+import uk.gov.hmrc.model.nps2
+import uk.gov.hmrc.model.nps2.{TaxAccount, TaxDetail, TaxObject}
+import uk.gov.hmrc.model.tai.{AnnualAccount, TaxYear}
 import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
 import uk.gov.hmrc.personaltaxsummary.domain.TaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.TaxSummaryContainerFactory
@@ -28,6 +31,12 @@ class TaxSummaryContainerFactorySpec extends UnitSpec with WithFakeApplication w
   val nino = Nino("KM569110B")
 
   "TaxSummaryContainerFactory createObject" should {
+
+    val annualAccounts = List(AnnualAccount(TaxYear(2016), Some(TaxAccount(None,None,1564.45,
+      Map(TaxObject.Type.NonSavings -> TaxDetail(Some(1111.11),Some(9969),None,
+        Some(Seq(nps2.TaxBand(Some("pa"),None,2290,0,None,None,0),
+          nps2.TaxBand(Some("B"),None,9969,1993.80,Some(0),Some(33125),20.00)))))))))
+
     "populate the base view model given a NINO and tax summary" in {
       val result: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, currentYearTaxSummary)
 
@@ -35,7 +44,7 @@ class TaxSummaryContainerFactorySpec extends UnitSpec with WithFakeApplication w
     }
 
     "populate estimated income wrapper" in {
-      val result: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, nonCodedTaxSummary)
+      val result: TaxSummaryContainer = TaxSummaryContainerFactory.createObject(nino, nonCodedTaxSummary.copy(accounts = annualAccounts))
 
       result.estimatedIncomeWrapper.map(_.estimatedIncome.incomeEstimate) shouldBe Some(62219)
     }
