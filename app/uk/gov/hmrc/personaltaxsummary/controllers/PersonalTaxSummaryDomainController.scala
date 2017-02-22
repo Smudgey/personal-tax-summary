@@ -21,23 +21,20 @@ import play.api.mvc.{Action, BodyParsers, Result}
 import play.api.{Logger, mvc}
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
-import uk.gov.hmrc.personaltaxsummary.services.{LiveTaiService, TaiService}
-import uk.gov.hmrc.personaltaxsummary.viewmodels.TupleFormats
+import uk.gov.hmrc.personaltaxsummary.services.PersonalTaxSummaryDomainFactory
 import uk.gov.hmrc.play.microservice.controller.BaseController
-import TupleFormats._
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 trait PersonalTaxSummaryDomainController extends BaseController {
 
-  val service: TaiService
+  val domain: PersonalTaxSummaryDomainFactory
 
   final def buildEstimatedIncome(nino: Nino, journeyId: Option[String] = None) = Action.async(BodyParsers.parse.json) {
     implicit request =>
 
       buildDomain(nino,request) {
-        nino => container => service.buildEstimatedIncome(nino, container)
+        nino => container => domain.buildEstimatedIncome(nino, container)
       }
   }
 
@@ -45,7 +42,7 @@ trait PersonalTaxSummaryDomainController extends BaseController {
     implicit request =>
 
       buildDomain(nino,request) {
-        nino => container =>  service.buildYourTaxableIncome(nino, container)
+        nino => container =>  domain.buildYourTaxableIncome(nino, container)
       }
   }
 
@@ -65,5 +62,5 @@ trait PersonalTaxSummaryDomainController extends BaseController {
 }
 
 object PersonalTaxSummaryDomainController extends PersonalTaxSummaryDomainController {
-  override val service: TaiService = LiveTaiService
+  override val domain = PersonalTaxSummaryDomainFactory
 }
