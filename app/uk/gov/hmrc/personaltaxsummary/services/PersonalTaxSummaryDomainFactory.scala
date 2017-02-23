@@ -17,18 +17,18 @@
 package uk.gov.hmrc.personaltaxsummary.services
 
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
+import uk.gov.hmrc.model.TaxSummaryDetails
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.{EstimatedIncomeViewModelFactory, YourTaxableIncomeViewModelFactory}
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{EstimatedIncomeViewModel, YourTaxableIncomeViewModel}
 
 trait PersonalTaxSummaryDomainFactory {
 
-  def buildEstimatedIncome(nino: Nino, container: PersonalTaxSummaryContainer): EstimatedIncomeViewModel = {
-    EstimatedIncomeViewModelFactory.createObject(nino, container)
+  def buildEstimatedIncome(nino: Nino, taxSummaryDetails: TaxSummaryDetails): EstimatedIncomeViewModel = {
+    EstimatedIncomeViewModelFactory.createObject(nino, taxSummaryDetails)
   }
 
-  def buildYourTaxableIncome(nino: Nino, container: PersonalTaxSummaryContainer): YourTaxableIncomeViewModel = {
-    YourTaxableIncomeViewModelFactory.createObject(nino, container)
+  def buildYourTaxableIncome(nino: Nino, taxSummaryDetails: TaxSummaryDetails): YourTaxableIncomeViewModel = {
+    YourTaxableIncomeViewModelFactory.createObject(nino, taxSummaryDetails)
   }
 }
 

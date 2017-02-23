@@ -42,12 +42,12 @@ trait Setup extends TaiTestData with MockitoSugar {
     .withHeaders("Content-Type" -> "application/json")
 
 
-  val currentYearTaxSummaryContainer = PersonalTaxSummaryContainer(currentYearTaxSummary, Map.empty)
-  val estimatedIncomeViewModel = EstimatedIncomeViewModelFactory.createObject(nino, currentYearTaxSummaryContainer)
-  val yourTaxableIncomeViewModel = YourTaxableIncomeViewModelFactory.createObject(nino, currentYearTaxSummaryContainer)
+
+  val estimatedIncomeViewModel = EstimatedIncomeViewModelFactory.createObject(nino, currentYearTaxSummary)
+  val yourTaxableIncomeViewModel = YourTaxableIncomeViewModelFactory.createObject(nino, currentYearTaxSummary)
 
   val emptyRequest = FakeRequest()
-  val personalTaxSummaryContainerRequest: FakeRequest[JsValue] = FakeRequest(POST, "/some/url").withBody(Json.toJson(currentYearTaxSummaryContainer))
+  val taxSummaryDetailsRequest: FakeRequest[JsValue] = FakeRequest(POST, "/some/url").withBody(Json.toJson(currentYearTaxSummary))
     .withHeaders("Content-Type" -> "application/json")
 
 

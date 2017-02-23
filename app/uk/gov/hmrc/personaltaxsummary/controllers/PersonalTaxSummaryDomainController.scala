@@ -20,7 +20,7 @@ import play.api.libs.json._
 import play.api.mvc.{Action, BodyParsers, Result}
 import play.api.{Logger, mvc}
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
+import uk.gov.hmrc.model.TaxSummaryDetails
 import uk.gov.hmrc.personaltaxsummary.services.PersonalTaxSummaryDomainFactory
 import uk.gov.hmrc.play.microservice.controller.BaseController
 
@@ -34,7 +34,7 @@ trait PersonalTaxSummaryDomainController extends BaseController {
     implicit request =>
 
       buildDomain(nino,request) {
-        nino => container => domain.buildEstimatedIncome(nino, container)
+        nino => taxSummaryDetails => domain.buildEstimatedIncome(nino, taxSummaryDetails)
       }
   }
 
@@ -42,19 +42,19 @@ trait PersonalTaxSummaryDomainController extends BaseController {
     implicit request =>
 
       buildDomain(nino,request) {
-        nino => container =>  domain.buildYourTaxableIncome(nino, container)
+        nino => taxSummaryDetails =>  domain.buildYourTaxableIncome(nino, taxSummaryDetails)
       }
   }
 
-  def buildDomain[T](nino:Nino,request:mvc.Request[JsValue])(func: => Nino => PersonalTaxSummaryContainer => T)(implicit tjs: Writes[T]) : Future[Result] = {
-    request.body.validate[PersonalTaxSummaryContainer].fold(
+  def buildDomain[T](nino:Nino,request:mvc.Request[JsValue])(func: => Nino => TaxSummaryDetails => T)(implicit tjs: Writes[T]) : Future[Result] = {
+    request.body.validate[TaxSummaryDetails].fold(
       errors => {
         val failure = JsError.toJson(errors)
         Logger.warn("Received error with parsing container: " + failure)
         Future.successful(BadRequest(Json.obj("message" -> failure)))
       },
-      container => {
-        Future.successful(Ok(Json.toJson(func(nino)(container))))
+      taxSummaryDetails => {
+        Future.successful(Ok(Json.toJson(func(nino)(taxSummaryDetails))))
       }
     )
   }
