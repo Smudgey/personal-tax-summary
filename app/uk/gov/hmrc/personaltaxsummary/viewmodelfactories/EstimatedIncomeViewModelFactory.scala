@@ -79,23 +79,27 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     taxBands.flatten
   }
 
-  def mergedBands(taxBands: List[TaxBand]): List[Band] = {
-    val groupRates = for (elem <- taxBands.groupBy(_.rate)) yield {
-      Band("Band2", calcBarPercentage(elem._2.map(_.income).sum, taxBands) ,
-        elem._2.map(_.rate).head.toString,
-        elem._2.map(_.income).sum,
-        elem._2.map(_.tax).sum)
-    }
-    groupRates.toList
+  def mergedBands(taxBands: List[TaxBand]): Band = {
+      Band("Band",calcBarPercentage(taxBands.map(_.income).sum,taxBands),
+        if(taxBands.size > 1) "Check in more detail" else taxBands.map(_.rate).head.toString(),
+        taxBands.map(_.income).sum,
+        taxBands.map(_.tax).sum)
   }
 
   def getUpperBand(taxBands: List[TaxBand]): BigDecimal = {
     val lstBand = taxBands.last
+    val income = taxBands.map(_.income).sum
     val upperBand: BigDecimal = {
-      if (lstBand.rate == 45) lstBand.lowerBand
-      else lstBand.upperBand
+      if (lstBand.rate == 45) {
+        lstBand.lowerBand
+      }
+      else {
+        lstBand.upperBand
+      }
     }.getOrElse(150000)
-    upperBand
+
+    if (income > upperBand) income
+    else upperBand
   }
 
   def calcBarPercentage(incomeBand: BigDecimal, taxBands: List[TaxBand]): BigDecimal = {
@@ -110,12 +114,19 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   def createBandedGraph(details: TaxSummaryDetails): BandedGraph = {
     val taxbands: List[TaxBand] = retrieveTaxBands(details)
     val zeroRateBands: List[Band] = individualBands(taxbands)
-    val otherRateBands: List[Band] = mergedBands(taxbands.filter(_.rate != 0))
+    val otherRateBands: Band = mergedBands(taxbands.filter(_.rate != 0))
 
-    val allBands = zeroRateBands ++ otherRateBands
+    val allBands = zeroRateBands :+ otherRateBands
 
-    BandedGraph("taxGraph", allBands, 0, getUpperBand(taxbands),
-      allBands.map(_.income).sum, allBands.map(_.barPercentage).sum, allBands.map(_.tax).sum)
+    BandedGraph("taxGraph",
+      allBands,
+      0,
+      getUpperBand(taxbands),
+      allBands.map(_.income).sum,
+      zeroRateBands.map(_.barPercentage).sum,
+      zeroRateBands.map(_.income).sum,
+      allBands.map(_.barPercentage).sum,
+      allBands.map(_.tax).sum)
   }
 
   private def fetchTaxCodeList(emps: Option[List[Employments]]): List[String] = {

@@ -45,6 +45,8 @@ case class BandedGraph(
                         minBand :BigDecimal =0,
                         nextBand :BigDecimal = 0,
                         incomeTotal:BigDecimal = 0,
+                        zeroIncomeAsPercentage: BigDecimal =0,
+                        zeroIncomeTotal: BigDecimal =0,
                         incomeAsPercentage: BigDecimal =0,
                         taxTotal:BigDecimal =0
                       )
