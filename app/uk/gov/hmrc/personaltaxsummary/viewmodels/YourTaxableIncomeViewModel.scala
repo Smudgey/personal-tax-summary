@@ -50,7 +50,7 @@ object EmploymentPension {
 }
 
 object YourTaxableIncomeViewModel {
-  import TupleFormats._
 
+  import TupleFormats._
   implicit val format = Json.format[YourTaxableIncomeViewModel]
 }

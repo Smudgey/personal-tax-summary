@@ -370,6 +370,7 @@ object CYPlusOneChange {
   implicit val formats: Format[CYPlusOneChange] = Json.format[CYPlusOneChange]
 }
 
+
 case class TaxSummaryDetails(nino: String,
                              version: Int,
                              increasesTax: Option[IncreasesTax] = None,
