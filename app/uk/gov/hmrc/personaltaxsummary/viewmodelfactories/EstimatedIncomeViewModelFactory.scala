@@ -79,18 +79,25 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     taxBands.flatten
   }
 
-  def mergedBands(taxBands: List[TaxBand]): Band = {
-      Band("Band",calcBarPercentage(taxBands.map(_.income).sum,taxBands),
-        if(taxBands.size > 1) "Check in more detail" else taxBands.map(_.rate).head.toString(),
-        taxBands.map(_.income).sum,
-        taxBands.map(_.tax).sum)
+  def mergedBands(taxBands: List[TaxBand]): Option[Band] = {
+    val otherThanZeroBand = taxBands.filter(_.rate != 0)
+
+    if(otherThanZeroBand.nonEmpty ){
+      Some(Band("Band", calcBarPercentage(otherThanZeroBand.map(_.income).sum, taxBands),
+        if (otherThanZeroBand.size > 1) "Check in more detail" else otherThanZeroBand.map(_.rate).head.toString(),
+        otherThanZeroBand.map(_.income).sum,
+        otherThanZeroBand.map(_.tax).sum))
+    }
+    else {
+      None
+    }
   }
 
   def getUpperBand(taxBands: List[TaxBand]): BigDecimal = {
     val lstBand = taxBands.last
     val income = taxBands.map(_.income).sum
     val upperBand: BigDecimal = {
-      if (lstBand.rate == 45) {
+      if (lstBand.upperBand.contains(0)) {
         lstBand.lowerBand
       }
       else {
@@ -114,9 +121,12 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   def createBandedGraph(details: TaxSummaryDetails): BandedGraph = {
     val taxbands: List[TaxBand] = retrieveTaxBands(details)
     val zeroRateBands: List[Band] = individualBands(taxbands)
-    val otherRateBands: Band = mergedBands(taxbands.filter(_.rate != 0))
+    val otherRateBands: Option[Band] = mergedBands(taxbands)
 
-    val allBands = zeroRateBands :+ otherRateBands
+    val allBands = otherRateBands match {
+        case Some(band) => zeroRateBands :+ band
+        case _ => zeroRateBands
+      }
 
     BandedGraph("taxGraph",
       allBands,
