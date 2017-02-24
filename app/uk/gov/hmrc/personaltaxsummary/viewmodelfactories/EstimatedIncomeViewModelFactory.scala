@@ -72,21 +72,14 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     )
   }
 
-  private def retrieveTaxBands(details: TaxSummaryDetails): List[TaxBand] = {
-    val taxObjects = details.currentYearAccounts.flatMap(_.nps).map(_.taxObjects)
-    val seqBands = taxObjects.map(_.values.toList).getOrElse(Nil)
-    val taxBands = seqBands.flatMap(_.taxBands)
-    taxBands.flatten
-  }
-
   def mergedBands(taxBands: List[TaxBand]): Option[Band] = {
     val otherThanZeroBand = taxBands.filter(_.rate != 0)
 
-    if(otherThanZeroBand.nonEmpty ){
+    if (otherThanZeroBand.nonEmpty) {
       Some(Band("Band", calcBarPercentage(otherThanZeroBand.map(_.income).sum, taxBands),
         if (otherThanZeroBand.size > 1) "Check in more detail" else otherThanZeroBand.map(_.rate).head.toString(),
         otherThanZeroBand.map(_.income).sum,
-        otherThanZeroBand.map(_.tax).sum ,
+        otherThanZeroBand.map(_.tax).sum,
         if (otherThanZeroBand.size > 1) "TaxedIncome" else otherThanZeroBand.map(_.bandType).head.getOrElse("NA"))
       )
     }
@@ -126,9 +119,9 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val otherRateBands: Option[Band] = mergedBands(taxbands)
 
     val allBands = otherRateBands match {
-        case Some(band) => zeroRateBands :+ band
-        case _ => zeroRateBands
-      }
+      case Some(band) => zeroRateBands :+ band
+      case _ => zeroRateBands
+    }
 
     BandedGraph("taxGraph",
       allBands,
@@ -139,6 +132,17 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       zeroRateBands.map(_.income).sum,
       allBands.map(_.barPercentage).sum,
       allBands.map(_.tax).sum)
+  }
+
+  override def createObject(nino: Nino, details: TaxSummaryDetails): EstimatedIncomeViewModel = {
+    createObject(nino, PersonalTaxSummaryContainer(details, Map.empty))
+  }
+
+  private def retrieveTaxBands(details: TaxSummaryDetails): List[TaxBand] = {
+    val taxObjects = details.currentYearAccounts.flatMap(_.nps).map(_.taxObjects)
+    val seqBands = taxObjects.map(_.values.toList).getOrElse(Nil)
+    val taxBands = seqBands.flatMap(_.taxBands)
+    taxBands.flatten
   }
 
   private def fetchTaxCodeList(emps: Option[List[Employments]]): List[String] = {
@@ -160,7 +164,6 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       case _ => false
     }
   }
-
 
   private def createAdditionalTable(totalLiability: TotalLiability): List[(String, String)] = {
     val underPayment = fetchTaxTitleAndAmount(totalLiability.underpaymentPreviousYear, "tai.taxCalc.UnderpaymentPreviousYear.title")
@@ -220,7 +223,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val maValue = fetchMarriageAllowanceAmount(maNet, maGross, links.getOrElse("marriageAllowance", ""))
     val mp = totalLiability.liabilityReductions.flatMap(_.maintenancePayments.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0))
     val mpCoding = totalLiability.liabilityReductions.flatMap(_.maintenancePayments.map(_.codingAmount)).getOrElse(BigDecimal(0))
-    val maint = fetchMaintenancePayments(mp, mpCoding, links.getOrElse("maintenancePayments",""))
+    val maint = fetchMaintenancePayments(mp, mpCoding, links.getOrElse("maintenancePayments", ""))
 
     val enterpriseInvestmentScheme = totalLiability.liabilityReductions.flatMap(_.enterpriseInvestmentSchemeRelief.map(
       _.amountInTermsOfTax)).getOrElse(BigDecimal(0))
@@ -313,7 +316,6 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-
   private def getTotalReductions(totalLiability: TotalLiability) = {
 
     totalLiability.taxOnBankBSInterest.getOrElse(BigDecimal(0)) +
@@ -328,11 +330,4 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       totalLiability.liabilityReductions.flatMap(_.doubleTaxationRelief.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0))
   }
 
-  private def getActualPA(decreasesTax: Option[DecreasesTax]): BigDecimal = {
-    decreasesTax.map(_.personalAllowance.getOrElse(BigDecimal(0))).getOrElse(BigDecimal(0))
-  }
-
-  override def createObject(nino: Nino, details: TaxSummaryDetails): EstimatedIncomeViewModel = {
-    createObject(nino, PersonalTaxSummaryContainer(details, Map.empty))
-  }
 }
