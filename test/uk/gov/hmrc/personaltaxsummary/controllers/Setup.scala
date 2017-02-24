@@ -28,6 +28,7 @@ import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.personaltaxsummary.domain.{PersonalTaxSummaryContainer, TaxSummaryContainer}
 import uk.gov.hmrc.personaltaxsummary.services.PersonalTaxSummaryDomainFactory
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.{EstimatedIncomeViewModelFactory, TaxSummaryContainerFactory, YourTaxableIncomeViewModelFactory}
+import uk.gov.hmrc.personaltaxsummary.viewmodels.{EstimatedIncomeViewModel, YourTaxableIncomeViewModel}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 trait Setup extends TaiTestData with MockitoSugar {
@@ -41,15 +42,14 @@ trait Setup extends TaiTestData with MockitoSugar {
   val badRequest: FakeRequest[JsValue] = FakeRequest(POST, "/some/url").withBody(Json.toJson(someContainer))
     .withHeaders("Content-Type" -> "application/json")
 
+  val currentYearTaxSummaryContainer = PersonalTaxSummaryContainer(currentYearTaxSummary, Map.empty)
+  val estimatedIncomeViewModel: EstimatedIncomeViewModel = EstimatedIncomeViewModelFactory.createObject(nino, currentYearTaxSummary)
+  val yourTaxableIncomeViewModel: YourTaxableIncomeViewModel = YourTaxableIncomeViewModelFactory.createObject(nino, currentYearTaxSummary)
 
-
-  val estimatedIncomeViewModel = EstimatedIncomeViewModelFactory.createObject(nino, currentYearTaxSummary)
-  val yourTaxableIncomeViewModel = YourTaxableIncomeViewModelFactory.createObject(nino, currentYearTaxSummary)
-
-  val emptyRequest = FakeRequest()
-  val taxSummaryDetailsRequest: FakeRequest[JsValue] = FakeRequest(POST, "/some/url").withBody(Json.toJson(currentYearTaxSummary))
+  val personalTaxSummaryContainerRequest: FakeRequest[JsValue] = FakeRequest(POST, "/some/url").withBody(Json.toJson(currentYearTaxSummaryContainer))
     .withHeaders("Content-Type" -> "application/json")
 
+  val emptyRequest = FakeRequest()
 
   val domainController = new PersonalTaxSummaryDomainController {
     override val domain: PersonalTaxSummaryDomainFactory = PersonalTaxSummaryDomainFactory

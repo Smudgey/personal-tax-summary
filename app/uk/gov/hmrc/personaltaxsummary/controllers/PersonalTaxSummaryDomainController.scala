@@ -20,7 +20,7 @@ import play.api.libs.json._
 import play.api.mvc.{Action, BodyParsers, Result}
 import play.api.{Logger, mvc}
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.model.TaxSummaryDetails
+import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.services.PersonalTaxSummaryDomainFactory
 import uk.gov.hmrc.play.microservice.controller.BaseController
 
@@ -46,8 +46,8 @@ trait PersonalTaxSummaryDomainController extends BaseController {
       }
   }
 
-  def buildDomain[T](nino:Nino,request:mvc.Request[JsValue])(func: => Nino => TaxSummaryDetails => T)(implicit tjs: Writes[T]) : Future[Result] = {
-    request.body.validate[TaxSummaryDetails].fold(
+  def buildDomain[T](nino:Nino,request:mvc.Request[JsValue])(func: => Nino => PersonalTaxSummaryContainer => T)(implicit tjs: Writes[T]) : Future[Result] = {
+    request.body.validate[PersonalTaxSummaryContainer].fold(
       errors => {
         val failure = JsError.toJson(errors)
         Logger.warn("Received error with parsing container: " + failure)
