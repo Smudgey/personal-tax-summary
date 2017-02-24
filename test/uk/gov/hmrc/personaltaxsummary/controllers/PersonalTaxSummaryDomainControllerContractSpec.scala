@@ -24,12 +24,12 @@ import play.api.test.Helpers.contentAsJson
 import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
-class PersonalTaxSummaryDomainControllerSpec  extends UnitSpec with WithFakeApplication with ScalaFutures with StubApplicationConfiguration {
+class PersonalTaxSummaryDomainControllerContractSpec  extends UnitSpec with WithFakeApplication with ScalaFutures with StubApplicationConfiguration {
 
   override lazy val fakeApplication = FakeApplication(additionalConfiguration = config)
 
   "buildEstimatedIncome Live" should {
-    "return an EstimatedIncomeViewModel" in new Success {
+    "return an EstimatedIncomeViewModel" in new Setup {
 
       val result: Result = await(domainController.buildEstimatedIncome(nino)(personalTaxSummaryContainerRequest))
 
@@ -37,23 +37,23 @@ class PersonalTaxSummaryDomainControllerSpec  extends UnitSpec with WithFakeAppl
       contentAsJson(result) shouldBe Json.toJson(estimatedIncomeViewModel)
     }
 
-    "return BadRequest given an invalid request" in new Success {
-      val result: Result = await(domainController.buildEstimatedIncome(nino)(badRequest))
+    "return BadRequest given an invalid request" in new Setup  {
+      val result: Result = await(domainController.buildEstimatedIncome(nino, Some(journeyId))(badRequest))
 
       status(result) shouldBe 400
     }
   }
 
   "buildYourTaxableIncome Live" should {
-    "return a YourTaxableIncomeViewModel" in new Success {
+    "return a YourTaxableIncomeViewModel" in new Setup {
 
-      val result: Result = await(domainController.buildYourTaxableIncome(nino)(personalTaxSummaryContainerRequest))
+      val result: Result = await(domainController.buildYourTaxableIncome(nino, Some(journeyId))(personalTaxSummaryContainerRequest))
 
       status(result) shouldBe 200
       contentAsJson(result) shouldBe Json.toJson(yourTaxableIncomeViewModel)
     }
 
-    "return BadRequest given an invalid request" in new Success {
+    "return BadRequest given an invalid request" in new Setup {
       val result: Result = await(domainController.buildYourTaxableIncome(nino)(badRequest))
 
       status(result) shouldBe 400
