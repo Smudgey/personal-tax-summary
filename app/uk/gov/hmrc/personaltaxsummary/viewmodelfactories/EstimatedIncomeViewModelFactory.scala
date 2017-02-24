@@ -86,7 +86,9 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       Some(Band("Band", calcBarPercentage(otherThanZeroBand.map(_.income).sum, taxBands),
         if (otherThanZeroBand.size > 1) "Check in more detail" else otherThanZeroBand.map(_.rate).head.toString(),
         otherThanZeroBand.map(_.income).sum,
-        otherThanZeroBand.map(_.tax).sum))
+        otherThanZeroBand.map(_.tax).sum ,
+        if (otherThanZeroBand.size > 1) "TaxedIncome" else otherThanZeroBand.map(_.bandType).head.getOrElse("NA"))
+      )
     }
     else {
       None
@@ -116,7 +118,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
   def individualBands(taxBands: List[TaxBand]): List[Band] =
     for (taxBand <- taxBands.filter(_.rate == 0)) yield Band("TaxFree", calcBarPercentage(taxBand.income, taxBands),
-      "0", taxBand.income, taxBand.tax)
+      "0", taxBand.income, taxBand.tax, taxBand.bandType.getOrElse("NA"))
 
   def createBandedGraph(details: TaxSummaryDetails): BandedGraph = {
     val taxbands: List[TaxBand] = retrieveTaxBands(details)

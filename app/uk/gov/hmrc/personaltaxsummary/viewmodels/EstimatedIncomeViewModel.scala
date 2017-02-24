@@ -56,7 +56,8 @@ case class Band(
                  barPercentage: BigDecimal = 0,
                  tablePercentage: String = "0",
                  income: BigDecimal = 0,
-                 tax: BigDecimal = 0
+                 tax: BigDecimal = 0,
+                 bandType: String
                )
 
 object Band {
