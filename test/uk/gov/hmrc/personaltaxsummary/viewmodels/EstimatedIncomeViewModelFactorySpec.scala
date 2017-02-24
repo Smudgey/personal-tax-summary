@@ -98,7 +98,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         TaxBand(None, None, income = 2000, tax = 0, lowerBand = None, upperBand = Some(5000), rate = 0))
 
       val dataF = EstimatedIncomeViewModelFactory.individualBands(taxBand)
-      dataF shouldBe List(Band("TaxFree", 20, "0", 1000, 0, "NA"), Band("TaxFree", 40, "0", 2000, 0, "NA"))
+      dataF shouldBe List(Band("TaxFree", 20, "0%", 1000, 0, "NA"), Band("TaxFree", 40, "0%", 2000, 0, "NA"))
     }
   }
 
@@ -111,8 +111,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 10, "0", 3200, 0, "pa"),
-        Band("Band", 50, "20", 16000, 5000, "B")
+        Band("TaxFree", 10, "0%", 3200, 0, "pa"),
+        Band("Band", 50, "20%", 16000, 5000, "B")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -136,7 +136,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 2, "0", 3000, 0, "pa"),
+        Band("TaxFree", 2, "0%", 3000, 0, "pa"),
         Band("Band", 30, "Check in more detail", 45000, 15000, "TaxedIncome")
       )
 
@@ -162,7 +162,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 2.5, "0", 5000, 0, "pa"),
+        Band("TaxFree", 2.5, "0%", 5000, 0, "pa"),
         Band("Band", 97.5, "Check in more detail", 195000, 65250, "TaxedIncome")
       )
 
@@ -211,9 +211,9 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 34.375, "0", 11000, 0, "pa"),
-        Band("TaxFree", 9.375, "0", 3000, 0, "SR"),
-        Band("Band", 46.875, "20", 15000, 3000, "D0")
+        Band("TaxFree", 34.375, "0%", 11000, 0, "pa"),
+        Band("TaxFree", 9.375, "0%", 3000, 0, "SR"),
+        Band("Band", 46.875, "20%", 15000, 3000, "D0")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -238,8 +238,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 20, "0", 10000, 0, "pa"),
-        Band("TaxFree", 20, "0", 10000, 0, "SR"),
+        Band("TaxFree", 20, "0%", 10000, 0, "pa"),
+        Band("TaxFree", 20, "0%", 10000, 0, "SR"),
         Band("Band", 40, "Check in more detail", 20000, 6000, "TaxedIncome")
       )
 
@@ -264,9 +264,9 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 34.375, "0", 11000, 0, "pa"),
-        Band("TaxFree", 9.375, "0", 3000, 0, "SR"),
-        Band("Band", 46.875, "7.5", 15000, 2000, "SDR")
+        Band("TaxFree", 34.375, "0%", 11000, 0, "pa"),
+        Band("TaxFree", 9.375, "0%", 3000, 0, "SR"),
+        Band("Band", 46.875, "7.5%", 15000, 2000, "SDR")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -290,9 +290,9 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 34.375, "0", 11000, 0, "pa"),
-        Band("TaxFree", 9.375, "0", 3000, 0, "SR"),
-        Band("TaxFree", 46.875, "0", 15000, 0, "SDR")
+        Band("TaxFree", 34.375, "0%", 11000, 0, "pa"),
+        Band("TaxFree", 9.375, "0%", 3000, 0, "SR"),
+        Band("TaxFree", 46.875, "0%", 15000, 0, "SDR")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -317,8 +317,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 20, "0", 10000, 0, "pa"),
-        Band("TaxFree", 20, "0", 10000, 0, "SR"),
+        Band("TaxFree", 20, "0%", 10000, 0, "pa"),
+        Band("TaxFree", 20, "0%", 10000, 0, "SR"),
         Band("Band", 40, "Check in more detail", 20000, 3750, "TaxedIncome")
       )
 
@@ -345,8 +345,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 10, "0", 10000, 0, "pa"),
-        Band("TaxFree", 10, "0", 10000, 0, "SR"),
+        Band("TaxFree", 10, "0%", 10000, 0, "pa"),
+        Band("TaxFree", 10, "0%", 10000, 0, "SR"),
         Band("Band", 40, "Check in more detail", 40000, 6750, "TaxedIncome")
       )
 
@@ -374,8 +374,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 5, "0", 10000, 0, "pa"),
-        Band("TaxFree", 5, "0", 10000, 0, "SR"),
+        Band("TaxFree", 5, "0%", 10000, 0, "pa"),
+        Band("TaxFree", 5, "0%", 10000, 0, "SR"),
         Band("Band", 50, "Check in more detail", 100000, 9750, "TaxedIncome")
       )
 
