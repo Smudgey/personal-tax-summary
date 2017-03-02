@@ -100,7 +100,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       case bands =>
         val lstBand = bands.last
         val income = taxBands.map(_.income).sum
-        val zeroBandSum = taxBands.filter(_.rate == 0).filter(_.bandType == "pa").map(_.income).sum
+        val zeroBandSum = taxBands.filter(_.rate == 0).filter(_.bandType.contains("pa")).map(_.income).sum
         val upperBand: BigDecimal = {
           if (lstBand.upperBand.contains(0)) {
             lstBand.lowerBand.map(lBand => lBand + zeroBandSum)
