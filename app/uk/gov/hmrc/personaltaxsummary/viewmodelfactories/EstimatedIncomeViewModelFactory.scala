@@ -21,6 +21,7 @@ import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.nps2.TaxBand
+import uk.gov.hmrc.model.tai.TaxYear
 import uk.gov.hmrc.model.{Employments, TaxSummaryDetails, TotalLiability}
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
@@ -51,6 +52,10 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability), 2).quantity
     val graph = createBandedGraph(details)
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
+    val nextYearTaxTotal = {
+      val taxObjects = details.accounts.filter(_.year == TaxYear().next).flatMap(_.nps).map(_.taxObjects)
+      taxObjects.flatMap(_.values).flatMap(_.totalTax).sum
+    }
 
     EstimatedIncomeViewModel(
       incTax,
@@ -68,7 +73,8 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       TaxSummaryHelper.cyPlusOneAvailable(details),
       dividends,
       None,
-      None
+      None,
+      nextYearTaxTotal
     )
   }
 
@@ -89,19 +95,24 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   }
 
   def getUpperBand(taxBands: List[TaxBand]): BigDecimal = {
-    val lstBand = taxBands.last
-    val income = taxBands.map(_.income).sum
-    val upperBand: BigDecimal = {
-      if (lstBand.upperBand.contains(0)) {
-        lstBand.lowerBand
-      }
-      else {
-        lstBand.upperBand
-      }
-    }.getOrElse(150000)
+    taxBands match {
+      case Nil => BigDecimal(1) //TODO remove this in refactoring
+      case bands =>
+        val lstBand = bands.last
+        val income = taxBands.map(_.income).sum
+        val zeroBandSum = taxBands.filter(_.rate == 0).filter(_.bandType == "pa").map(_.income).sum
+        val upperBand: BigDecimal = {
+          if (lstBand.upperBand.contains(0)) {
+            lstBand.lowerBand.map(lBand => lBand + zeroBandSum)
+          }
+          else {
+            lstBand.upperBand.map(upBand => upBand + zeroBandSum)
+          }
+        }.getOrElse(150000)
 
-    if (income > upperBand) income
-    else upperBand
+        if (income > upperBand) income
+        else upperBand
+    }
   }
 
   def calcBarPercentage(incomeBand: BigDecimal, taxBands: List[TaxBand]): BigDecimal = {

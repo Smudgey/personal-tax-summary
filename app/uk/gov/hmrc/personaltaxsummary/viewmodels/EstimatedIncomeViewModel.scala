@@ -36,7 +36,8 @@ case class EstimatedIncomeViewModel(
                                      hasChanges:Boolean = false,
                                      ukDividends: Option[TaxComponent],
                                      taxBands: Option[List[TaxBand]],
-                                     incomeTaxReducedToZeroMessage: Option[String]
+                                     incomeTaxReducedToZeroMessage: Option[String],
+                                     nextYearTaxTotal:BigDecimal =0
                                    )
 
 case class BandedGraph(
