@@ -110,8 +110,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         TaxBand(Some("B"), None, income = 16000, tax = 5000, lowerBand = Some(11000), upperBand = Some(28800), rate = 20)
       )
 
-      val bands = List(Band("TaxFree",11.11,"0%",3200,0,"pa"),
-        Band("Band",55.55,"20%",16000,5000,"B"))
+      val bands = List(Band("TaxFree",10.00,"0%",3200,0,"pa"),
+        Band("Band",50.00,"20%",16000,5000,"B"))
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
         TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
@@ -122,7 +122,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands,0,28800,19200,11.11,3200,66.66,5000)
+      dataF shouldBe BandedGraph("taxGraph", bands,0,32000,19200,10.00,3200,60.00,5000)
     }
 
     "have two bands(0 & Taxed Income) to display in graph" in {
@@ -134,8 +134,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 2.04, "0%", 3000, 0, "pa"),
-        Band("Band", 30.61, "Check in more detail", 45000, 15000, "TaxedIncome")
+        Band("TaxFree", 2.00, "0%", 3000, 0, "pa"),
+        Band("Band", 30.00, "Check in more detail", 45000, 15000, "TaxedIncome")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -147,7 +147,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 147000, 48000, 2.04, 3000, 32.65, 15000)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 48000, 2.00, 3000, 32.00, 15000)
     }
 
     "have two bands(0 & Taxed Income) for multiple other band to display in graph" in {
@@ -209,9 +209,9 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 12.50, "0%", 4000, 0, "pa"),
-        Band("TaxFree", 12.50, "0%", 4000, 0, "SR"),
-        Band("Band", 46.87, "20%", 15000, 3000, "D0")
+        Band("TaxFree", 11.11, "0%", 4000, 0, "pa"),
+        Band("TaxFree", 11.11, "0%", 4000, 0, "SR"),
+        Band("Band", 41.66, "20%", 15000, 3000, "D0")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -223,7 +223,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 32000, 23000, 25.00, 8000, 71.87, 3000)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 36000, 23000, 22.22, 8000, 63.88, 3000)
     }
 
     "have two 0 % band and one Taxed Income band in graph" in {
@@ -288,9 +288,9 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 34.37, "0%", 11000, 0, "pa"),
-        Band("TaxFree", 9.37, "0%", 3000, 0, "SR"),
-        Band("TaxFree", 46.87, "0%", 15000, 0, "SDR")
+        Band("TaxFree", 25.58, "0%", 11000, 0, "pa"),
+        Band("TaxFree", 6.97, "0%", 3000, 0, "SR"),
+        Band("TaxFree", 34.88, "0%", 15000, 0, "SDR")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -302,7 +302,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 32000, 29000, 90.61, 29000, 90.61, 0)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 43000, 29000, 67.43, 29000, 67.43, 0)
     }
 
     "have two 0 % band and one Taxed Income band(7.5 & 20 ) in graph" in {
@@ -343,9 +343,9 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 10, "0%", 10000, 0, "pa"),
-        Band("TaxFree", 10, "0%", 10000, 0, "SR"),
-        Band("Band", 40, "Check in more detail", 40000, 6750, "TaxedIncome")
+        Band("TaxFree", 9.09, "0%", 10000, 0, "pa"),
+        Band("TaxFree", 9.09, "0%", 10000, 0, "SR"),
+        Band("Band", 36.36, "Check in more detail", 40000, 6750, "TaxedIncome")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -357,7 +357,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 100000, 60000, 20, 20000, 60, 6750)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 110000, 60000, 18.18, 20000, 54.54, 6750)
     }
 
     "have two 0 % band and one Taxed Income band(7.5 & 20 & 45 & 60) in graph" in {
@@ -372,9 +372,9 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val bands = List(
-        Band("TaxFree", 5, "0%", 10000, 0, "pa"),
-        Band("TaxFree", 5, "0%", 10000, 0, "SR"),
-        Band("Band", 50, "Check in more detail", 100000, 9750, "TaxedIncome")
+        Band("TaxFree", 4.76, "0%", 10000, 0, "pa"),
+        Band("TaxFree", 4.76, "0%", 10000, 0, "SR"),
+        Band("Band", 47.61, "Check in more detail", 100000, 9750, "TaxedIncome")
       )
 
       val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
@@ -386,7 +386,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 200000, 120000, 10, 20000, 60, 9750)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750)
     }
   }
 }
