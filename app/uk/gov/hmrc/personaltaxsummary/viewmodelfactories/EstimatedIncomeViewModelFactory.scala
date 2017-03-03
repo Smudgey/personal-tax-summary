@@ -117,7 +117,8 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
   def calcBarPercentage(incomeBand: BigDecimal, taxBands: List[TaxBand]): BigDecimal = {
 
-    (incomeBand * 100) / getUpperBand(taxBands)
+    val percentage = (incomeBand * 100) / getUpperBand(taxBands)
+    percentage.setScale(2, BigDecimal.RoundingMode.FLOOR)
   }
 
   def individualBands(taxBands: List[TaxBand]): List[Band] =
