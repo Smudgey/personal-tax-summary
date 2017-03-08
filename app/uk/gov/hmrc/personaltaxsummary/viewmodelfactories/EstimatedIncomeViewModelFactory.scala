@@ -83,10 +83,10 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
     if (otherThanZeroBand.nonEmpty) {
       Some(Band("Band", calcBarPercentage(otherThanZeroBand.map(_.income).sum, taxBands),
-        if (otherThanZeroBand.size > 1) "Check in more detail" else otherThanZeroBand.map(_.rate).head.toString() + "%",
-        otherThanZeroBand.map(_.income).sum,
-        otherThanZeroBand.map(_.tax).sum,
-        if (otherThanZeroBand.size > 1) "TaxedIncome" else otherThanZeroBand.map(_.bandType).head.getOrElse("NA"))
+        tablePercentage = if (otherThanZeroBand.size > 1) "Check in more detail" else otherThanZeroBand.map(_.rate).head.toString() + "%",
+        income = otherThanZeroBand.map(_.income).sum,
+        tax = otherThanZeroBand.map(_.tax).sum,
+        bandType = if (otherThanZeroBand.size > 1) "TaxedIncome" else otherThanZeroBand.map(_.bandType).head.getOrElse("NA"))
       )
     }
     else {
@@ -135,15 +135,32 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       case _ => zeroRateBands
     }
 
+    val nextBand = getUpperBand(taxbands)
+    val incomeTotal = allBands.map(_.income).sum
+    val greyBandMessage = createGreyBandMessage(nextBand - incomeTotal)
+
     BandedGraph("taxGraph",
       allBands,
       0,
-      getUpperBand(taxbands),
-      allBands.map(_.income).sum,
-      zeroRateBands.map(_.barPercentage).sum,
-      zeroRateBands.map(_.income).sum,
-      allBands.map(_.barPercentage).sum,
-      allBands.map(_.tax).sum)
+      nextBand = nextBand,
+      incomeTotal = incomeTotal,
+      zeroIncomeAsPercentage = zeroRateBands.map(_.barPercentage).sum,
+      zeroIncomeTotal = zeroRateBands.map(_.income).sum,
+      incomeAsPercentage = allBands.map(_.barPercentage).sum,
+      taxTotal = allBands.map(_.tax).sum,
+      greyBandMessage = greyBandMessage
+    )
+  }
+
+  def createGreyBandMessage(amount: BigDecimal): Option[String] = {
+    if (amount > 0) {
+      Some(Messages("tai.taxCalc.nextTaxBand",
+        MoneyPounds(amount, 2).quantity
+        )
+      )
+    } else {
+      None
+    }
   }
 
   override def createObject(nino: Nino, details: TaxSummaryDetails): EstimatedIncomeViewModel = {

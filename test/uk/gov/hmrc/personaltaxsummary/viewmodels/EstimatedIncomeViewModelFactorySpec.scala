@@ -120,9 +120,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         taxObjects = taxObjects)
       val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+      val greyBandMessage = Some("You can have 12,800.00 more before your income gets taxed at a higher rate.")
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands,0,32000,19200,10.00,3200,60.00,5000)
+      dataF shouldBe BandedGraph("taxGraph", bands,0,32000,19200,10.00,3200,60.00,5000, greyBandMessage)
     }
 
     "have two bands(0 & Taxed Income) to display in graph" in {
@@ -145,9 +146,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         taxObjects = taxObjects)
       val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+      val greyBandMessage = Some("You can have 102,000.00 more before your income gets taxed at a higher rate.")
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 48000, 2.00, 3000, 32.00, 15000)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 48000, 2.00, 3000, 32.00, 15000, greyBandMessage)
     }
 
     "have two bands(0 & Taxed Income) for multiple other band to display in graph" in {
@@ -221,9 +223,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         taxObjects = taxObjects)
       val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+      val greyBandMessage = Some("You can have 13,000.00 more before your income gets taxed at a higher rate.")
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 36000, 23000, 22.22, 8000, 63.88, 3000)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 36000, 23000, 22.22, 8000, 63.88, 3000, greyBandMessage)
     }
 
     "have two 0 % band and one Taxed Income band in graph" in {
@@ -300,9 +303,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         taxObjects = taxObjects)
       val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+      val greyBandMessage = Some("You can have 14,000.00 more before your income gets taxed at a higher rate.")
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 43000, 29000, 67.43, 29000, 67.43, 0)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 43000, 29000, 67.43, 29000, 67.43, 0, greyBandMessage)
     }
 
     "have two 0 % band and one Taxed Income band(7.5 & 20 ) in graph" in {
@@ -355,9 +359,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         taxObjects = taxObjects)
       val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+      val greyBandMessage = Some("You can have 50,000.00 more before your income gets taxed at a higher rate.")
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 110000, 60000, 18.18, 20000, 54.54, 6750)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 110000, 60000, 18.18, 20000, 54.54, 6750, greyBandMessage)
     }
 
     "have two 0 % band and one Taxed Income band(7.5 & 20 & 45 & 60) in graph" in {
@@ -384,9 +389,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         taxObjects = taxObjects)
       val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+      val greyBandMessage = Some("You can have 90,000.00 more before your income gets taxed at a higher rate.")
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750, greyBandMessage)
     }
   }
 }
