@@ -155,7 +155,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   def createGreyBandMessage(amount: BigDecimal): Option[String] = {
     if (amount > 0) {
       Some(Messages("tai.taxCalc.nextTaxBand",
-        MoneyPounds(amount, 2).quantity
+        MoneyPounds(amount, 0).quantity
         )
       )
     } else {
