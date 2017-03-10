@@ -225,7 +225,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val interestRate = 10
     val basicRate = 20
     val ukDividends = fetchTaxAmountTitleAndDescription(ukd, "tai.taxCollected.atSource.dividends.title",
-      "tai.taxCollected.atSource.dividends.taxFreeAmount`description", interestRate)
+      "tai.taxCollected.atSource.dividends.description", interestRate)
 
     val interest = totalLiability.taxOnBankBSInterest.getOrElse(BigDecimal(0))
     val bankInterest = fetchTaxAmountTitleAndDescription(interest, "tai.taxCollected.atSource.bank.title",
