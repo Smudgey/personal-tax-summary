@@ -102,25 +102,35 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  private def getUpperBand(taxBands: List[TaxBand]): BigDecimal = {
-    val lstBand = taxBands.last
-    val income = taxBands.map(_.income).sum
-    val taxFreeAllowanceBandSum = taxBands.filter(taxBand => taxBand.rate == 0 && taxBand.bandType.contains("pa")).map(_.income).sum
-    val upperBand: BigDecimal = {
-      if (lstBand.upperBand.contains(0)) {
-        lstBand.lowerBand.map(lBand => lBand + taxFreeAllowanceBandSum)
-      } else {
-        lstBand.upperBand.map(upBand => upBand + taxFreeAllowanceBandSum)
-      }
-    }.getOrElse(150000)
+  //List should be sorted by rate
+  def getUpperBand(taxBands: List[TaxBand]): BigDecimal = {
+    taxBands match  {
+      case Nil => BigDecimal(0)
+      case _ =>
+        val lstBand = taxBands.last
+        val income = taxBands.map(_.income).sum
+        val taxFreeAllowanceBandSum = taxBands.filter(taxBand => taxBand.rate == 0 && taxBand.bandType.contains("pa")).map(_.income).sum
+        val upperBand: BigDecimal = {
+          if (lstBand.upperBand.contains(0)) {
+            lstBand.lowerBand.map(lBand => lBand + taxFreeAllowanceBandSum)
+          } else {
+            lstBand.upperBand.map(upBand => upBand + taxFreeAllowanceBandSum)
+          }
+        }.getOrElse(150000)
 
-    if (income > upperBand) income
-    else upperBand
+        if (income > upperBand) income
+        else upperBand
+    }
+
   }
 
-  private def calcBarPercentage(incomeBand: BigDecimal, taxBands: List[TaxBand]): BigDecimal = {
-    val percentage = (incomeBand * 100) / getUpperBand(taxBands)
-    percentage.setScale(2, BigDecimal.RoundingMode.FLOOR)
+  def calcBarPercentage(incomeBand: BigDecimal, taxBands: List[TaxBand]): BigDecimal = {
+    taxBands match {
+      case Nil => BigDecimal(0)
+      case _ =>
+        val percentage = (incomeBand * 100) / getUpperBand(taxBands)
+        percentage.setScale(2, BigDecimal.RoundingMode.FLOOR)
+    }
   }
 
   def individualBands(taxBands: List[TaxBand]): List[Band] =

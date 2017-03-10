@@ -102,6 +102,92 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
     }
   }
 
+  "getUpperBand" should {
+
+    "return 0 when empty list" in {
+      //Given
+      val taxBands = Nil
+
+      //When
+      val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands)
+
+      //Then
+      upperBand shouldBe 0
+    }
+
+    "return proper upperBand when passed two bands (0&20)" in {
+      val taxBands = List(
+        TaxBand(Some("pa"), None, income = 3200, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 16000, tax = 5000, lowerBand = Some(11000), upperBand = Some(28800), rate = 20)
+      )
+
+      val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands = taxBands)
+
+      upperBand shouldBe 32000
+    }
+
+    "return income as upperBand when income is greater than upper band" in {
+      val taxBands = List(
+        TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20),
+        TaxBand(Some("D0"), None, income = 150000, tax = 60000, lowerBand = Some(32000), upperBand = Some(150000), rate = 40),
+        TaxBand(Some("D1"), None, income = 30000, tax = 2250, lowerBand = Some(150000), upperBand = Some(0), rate = 45)
+      )
+
+      val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands = taxBands)
+
+      upperBand shouldBe 200000
+    }
+
+  }
+
+  "calculate bar percentage" should {
+
+    "return value 0 when no band has passed" in {
+
+      val percentage = EstimatedIncomeViewModelFactory.calcBarPercentage(20000, Nil)
+
+      percentage shouldBe 0
+
+    }
+
+    "return valid percentage for first income when two bands has passed" in {
+      val taxBands = List(
+        TaxBand(Some("pa"), None, income = 3200, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 16000, tax = 5000, lowerBand = Some(11000), upperBand = Some(28800), rate = 20)
+      )
+
+      val percentage = EstimatedIncomeViewModelFactory.calcBarPercentage(3200, taxBands)
+
+      percentage shouldBe 10
+    }
+
+    "return valid percentage for second income when two bands has passed" in {
+      val taxBands = List(
+        TaxBand(Some("pa"), None, income = 3200, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 16000, tax = 5000, lowerBand = Some(11000), upperBand = Some(28800), rate = 20)
+      )
+
+      val percentage = EstimatedIncomeViewModelFactory.calcBarPercentage(16000, taxBands)
+
+      percentage shouldBe 50
+    }
+
+    "return value till two decimal" in {
+      val taxBand = List(
+        TaxBand(Some("pa"), None, income = 4000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("SR"), None, income = 4000, tax = 0, lowerBand = Some(11000), upperBand = Some(14000), rate = 0),
+        TaxBand(Some("D0"), None, income = 15000, tax = 3000, lowerBand = Some(14000), upperBand = Some(32000), rate = 20)
+      )
+
+      val percentage = EstimatedIncomeViewModelFactory.calcBarPercentage(15000, taxBand)
+
+      percentage shouldBe 41.66
+
+    }
+
+  }
+
   "bandedGraph" should {
     "have two bands(0&20) to display in graph" in {
 
@@ -131,7 +217,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val taxBand = List(
         TaxBand(Some("pa"), None, income = 3000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
         TaxBand(Some("D0"), None, income = 30000, tax = 12000, lowerBand = Some(32000), upperBand = Some(147000), rate = 40),
-          TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20)
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20)
       )
 
       val bands = List(
