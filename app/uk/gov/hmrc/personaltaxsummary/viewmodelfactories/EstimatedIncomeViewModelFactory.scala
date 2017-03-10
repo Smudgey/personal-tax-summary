@@ -24,7 +24,8 @@ import uk.gov.hmrc.model.nps2.TaxBand
 import uk.gov.hmrc.model.tai.TaxYear
 import uk.gov.hmrc.model.{Employments, TaxSummaryDetails, TotalLiability}
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaiConstants.higherRateBandIncome
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.{TaiConstants, TaxSummaryHelper}
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{Band, BandedGraph, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
@@ -50,7 +51,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val additionalTableTotal = MoneyPounds(getTotalAdditionalTaxDue(totalLiability), 2).quantity
     val reductionsTable: List[(String, String, String)] = createReductionsTable(totalLiability, container.links)
     val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability), 2).quantity
-    val graph = createBandedGraph(details)
+    val graph = createBandedGraph(retrieveTaxBands(details))
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
     val nextYearTaxTotal = {
       val taxObjects = details.accounts.filter(_.year == TaxYear().next).flatMap(_.nps).map(_.taxObjects)
@@ -116,7 +117,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
           } else {
             lstBand.upperBand.map(upBand => upBand + taxFreeAllowanceBandSum)
           }
-        }.getOrElse(150000)
+        }.getOrElse(higherRateBandIncome)
 
         if (income > upperBand) income
         else upperBand
@@ -137,8 +138,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     for (taxBand <- taxBands.filter(_.rate == 0)) yield Band("TaxFree", calcBarPercentage(taxBand.income, taxBands),
       "0%", taxBand.income, taxBand.tax, taxBand.bandType.getOrElse("NA"))
 
-  def createBandedGraph(details: TaxSummaryDetails): BandedGraph = {
-    val taxBands: List[TaxBand] = retrieveTaxBands(details)
+  def createBandedGraph(taxBands: List[TaxBand]): BandedGraph = {
     taxBands match {
       case Nil => BandedGraph("taxGraph") //This case will never occur
       case taxbands => createGraph(taxbands)
@@ -156,7 +156,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
     val nextHigherBand = getUpperBand(taxbands)
     val incomeTotal = allBands.map(_.income).sum
-    val greyBandMessage = createGreyBandMessage(nextHigherBand - incomeTotal)
+    val nextBandMessage = createNextBandMessage(nextHigherBand - incomeTotal)
 
     BandedGraph("taxGraph",
       allBands,
@@ -166,12 +166,12 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       zeroIncomeTotal = zeroRateBands.map(_.income).sum,
       incomeAsPercentage = allBands.map(_.barPercentage).sum,
       taxTotal = allBands.map(_.tax).sum,
-      greyBandMessage = greyBandMessage
+      nextBandMessage = nextBandMessage
     )
   }
 
 
-  private def createGreyBandMessage(amount: BigDecimal): Option[String] = {
+  private def createNextBandMessage(amount: BigDecimal): Option[String] = {
     // if amount > 0 then message else None
     Option(amount > 0).collect {
       case true => Messages("tai.taxCalc.nextTaxBand", MoneyPounds(amount, 0).quantity)
@@ -182,7 +182,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     createObject(nino, PersonalTaxSummaryContainer(details, Map.empty))
   }
 
-  private def retrieveTaxBands(details: TaxSummaryDetails): List[TaxBand] = {
+  def retrieveTaxBands(details: TaxSummaryDetails): List[TaxBand] = {
     val taxObjects = details.currentYearAccounts.flatMap(_.nps).map(_.taxObjects)
     val seqBands = taxObjects.map(_.values.toList).getOrElse(Nil)
     val taxBands = seqBands.flatMap(_.taxBands)

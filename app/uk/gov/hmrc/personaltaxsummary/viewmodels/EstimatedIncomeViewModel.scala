@@ -50,7 +50,7 @@ case class BandedGraph(
                         zeroIncomeTotal: BigDecimal =0,
                         incomeAsPercentage: BigDecimal =0,
                         taxTotal:BigDecimal =0,
-                        greyBandMessage: Option[String] = None
+                        nextBandMessage: Option[String] = None
                       )
 
 case class Band(

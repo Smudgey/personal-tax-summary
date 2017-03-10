@@ -148,7 +148,6 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val percentage = EstimatedIncomeViewModelFactory.calcBarPercentage(20000, Nil)
 
       percentage shouldBe 0
-
     }
 
     "return valid percentage for first income when two bands has passed" in {
@@ -188,6 +187,60 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
   }
 
+  "retrieve tax bands" should {
+
+    "return tax bands" in {
+
+      val taxBand = List(
+        TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20),
+        TaxBand(Some("D0"), None, income = 150000, tax = 60000, lowerBand = Some(32000), upperBand = Some(150000), rate = 40),
+        TaxBand(Some("D1"), None, income = 30000, tax = 2250, lowerBand = Some(150000), upperBand = Some(0), rate = 45)
+      )
+
+      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
+        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
+      })
+      val taxAccount = TaxAccount(None, None, tax = 1000,
+        taxObjects = taxObjects)
+      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
+      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+
+      val taxBands = EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary)
+
+      taxBands shouldBe taxBand
+
+    }
+
+    "return sorted tax bands" in {
+      val taxBand = List(
+        TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20),
+        TaxBand(Some("D1"), None, income = 30000, tax = 2250, lowerBand = Some(150000), upperBand = Some(0), rate = 45),
+        TaxBand(Some("D0"), None, income = 150000, tax = 60000, lowerBand = Some(32000), upperBand = Some(150000), rate = 40)
+      )
+
+      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
+        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
+      })
+      val taxAccount = TaxAccount(None, None, tax = 1000,
+        taxObjects = taxObjects)
+      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
+      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+
+      val taxBands = EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary)
+
+      taxBands shouldBe List(
+        TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20),
+        TaxBand(Some("D0"), None, income = 150000, tax = 60000, lowerBand = Some(32000), upperBand = Some(150000), rate = 40),
+        TaxBand(Some("D1"), None, income = 30000, tax = 2250, lowerBand = Some(150000), upperBand = Some(0), rate = 45)
+      )
+    }
+
+
+  }
+
   "bandedGraph" should {
     "have two bands(0&20) to display in graph" in {
 
@@ -199,25 +252,18 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val bands = List(Band("TaxFree",10.00,"0%",3200,0,"pa"),
         Band("Band",50.00,"20%",16000,5000,"B"))
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-      val greyBandMessage = Some("You can have £12,800 more before your income reaches the next tax band.")
+      val nextBandMessage = Some("You can have £12,800 more before your income reaches the next tax band.")
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands,0,32000,19200,10.00,3200,60.00,5000, greyBandMessage)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands,0,32000,19200,10.00,3200,60.00,5000, nextBandMessage)
     }
 
     "have two bands(0 & Taxed Income) to display in graph" in {
 
       val taxBand = List(
         TaxBand(Some("pa"), None, income = 3000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
-        TaxBand(Some("D0"), None, income = 30000, tax = 12000, lowerBand = Some(32000), upperBand = Some(147000), rate = 40),
-        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20)
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20),
+        TaxBand(Some("D0"), None, income = 30000, tax = 12000, lowerBand = Some(32000), upperBand = Some(147000), rate = 40)
       )
 
       val bands = List(
@@ -225,17 +271,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 30.00, "Check in more detail", 45000, 15000, "TaxedIncome")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-      val greyBandMessage = Some("You can have £102,000 more before your income reaches the next tax band.")
+      val nextBandMessage = Some("You can have £102,000 more before your income reaches the next tax band.")
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 48000, 2.00, 3000, 32.00, 15000, greyBandMessage)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 48000, 2.00, 3000, 32.00, 15000, nextBandMessage)
     }
 
     "have two bands(0 & Taxed Income) for multiple other band to display in graph" in {
@@ -252,15 +291,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 97.5, "Check in more detail", 195000, 65250, "TaxedIncome")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 200000, 200000, 2.5, 5000, 100, 65250)
     }
 
@@ -276,15 +307,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 100, "Check in more detail", 200000, 65250, "TaxedIncome")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 200000, 200000, 0, 0, 100, 65250)
     }
 
@@ -302,17 +325,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 41.66, "20%", 15000, 3000, "D0")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-      val greyBandMessage = Some("You can have £13,000 more before your income reaches the next tax band.")
+      val nextBandMessage = Some("You can have £13,000 more before your income reaches the next tax band.")
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 36000, 23000, 22.22, 8000, 63.88, 3000, greyBandMessage)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 36000, 23000, 22.22, 8000, 63.88, 3000, nextBandMessage)
     }
 
     "have two 0 % band and one Taxed Income band in graph" in {
@@ -330,15 +346,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 50, "Check in more detail", 20000, 6000, "TaxedIncome")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 40000, 40000, 50, 20000, 100, 6000)
     }
 
@@ -356,15 +364,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 51.72, "7.5%", 15000, 2000, "SDR")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 29000, 29000, 48.27, 14000, 99.99, 2000)
     }
 
@@ -382,17 +382,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("TaxFree", 34.88, "0%", 15000, 0, "SDR")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-      val greyBandMessage = Some("You can have £14,000 more before your income reaches the next tax band.")
+      val nextBandMessage = Some("You can have £14,000 more before your income reaches the next tax band.")
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 43000, 29000, 67.43, 29000, 67.43, 0, greyBandMessage)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 43000, 29000, 67.43, 29000, 67.43, 0, nextBandMessage)
     }
 
     "have two 0 % band and one Taxed Income band(7.5 & 20 ) in graph" in {
@@ -410,15 +403,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 50.00, "Check in more detail", 20000, 3750, "TaxedIncome")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 40000, 40000, 50.00, 20000, 100.00, 3750)
     }
 
@@ -438,17 +423,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 36.36, "Check in more detail", 40000, 6750, "TaxedIncome")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-      val greyBandMessage = Some("You can have £50,000 more before your income reaches the next tax band.")
+      val nextBandMessage = Some("You can have £50,000 more before your income reaches the next tax band.")
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 110000, 60000, 18.18, 20000, 54.54, 6750, greyBandMessage)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 110000, 60000, 18.18, 20000, 54.54, 6750, nextBandMessage)
     }
 
     "have two 0 % band and one Taxed Income band(7.5 & 20 & 45 & 60) in graph" in {
@@ -468,17 +446,10 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 47.61, "Check in more detail", 100000, 9750, "TaxedIncome")
       )
 
-      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map({
-        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(taxBand))
-      })
-      val taxAccount = TaxAccount(None, None, tax = 1000,
-        taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
-      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-      val greyBandMessage = Some("You can have £90,000 more before your income reaches the next tax band.")
+      val nextBandMessage = Some("You can have £90,000 more before your income reaches the next tax band.")
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(testTaxSummary)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750, greyBandMessage)
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750, nextBandMessage)
     }
   }
 }
