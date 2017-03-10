@@ -79,26 +79,26 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   }
 
   def mergedBands(taxBands: List[TaxBand]): Option[Band] = {
-    val otherThanZeroBand = taxBands.filter(_.rate != 0)
+    val nonZeroBands = taxBands.filter(_.rate != 0)
 
-    Option(otherThanZeroBand.nonEmpty).collect {
+    Option(nonZeroBands.nonEmpty).collect {
       case true =>
-        val (tablePercentage, bandType, incomeSum) = getBandValues(otherThanZeroBand)
+        val (tablePercentage, bandType, incomeSum) = getBandValues(nonZeroBands)
 
         Band("Band", calcBarPercentage(incomeSum, taxBands),
           tablePercentage = tablePercentage,
           income = incomeSum,
-          tax = otherThanZeroBand.map(_.tax).sum,
+          tax = nonZeroBands.map(_.tax).sum,
           bandType = bandType
         )
     }
   }
 
-  private def getBandValues(otherThanZeroBand: List[TaxBand]) = {
-    if (otherThanZeroBand.size > 1) {
-      ("Check in more detail", "TaxedIncome", otherThanZeroBand.map(_.income).sum) // We will remove hard-coded messages as a part of Link Story
+  private def getBandValues(nonZeroBands: List[TaxBand]) = {
+    if (nonZeroBands.size > 1) {
+      ("Check in more detail", "TaxedIncome", nonZeroBands.map(_.income).sum) // We will remove hard-coded messages as a part of Link Story
     } else {
-      otherThanZeroBand.map(otherBand => (otherBand.rate.toString() + "%", otherBand.bandType.getOrElse("NA"), otherBand.income)).head
+      nonZeroBands.map(otherBand => (otherBand.rate.toString() + "%", otherBand.bandType.getOrElse("NA"), otherBand.income)).head
     }
   }
 
@@ -154,13 +154,13 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       case _ => zeroRateBands
     }
 
-    val nextBand = getUpperBand(taxbands)
+    val nextHigherBand = getUpperBand(taxbands)
     val incomeTotal = allBands.map(_.income).sum
-    val greyBandMessage = createGreyBandMessage(nextBand - incomeTotal)
+    val greyBandMessage = createGreyBandMessage(nextHigherBand - incomeTotal)
 
     BandedGraph("taxGraph",
       allBands,
-      nextBand = nextBand,
+      nextBand = nextHigherBand,
       incomeTotal = incomeTotal,
       zeroIncomeAsPercentage = zeroRateBands.map(_.barPercentage).sum,
       zeroIncomeTotal = zeroRateBands.map(_.income).sum,
