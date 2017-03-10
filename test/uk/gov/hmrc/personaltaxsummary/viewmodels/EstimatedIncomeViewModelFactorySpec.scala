@@ -80,6 +80,13 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
   "merge Tax bands" should {
 
+    "return None when an empty list is supplied." in {
+
+      val result = EstimatedIncomeViewModelFactory.mergedBands(Nil)
+      result shouldBe None
+
+    }
+
     "return only one merged tax band for other than zero% rate band" in {
       val taxBand = List(TaxBand(None, None, income = 1000, tax = 20, lowerBand = None, upperBand = Some(4000), rate = 20),
         TaxBand(None, None, income = 2500, tax = 40, lowerBand = None, upperBand = Some(5000), rate = 20),
@@ -92,6 +99,13 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
   }
 
   "individual Tax bands" should {
+
+    "return an empty list when an empty list is supplied." in {
+
+      val result = EstimatedIncomeViewModelFactory.individualBands(Nil)
+      result shouldBe Nil
+
+    }
 
     "return two tax bands for 0% rate" in {
       val taxBand = List(TaxBand(Some("PSA"), None, income = 1000, tax = 0, lowerBand = None, upperBand = Some(5000), rate = 0),
@@ -242,6 +256,14 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
   }
 
   "bandedGraph" should {
+
+    "return a BandedGraph which contains Nil bands when an empty list is supplied." in {
+
+      val result = EstimatedIncomeViewModelFactory.createBandedGraph(Nil)
+      result.bands shouldBe Nil
+
+    }
+
     "have two bands(0&20) to display in graph" in {
 
       val taxBand = List(
