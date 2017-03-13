@@ -257,10 +257,11 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
   "bandedGraph" should {
 
-    "return a BandedGraph which contains Nil bands when an empty list is supplied." in {
+    "return an empty BandedGraph with Nil bands and values set to zero when an empty list is supplied." in {
 
       val result = EstimatedIncomeViewModelFactory.createBandedGraph(Nil)
-      result.bands shouldBe Nil
+
+      result shouldBe BandedGraph("taxGraph", Nil,0,0,0,0,0,0,0, None)
 
     }
 
