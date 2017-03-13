@@ -1106,7 +1106,7 @@ tai.taxCalcIncome.bands.lastBand={0}% tax on £{1}. You will pay £{2} tax.
 tai.taxCalcIncome.bands.range={0}% tax on £{1}. You will pay £{2} tax.
 tai.taxCalc.tax=The total amount of tax you will pay is £{0}.
 tai.taxCalc.taxCodeDetails=Your {0} tax code is {1}
-tai.taxCalc.nextTaxBand=Income above £{0} will be taxed at a higher rate.
+tai.taxCalc.nextTaxBand=You can have £{0} more before your income reaches the next tax band.
 
 tai.taxCalc.taxFreeAllocation.singleIncome=Your tax free amount of £{0} is allocated to your income to reduce the amount of tax you pay.
 tai.taxCalc.taxFreeAllocation.multiIncome=Your tax free amount of £{0} is spread across your sources of income to reduce the amount of tax you pay.

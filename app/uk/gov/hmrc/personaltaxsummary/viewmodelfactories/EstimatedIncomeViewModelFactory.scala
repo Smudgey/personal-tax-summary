@@ -24,7 +24,8 @@ import uk.gov.hmrc.model.nps2.TaxBand
 import uk.gov.hmrc.model.tai.TaxYear
 import uk.gov.hmrc.model.{Employments, TaxSummaryDetails, TotalLiability}
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaiConstants.higherRateBandIncome
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.{TaiConstants, TaxSummaryHelper}
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{Band, BandedGraph, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
@@ -50,7 +51,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val additionalTableTotal = MoneyPounds(getTotalAdditionalTaxDue(totalLiability), 2).quantity
     val reductionsTable: List[(String, String, String)] = createReductionsTable(totalLiability, container.links)
     val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability), 2).quantity
-    val graph = createBandedGraph(details)
+    val graph = createBandedGraph(retrieveTaxBands(details))
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
     val nextYearTaxTotal = {
       val taxObjects = details.accounts.filter(_.year == TaxYear().next).flatMap(_.nps).map(_.taxObjects)
@@ -79,54 +80,72 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   }
 
   def mergedBands(taxBands: List[TaxBand]): Option[Band] = {
-    val otherThanZeroBand = taxBands.filter(_.rate != 0)
+    val nonZeroBands = taxBands.filter(_.rate != 0)
 
-    if (otherThanZeroBand.nonEmpty) {
-      Some(Band("Band", calcBarPercentage(otherThanZeroBand.map(_.income).sum, taxBands),
-        if (otherThanZeroBand.size > 1) "Check in more detail" else otherThanZeroBand.map(_.rate).head.toString() + "%",
-        otherThanZeroBand.map(_.income).sum,
-        otherThanZeroBand.map(_.tax).sum,
-        if (otherThanZeroBand.size > 1) "TaxedIncome" else otherThanZeroBand.map(_.bandType).head.getOrElse("NA"))
-      )
-    }
-    else {
-      None
+    Option(nonZeroBands.nonEmpty).collect {
+      case true =>
+        val (tablePercentage, bandType, incomeSum) = getBandValues(nonZeroBands)
+
+        Band("Band", calcBarPercentage(incomeSum, taxBands),
+          tablePercentage = tablePercentage,
+          income = incomeSum,
+          tax = nonZeroBands.map(_.tax).sum,
+          bandType = bandType
+        )
     }
   }
 
+  private def getBandValues(nonZeroBands: List[TaxBand]) = {
+    if (nonZeroBands.size > 1) {
+      ("Check in more detail", "TaxedIncome", nonZeroBands.map(_.income).sum) // We will remove hard-coded messages as a part of Link Story
+    } else {
+      nonZeroBands.map(otherBand => (otherBand.rate.toString() + "%", otherBand.bandType.getOrElse("NA"), otherBand.income)).head
+    }
+  }
+
+  //List should be sorted by rate
   def getUpperBand(taxBands: List[TaxBand]): BigDecimal = {
-    taxBands match {
-      case Nil => BigDecimal(1) //TODO remove this in refactoring
-      case bands =>
-        val lstBand = bands.last
+    taxBands match  {
+      case Nil => BigDecimal(0)
+      case _ =>
+        val lstBand = taxBands.last
         val income = taxBands.map(_.income).sum
-        val zeroBandSum = taxBands.filter(_.rate == 0).filter(_.bandType.contains("pa")).map(_.income).sum
+        val taxFreeAllowanceBandSum = taxBands.filter(taxBand => taxBand.rate == 0 && taxBand.bandType.contains("pa")).map(_.income).sum
         val upperBand: BigDecimal = {
           if (lstBand.upperBand.contains(0)) {
-            lstBand.lowerBand.map(lBand => lBand + zeroBandSum)
+            lstBand.lowerBand.map(lBand => lBand + taxFreeAllowanceBandSum)
+          } else {
+            lstBand.upperBand.map(upBand => upBand + taxFreeAllowanceBandSum)
           }
-          else {
-            lstBand.upperBand.map(upBand => upBand + zeroBandSum)
-          }
-        }.getOrElse(150000)
+        }.getOrElse(higherRateBandIncome)
 
         if (income > upperBand) income
         else upperBand
     }
+
   }
 
   def calcBarPercentage(incomeBand: BigDecimal, taxBands: List[TaxBand]): BigDecimal = {
-
-    val percentage = (incomeBand * 100) / getUpperBand(taxBands)
-    percentage.setScale(2, BigDecimal.RoundingMode.FLOOR)
+    taxBands match {
+      case Nil => BigDecimal(0)
+      case _ =>
+        val percentage = (incomeBand * 100) / getUpperBand(taxBands)
+        percentage.setScale(2, BigDecimal.RoundingMode.FLOOR)
+    }
   }
 
   def individualBands(taxBands: List[TaxBand]): List[Band] =
     for (taxBand <- taxBands.filter(_.rate == 0)) yield Band("TaxFree", calcBarPercentage(taxBand.income, taxBands),
       "0%", taxBand.income, taxBand.tax, taxBand.bandType.getOrElse("NA"))
 
-  def createBandedGraph(details: TaxSummaryDetails): BandedGraph = {
-    val taxbands: List[TaxBand] = retrieveTaxBands(details)
+  def createBandedGraph(taxBands: List[TaxBand]): BandedGraph = {
+    taxBands match {
+      case Nil => BandedGraph("taxGraph") //This case will never occur
+      case taxbands => createGraph(taxbands)
+    }
+  }
+
+  private def createGraph(taxbands: List[TaxBand]): BandedGraph = {
     val zeroRateBands: List[Band] = individualBands(taxbands)
     val otherRateBands: Option[Band] = mergedBands(taxbands)
 
@@ -135,26 +154,39 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       case _ => zeroRateBands
     }
 
+    val nextHigherBand = getUpperBand(taxbands)
+    val incomeTotal = allBands.map(_.income).sum
+    val nextBandMessage = createNextBandMessage(nextHigherBand - incomeTotal)
+
     BandedGraph("taxGraph",
       allBands,
-      0,
-      getUpperBand(taxbands),
-      allBands.map(_.income).sum,
-      zeroRateBands.map(_.barPercentage).sum,
-      zeroRateBands.map(_.income).sum,
-      allBands.map(_.barPercentage).sum,
-      allBands.map(_.tax).sum)
+      nextBand = nextHigherBand,
+      incomeTotal = incomeTotal,
+      zeroIncomeAsPercentage = zeroRateBands.map(_.barPercentage).sum,
+      zeroIncomeTotal = zeroRateBands.map(_.income).sum,
+      incomeAsPercentage = allBands.map(_.barPercentage).sum,
+      taxTotal = allBands.map(_.tax).sum,
+      nextBandMessage = nextBandMessage
+    )
+  }
+
+
+  private def createNextBandMessage(amount: BigDecimal): Option[String] = {
+    // if amount > 0 then message else None
+    Option(amount > 0).collect {
+      case true => Messages("tai.taxCalc.nextTaxBand", MoneyPounds(amount, 0).quantity)
+    }
   }
 
   override def createObject(nino: Nino, details: TaxSummaryDetails): EstimatedIncomeViewModel = {
     createObject(nino, PersonalTaxSummaryContainer(details, Map.empty))
   }
 
-  private def retrieveTaxBands(details: TaxSummaryDetails): List[TaxBand] = {
+  def retrieveTaxBands(details: TaxSummaryDetails): List[TaxBand] = {
     val taxObjects = details.currentYearAccounts.flatMap(_.nps).map(_.taxObjects)
     val seqBands = taxObjects.map(_.values.toList).getOrElse(Nil)
     val taxBands = seqBands.flatMap(_.taxBands)
-    taxBands.flatten
+    taxBands.flatten.sortBy(_.rate)
   }
 
   private def fetchTaxCodeList(emps: Option[List[Employments]]): List[String] = {
