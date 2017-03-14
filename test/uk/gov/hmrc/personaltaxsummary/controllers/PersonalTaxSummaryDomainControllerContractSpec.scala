@@ -31,7 +31,7 @@ class PersonalTaxSummaryDomainControllerContractSpec  extends UnitSpec with With
   "buildEstimatedIncome Live" should {
     "return an EstimatedIncomeViewModel" in new Setup {
 
-      val result: Result = await(domainController.buildEstimatedIncome(nino)(taxSummaryDetailsRequest))
+      val result: Result = await(domainController.buildEstimatedIncome(nino)(personalTaxSummaryContainerRequest))
 
       status(result) shouldBe 200
       contentAsJson(result) shouldBe Json.toJson(estimatedIncomeViewModel)
@@ -47,7 +47,7 @@ class PersonalTaxSummaryDomainControllerContractSpec  extends UnitSpec with With
   "buildYourTaxableIncome Live" should {
     "return a YourTaxableIncomeViewModel" in new Setup {
 
-      val result: Result = await(domainController.buildYourTaxableIncome(nino, Some(journeyId))(taxSummaryDetailsRequest))
+      val result: Result = await(domainController.buildYourTaxableIncome(nino, Some(journeyId))(personalTaxSummaryContainerRequest))
 
       status(result) shouldBe 200
       contentAsJson(result) shouldBe Json.toJson(yourTaxableIncomeViewModel)
