@@ -57,6 +57,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       val taxObjects = details.accounts.filter(_.year == TaxYear().next).flatMap(_.nps).map(_.taxObjects)
       taxObjects.flatMap(_.values).flatMap(_.totalTax).sum
     }
+    val taxBandTypes = retrieveTaxBands(details).map(_.bandType)
 
     EstimatedIncomeViewModel(
       incTax,
@@ -75,7 +76,9 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       dividends,
       None,
       None,
-      nextYearTaxTotal
+      nextYearTaxTotal,
+      taxBandTypes.contains("PSR"),
+      taxBandTypes.contains("SR")
     )
   }
 
