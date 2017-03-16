@@ -185,8 +185,21 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   def retrieveTaxBands(details: TaxSummaryDetails): List[TaxBand] = {
     val taxObjects = details.currentYearAccounts.flatMap(_.nps).map(_.taxObjects)
     val seqBands = taxObjects.map(_.values.toList).getOrElse(Nil)
-    val taxBands = seqBands.flatMap(_.taxBands)
-    taxBands.flatten.sortBy(_.rate)
+    val taxBands = seqBands.flatMap(_.taxBands).flatten
+    val (paBands, nonPaBands) = taxBands.partition(_.bandType.contains("pa"))
+
+    val bands = paBands match {
+      case Nil => nonPaBands
+      case _ => TaxBand(paBands.map(_.bandType).head,
+        paBands.map(_.code).head,
+        paBands.map(_.income).sum,
+        paBands.map(_.tax).sum,
+        paBands.map(_.lowerBand).head,
+        paBands.map(_.upperBand).head,
+        paBands.map(_.rate).head) :: nonPaBands
+    }
+
+    bands.sortBy(_.rate)
   }
 
   private def fetchTaxCodeList(emps: Option[List[Employments]]): List[String] = {
