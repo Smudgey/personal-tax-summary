@@ -26,6 +26,9 @@ import WrappedDataMatchers._
 import play.api.Play.current
 import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits._
+import uk.gov.hmrc.model._
+import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
+import uk.gov.hmrc.personaltaxsummary.utils.NinoGenerator
 
 class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplication with StubApplicationConfiguration with TaiTestData {
 
@@ -81,6 +84,40 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
       result.incomeTaxEstimate shouldBe 1
       result.incomeTaxReducedToZeroMessage.isDefined shouldBe false
+    }
+
+    "return zero for decreasesTax total when there is no decreasesTax value" in {
+      val nino = NinoGenerator.randomNino
+      val personalTaxSummary = PersonalTaxSummaryContainer(
+        details = TaxSummaryDetails(
+          nino = nino.toString,
+          version = 0,
+          totalLiability = Some(TotalLiability(
+            totalTax = BigDecimal("0"),
+            mergedIncomes = Some(Tax()))),
+          increasesTax = Some(IncreasesTax(total = BigDecimal("0")))),
+        links = Map.empty)
+      val result = EstimatedIncomeViewModelFactory.createObject(nino, personalTaxSummary)
+
+      result.taxFreeEstimate shouldBe BigDecimal("0")
+    }
+
+    "return the correct value for decreasesTax total" in {
+      val nino = NinoGenerator.randomNino
+      val decreasesTaxTotalValue = BigDecimal("2000")
+      val personalTaxSummary = PersonalTaxSummaryContainer(
+        details = TaxSummaryDetails(
+          nino = nino.toString,
+          version = 0,
+          totalLiability = Some(TotalLiability(
+            totalTax = BigDecimal("0"),
+            mergedIncomes = Some(Tax()))),
+          decreasesTax = Some(DecreasesTax(total = decreasesTaxTotalValue)),
+          increasesTax = Some(IncreasesTax(total = BigDecimal("0")))),
+        links = Map.empty)
+      val result = EstimatedIncomeViewModelFactory.createObject(nino, personalTaxSummary)
+
+      result.taxFreeEstimate shouldBe decreasesTaxTotalValue
     }
   }
 }
