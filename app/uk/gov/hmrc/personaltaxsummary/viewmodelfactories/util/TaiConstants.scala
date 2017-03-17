@@ -53,5 +53,4 @@ object TaiConstants {
 
   val defaultPrimaryPay = 15000
   val defaultSecondaryPay = 5000
-  val higherRateBandIncome = 150000
 }

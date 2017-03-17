@@ -24,8 +24,7 @@ import uk.gov.hmrc.model.nps2.TaxBand
 import uk.gov.hmrc.model.tai.TaxYear
 import uk.gov.hmrc.model.{Employments, TaxSummaryDetails, TotalLiability}
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaiConstants.higherRateBandIncome
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.{TaiConstants, TaxSummaryHelper}
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{Band, BandedGraph, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
@@ -117,7 +116,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
           } else {
             lstBand.upperBand.map(upBand => upBand + taxFreeAllowanceBandSum)
           }
-        }.getOrElse(higherRateBandIncome)
+        }.getOrElse(taxFreeAllowanceBandSum)
 
         if (income > upperBand) income
         else upperBand
