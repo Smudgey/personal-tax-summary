@@ -28,16 +28,18 @@ case class EstimatedIncomeViewModel(
                                      taxRelief: Boolean = false,
                                      taxCodes: List[String] = List(),
                                      potentialUnderpayment:Boolean = false,
-                                     additionalTaxTable :List[(String,String)] = List(),
+                                     additionalTaxTable: List[(String,String)] = List(),
                                      additionalTaxTableTotal: String = "",
-                                     reductionsTable :List[(String,String,String)] = List(),
-                                     reductionsTableTotal:String = "",
+                                     reductionsTable: List[(String,String,String)] = List(),
+                                     reductionsTableTotal: String = "",
                                      graph: BandedGraph,
-                                     hasChanges:Boolean = false,
+                                     hasChanges: Boolean = false,
                                      ukDividends: Option[TaxComponent],
                                      taxBands: Option[List[TaxBand]],
                                      incomeTaxReducedToZeroMessage: Option[String],
-                                     nextYearTaxTotal:BigDecimal =0
+                                     nextYearTaxTotal: BigDecimal =0,
+                                     hasPSA: Boolean = false,
+                                     hasSSR: Boolean = false
                                    )
 
 case class BandedGraph(
