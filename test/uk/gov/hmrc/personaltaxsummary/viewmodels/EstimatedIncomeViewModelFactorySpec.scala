@@ -76,6 +76,20 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       result.incomeTaxEstimate shouldBe 1
       result.incomeTaxReducedToZeroMessage.isDefined shouldBe false
     }
+
+    "have 'hasSSR' flag as true for SR band" in {
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CN499213B"), containsSRBandTaxSummary)
+
+      result.hasSSR shouldBe true
+      result.hasPSA shouldBe false
+    }
+
+    "have 'hasPSA' flag as true for PSR band" in {
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CN499213B"), containsPSRBandTaxSummary)
+
+      result.hasPSA shouldBe true
+      result.hasSSR shouldBe false
+    }
   }
 
   "merge Tax bands" should {
