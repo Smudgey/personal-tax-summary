@@ -28,6 +28,10 @@ import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.EstimatedIncomeViewModelFactory
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
+import WrappedDataMatchers._
+import uk.gov.hmrc.model._
+import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
+import uk.gov.hmrc.personaltaxsummary.utils.NinoGenerator
 
 class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplication with StubApplicationConfiguration with TaiTestData {
 
@@ -561,5 +565,38 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary))
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750, nextBandMessage)
     }
+
+    "return zero for decreasesTax total when there is no decreasesTax value" in {
+      val nino = NinoGenerator.randomNino
+      val personalTaxSummary = PersonalTaxSummaryContainer(
+        details = TaxSummaryDetails(
+          nino = nino.toString,
+          version = 0,
+          totalLiability = Some(TotalLiability(
+            totalTax = BigDecimal("0"))),
+          increasesTax = Some(IncreasesTax(total = BigDecimal("0")))),
+        links = Map.empty)
+      val result = EstimatedIncomeViewModelFactory.createObject(nino, personalTaxSummary)
+
+      result.taxFreeEstimate shouldBe BigDecimal("0")
+    }
+
+    "return the correct value for decreasesTax total" in {
+      val nino = NinoGenerator.randomNino
+      val decreasesTaxTotalValue = BigDecimal("2000")
+      val personalTaxSummary = PersonalTaxSummaryContainer(
+        details = TaxSummaryDetails(
+          nino = nino.toString,
+          version = 0,
+          totalLiability = Some(TotalLiability(
+            totalTax = BigDecimal("0"))),
+          decreasesTax = Some(DecreasesTax(total = decreasesTaxTotalValue)),
+          increasesTax = Some(IncreasesTax(total = BigDecimal("0")))),
+        links = Map.empty)
+      val result = EstimatedIncomeViewModelFactory.createObject(nino, personalTaxSummary)
+
+      result.taxFreeEstimate shouldBe decreasesTaxTotalValue
+    }
+    
   }
 }

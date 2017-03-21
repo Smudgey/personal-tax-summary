@@ -38,7 +38,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
 
     val estimatedTotalTax: BigDecimal = details.totalLiability.get.totalTax
-    val decTaxTotal: BigDecimal = details.decreasesTax.get.total
+    val decTaxTotal: BigDecimal = details.decreasesTax.map(_.total).getOrElse(BigDecimal("0"))
     val incTotal: BigDecimal = details.increasesTax.get.total
     val reliefs: Boolean = TaxSummaryHelper.getPPR(details)._1 > BigDecimal(0) || TaxSummaryHelper.getGiftAid(details)._1 > BigDecimal(0)
     val emps = details.taxCodeDetails.flatMap(_.employment)
