@@ -23,7 +23,7 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.nps2.{TaxAccount, TaxBand, TaxDetail, TaxObject}
 import uk.gov.hmrc.model.tai.{AnnualAccount, TaxYear}
-import uk.gov.hmrc.model.{TaxSummaryDetails, nps2}
+import uk.gov.hmrc.model.{IabdSummary, TaxComponent, TaxSummaryDetails, nps2}
 import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.EstimatedIncomeViewModelFactory
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
@@ -89,6 +89,16 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
       result.hasPSA shouldBe true
       result.hasSSR shouldBe false
+    }
+
+    "have all the ukdividend bands list" in {
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CN499213B"), ukDividendsTaxSummary)
+
+      result.ukDividends shouldBe Some(TaxComponent(20000,0, "",List(IabdSummary(76,"UK Dividend",20000,Some(0),None))))
+      result.taxBands shouldBe Some(List(TaxBand(Some("SDR"),None,0,0,Some(0),Some(5000),0),
+        TaxBand(Some("LDR"),None,22,4.4,Some(5000),Some(32910),7.5),
+        TaxBand(Some("HDR1"),None,0,0,Some(32910),Some(151125),32.5),
+        TaxBand(Some("HDR2"),None,0,0,Some(151125),Some(0),38.1)))
     }
   }
 

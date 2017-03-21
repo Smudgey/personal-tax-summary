@@ -17,7 +17,7 @@
 package uk.gov.hmrc.personaltaxsummary.viewmodels
 
 import play.api.libs.json._
-import uk.gov.hmrc.model.{TaxBand, TaxComponent}
+import uk.gov.hmrc.model.{nps2, TaxBand, TaxComponent}
 
 
 case class EstimatedIncomeViewModel(
@@ -35,7 +35,7 @@ case class EstimatedIncomeViewModel(
                                      graph: BandedGraph,
                                      hasChanges: Boolean = false,
                                      ukDividends: Option[TaxComponent],
-                                     taxBands: Option[List[TaxBand]],
+                                     taxBands: Option[List[nps2.TaxBand]],
                                      incomeTaxReducedToZeroMessage: Option[String],
                                      nextYearTaxTotal: BigDecimal =0,
                                      hasPSA: Boolean = false,

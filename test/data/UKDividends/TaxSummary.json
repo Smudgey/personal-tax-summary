@@ -1,0 +1,682 @@
+{
+  "nino": "CN499213",
+  "version": 1,
+  "accounts": [
+    {
+      "year": 2016,
+      "nps": {
+        "date": "28/01/2016",
+        "totalEstTax": 4.55,
+        "totalLiability": {
+          "nonSavings": {
+            "taxBands": [
+              {
+                "bandType": "B",
+                "income": 12030,
+                "tax": 2406,
+                "lowerBand": 0,
+                "upperBand": 32910,
+                "rate": 20
+              },
+              {
+                "bandType": "D0",
+                "income": 0,
+                "tax": 0,
+                "lowerBand": 32910,
+                "upperBand": 151125,
+                "rate": 40
+              },
+              {
+                "bandType": "D1",
+                "income": 0,
+                "tax": 0,
+                "lowerBand": 151125,
+                "upperBand": 0,
+                "rate": 45
+              }
+            ],
+            "totalTax": 2406,
+            "totalTaxableIncome": 12030
+          },
+          "ukDividends": {
+            "taxBands": [
+              {
+                "bandType": "SDR",
+                "income": 0,
+                "tax": 0,
+                "lowerBand": 0,
+                "upperBand": 5000,
+                "rate": 0
+              },
+              {
+                "bandType": "LDR",
+                "income": 22,
+                "tax": 4.4,
+                "lowerBand": 5000,
+                "upperBand": 32910,
+                "rate": 7.5
+              },
+              {
+                "bandType": "HDR1",
+                "income": 0,
+                "tax": 0,
+                "lowerBand": 32910,
+                "upperBand": 151125,
+                "rate": 32.5
+              },
+              {
+                "bandType": "HDR2",
+                "income": 0,
+                "tax": 0,
+                "lowerBand": 151125,
+                "upperBand": 0,
+                "rate": 38.1
+              }
+            ],
+            "totalTax": 4.4,
+            "totalTaxableIncome": 22
+          }
+        },
+        "incomeSources": [
+          {
+            "employmentId": 8,
+            "employmentType": 1,
+            "employmentStatus": 1,
+            "employmentTaxDistrictNumber": 961,
+            "employmentPayeRef": "8723350",
+            "pensionIndicator": true,
+            "jsaIndicator": false,
+            "otherIncomeSourceIndicator": false,
+            "name": "PAYESCHEMEOPERATORNAME55004",
+            "endDate": null,
+            "worksNumber": null,
+            "taxCode": "K938",
+            "potentialUnderpayment": 2078.25,
+            "employmentRecord": {
+              "employerName": "PAYESCHEMEOPERATORNAME55004",
+              "employmentType": 1,
+              "sequenceNumber": 8,
+              "worksNumber": "H4800700156/B",
+              "taxDistrictNumber": "961",
+              "iabds": [],
+              "startDate": "01/02/2007"
+            }
+          },
+          {
+            "employmentId": 7,
+            "employmentType": 2,
+            "employmentStatus": 1,
+            "employmentTaxDistrictNumber": 961,
+            "employmentPayeRef": "8723350",
+            "pensionIndicator": true,
+            "jsaIndicator": false,
+            "otherIncomeSourceIndicator": false,
+            "name": "PAYESCHEMEOPERATORNAME55004",
+            "endDate": null,
+            "worksNumber": null,
+            "taxCode": "102T",
+            "potentialUnderpayment": 0,
+            "employmentRecord": {
+              "employerName": "PAYESCHEMEOPERATORNAME55004",
+              "employmentType": 2,
+              "sequenceNumber": 7,
+              "worksNumber": "H3474500001/B",
+              "taxDistrictNumber": "961",
+              "iabds": [],
+              "startDate": "06/04/2007"
+            }
+          },
+          {
+            "employmentId": 10,
+            "employmentType": 2,
+            "employmentStatus": 1,
+            "employmentTaxDistrictNumber": 961,
+            "employmentPayeRef": "8723350",
+            "pensionIndicator": true,
+            "jsaIndicator": false,
+            "otherIncomeSourceIndicator": false,
+            "name": "PAYESCHEMEOPERATORNAME55004",
+            "endDate": null,
+            "worksNumber": null,
+            "taxCode": "102T",
+            "potentialUnderpayment": 0,
+            "employmentRecord": {
+              "employerName": "PAYESCHEMEOPERATORNAME55004",
+              "employmentType": 2,
+              "sequenceNumber": 10,
+              "worksNumber": "K560385000/B",
+              "taxDistrictNumber": "961",
+              "iabds": [],
+              "startDate": "01/04/2007"
+            }
+          },
+          {
+            "employmentId": 9,
+            "employmentType": 2,
+            "employmentStatus": 1,
+            "employmentTaxDistrictNumber": 961,
+            "employmentPayeRef": "8723350",
+            "pensionIndicator": true,
+            "jsaIndicator": false,
+            "otherIncomeSourceIndicator": false,
+            "name": "PAYESCHEMEOPERATORNAME55004",
+            "endDate": null,
+            "worksNumber": null,
+            "taxCode": "102T",
+            "potentialUnderpayment": 0,
+            "employmentRecord": {
+              "employerName": "PAYESCHEMEOPERATORNAME55004",
+              "employmentType": 2,
+              "sequenceNumber": 9,
+              "worksNumber": "815157/B",
+              "taxDistrictNumber": "961",
+              "iabds": [],
+              "startDate": "01/03/2007"
+            }
+          }
+        ],
+        "iabds": []
+      },
+      "rtiStatus": {
+        "status": 404,
+        "response": ""
+      }
+    }
+  ],
+  "increasesTax": {
+    "incomes": {
+      "taxCodeIncomes": {
+        "employments": {
+          "taxCodeIncomes": [
+            {
+              "name": "Sainsburys",
+              "taxCode": "K5817",
+              "employmentId": 1,
+              "employmentPayeRef": "BT456",
+              "employmentType": 1,
+              "incomeType": 0,
+              "employmentStatus": 1,
+              "tax": {
+                "totalIncome": 50000,
+                "totalTaxableIncome": 108167,
+                "totalTax": 36909.8,
+                "potentialUnderpayment": 234,
+                "taxBands": [
+                  {
+                    "income": 31785,
+                    "tax": 6357,
+                    "lowerBand": 0,
+                    "upperBand": 31785,
+                    "rate": 20
+                  },
+                  {
+                    "income": 76382,
+                    "tax": 30552.8,
+                    "lowerBand": 31785,
+                    "upperBand": 150000,
+                    "rate": 40
+                  },
+                  {
+                    "income": 0,
+                    "tax": 0,
+                    "lowerBand": 150000,
+                    "rate": 45
+                  }
+                ],
+                "allowReliefDeducts": -58167,
+                "actualTaxDueAssumingBasicRateAlreadyPaid": 26909.8
+              },
+              "worksNumber": "WN 1",
+              "jobTitle": "Job Title 1",
+              "startDate": "2010-01-01",
+              "income": 50000,
+              "isEditable": true,
+              "isLive": true,
+              "isOccupationalPension": false,
+              "isPrimary": true
+            }
+          ],
+          "totalIncome": 50000,
+          "totalTax": 36909.8,
+          "totalTaxableIncome": 108167
+        },
+        "occupationalPensions": {
+          "taxCodeIncomes": [
+            {
+              "name": "Aviva Pensions",
+              "taxCode": "D0",
+              "employmentId": 2,
+              "employmentPayeRef": "AS456",
+              "employmentType": 2,
+              "incomeType": 1,
+              "employmentStatus": 1,
+              "tax": {
+                "totalIncome": 50000,
+                "totalTaxableIncome": 50000,
+                "totalTax": 11273.36,
+                "actualTaxDueAssumingBasicRateAlreadyPaid": 11273.36
+              },
+              "worksNumber": "WN 2",
+              "jobTitle": "Job Title 2",
+              "startDate": "2010-01-01",
+              "income": 50000,
+              "isEditable": true,
+              "isLive": true,
+              "isOccupationalPension": true,
+              "isPrimary": false
+            }
+          ],
+          "totalIncome": 50000,
+          "totalTax": 11273.36,
+          "totalTaxableIncome": 50000
+        },
+        "hasDuplicateEmploymentNames": false,
+        "totalIncome": 100000,
+        "totalTaxableIncome": 158167,
+        "totalTax": 48183.16
+      },
+      "noneTaxCodeIncomes": {
+        "statePension": 100,
+        "otherIncome": {
+          "amount": 200,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 72,
+              "description": "Profit",
+              "amount": 100,
+              "employmentId": 0
+            },
+            {
+              "iabdType": 19,
+              "description": "Non-Coded Income",
+              "amount": 100,
+              "employmentId": 0
+            }
+          ]
+        },
+        "taxableStateBenefit": {
+          "amount": 300,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 123,
+              "description": "Employment and Support Allowance",
+              "amount": 100,
+              "employmentId": 0
+            },
+            {
+              "iabdType": 84,
+              "description": "Job Seekers Allowance",
+              "amount": 100,
+              "employmentId": 0
+            },
+            {
+              "iabdType": 83,
+              "description": "Incapacity Benefit",
+              "amount": 100,
+              "employmentId": 0
+            }
+          ]
+        },
+        "untaxedInterest": {
+          "amount": 5000,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 82,
+              "description": "Untaxed Interest",
+              "amount": 5000,
+              "employmentId": 0
+            }
+          ]
+        },
+        "bankBsInterest": {
+          "amount": 5000,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 75,
+              "description": "Bank / Building Society Interest",
+              "amount": 5000,
+              "employmentId": 0
+            }
+          ]
+        },
+        "dividends": {
+          "amount": 20000,
+          "componentType": 0,
+          "description": "",
+          "iabdSummaries": [
+            {
+              "iabdType": 76,
+              "description": "UK Dividend",
+              "amount": 20000,
+              "employmentId": 0
+            }
+          ]
+        },
+        "totalIncome": 30600
+      },
+      "total": 130600
+    },
+    "benefitsFromEmployment": {
+      "amount": 14835,
+      "componentType": 0,
+      "description": "",
+      "iabdSummaries": [
+        {
+          "iabdType": 53,
+          "description": "Travel and Subsistence",
+          "amount": 12000,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 54,
+          "description": "Vouchers and Credit Cards",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 53,
+          "description": "Travel and Subsistence",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 50,
+          "description": "Qualfying Relocation Expenses",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 49,
+          "description": "Personal Incidental Expenses",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 48,
+          "description": "Payments on Employee's Behalf",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 47,
+          "description": "Other Items",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 46,
+          "description": "Nursery Places",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 45,
+          "description": "Non-qualifying Relocation Expenses",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 44,
+          "description": "Mileage",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 52,
+          "description": "Income Tax Paid but not deducted from Director's Remuneration",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 43,
+          "description": "Expenses",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 42,
+          "description": "Entertaining",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 8,
+          "description": "Employer Provided Services",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 51,
+          "description": "Employer Provided Professional Subscription",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 41,
+          "description": "Educational Services",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 40,
+          "description": "Asset Transfer",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 39,
+          "description": "Assets",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 38,
+          "description": "Accommodation",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 117,
+          "description": "Non-Cash Benefit",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 37,
+          "description": "Beneficial Loan",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 36,
+          "description": "Van Fuel Benefit",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 35,
+          "description": "Van Benefit",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 34,
+          "description": "Taxable Expenses Benefit",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 33,
+          "description": "Service Benefit",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 32,
+          "description": "Telephone",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 31,
+          "description": "Car Benefit",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 30,
+          "description": "Medical Insurance",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 29,
+          "description": "Car Fuel Benefit",
+          "amount": 100,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        },
+        {
+          "iabdType": 54,
+          "description": "Vouchers and Credit Cards",
+          "amount": 35,
+          "employmentId": 1,
+          "employmentName": "Sainsburys"
+        }
+      ]
+    },
+    "total": 145435
+  },
+  "decreasesTax": {
+    "personalAllowance": 1060,
+    "personalAllowanceSourceAmount": 10600,
+    "paTransferredAmount": 0,
+    "paReceivedAmount": 1060,
+    "paTapered": true,
+    "total": 2260
+  },
+  "other": {
+    "amount": 22,
+    "componentType": 0,
+    "description": "",
+    "iabdSummaries": [
+      {
+        "iabdType": 75,
+        "description": "Bank / Building Society Interest",
+        "amount": 22
+      }
+    ]
+  },
+  "totalLiability": {
+    "nonSavings": {
+      "totalIncome": 12130,
+      "totalTaxableIncome": 12030,
+      "totalTax": 2406,
+      "taxBands": [
+        {
+          "income": 12030,
+          "tax": 2406,
+          "lowerBand": 0,
+          "upperBand": 32910,
+          "rate": 20
+        },
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 32910,
+          "upperBand": 151125,
+          "rate": 40
+        },
+        {
+          "income": 0,
+          "tax": 0,
+          "lowerBand": 151125,
+          "upperBand": 0,
+          "rate": 45
+        }
+      ],
+      "allowReliefDeducts": 100
+    },
+    "totalLiability": 2084,
+    "totalTax": 0.0,
+    "totalTaxOnIncome": 2410.4,
+    "underpaymentPreviousYear": 0,
+    "outstandingDebt": 0,
+    "childBenefitAmount": 0,
+    "childBenefitTaxDue": 0,
+    "taxOnBankBSInterest": 4.4,
+    "liabilityReductions": {
+      "marriageAllowance": {
+        "marriageAllowance": 3220,
+        "marriageAllowanceRelief": 2406
+      },
+      "enterpriseInvestmentSchemeRelief": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "concessionalRelief": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "maintenancePayments": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "doubleTaxationRelief": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      }
+    },
+    "liabilityAdditions": {
+      "excessGiftAidTax": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "excessWidowsAndOrphans": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      },
+      "pensionPaymentsAdjustment": {
+        "codingAmount": 0,
+        "amountInTermsOfTax": 0
+      }
+    }
+  },
+  "adjustedNetIncome": 150000
+}
