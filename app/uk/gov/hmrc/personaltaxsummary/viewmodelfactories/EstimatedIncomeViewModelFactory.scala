@@ -20,7 +20,7 @@ import play.api.Play.current
 import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.model.nps2.TaxBand
+import uk.gov.hmrc.model.nps2.{TaxObject, TaxBand}
 import uk.gov.hmrc.model.tai.TaxYear
 import uk.gov.hmrc.model.{Employments, TaxSummaryDetails, TotalLiability}
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
@@ -53,6 +53,10 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val taxBands = retrieveTaxBands(details)
     val graph = createBandedGraph(taxBands)
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
+    val dividendBands = {
+      val ukDividendBands = details.currentYearAccounts.flatMap(_.nps).flatMap(_.taxObjects.get(TaxObject.Type.UkDividends))
+        ukDividendBands.flatMap(_.taxBands)
+    }
     val nextYearTaxTotal = {
       val taxObjects = details.accounts.filter(_.year == TaxYear().next).flatMap(_.nps).map(_.taxObjects)
       taxObjects.flatMap(_.values).flatMap(_.totalTax).sum
@@ -74,7 +78,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       graph,
       TaxSummaryHelper.cyPlusOneAvailable(details),
       dividends,
-      None,
+      dividendBands.map(_.toList),
       None,
       nextYearTaxTotal,
       taxBandTypes.contains("PSR"),
