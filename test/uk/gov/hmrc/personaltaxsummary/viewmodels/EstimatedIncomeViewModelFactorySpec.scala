@@ -137,24 +137,14 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
   "getUpperBand" should {
 
     "return 0 when empty list" in {
-      //Given
       val taxBands = Nil
-
-      //When
       val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands)
-
-      //Then
       upperBand shouldBe 0
     }
 
     "return default value when only pa band has been passed" in {
-      //Given
       val taxBands: List[TaxBand] = List(TaxBand(Some("pa"), None, income = 11500, tax = 0, lowerBand = None, upperBand = None, rate = 0))
-
-      //When
       val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands)
-
-      //Then
       upperBand shouldBe 11500
     }
 
