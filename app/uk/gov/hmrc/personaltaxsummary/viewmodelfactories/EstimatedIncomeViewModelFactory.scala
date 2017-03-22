@@ -20,12 +20,11 @@ import play.api.Play.current
 import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
-import uk.gov.hmrc.model.nps2.TaxBand
+import uk.gov.hmrc.model.nps2.{TaxObject, TaxBand}
 import uk.gov.hmrc.model.tai.TaxYear
 import uk.gov.hmrc.model.{Employments, TaxSummaryDetails, TotalLiability}
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaiConstants.higherRateBandIncome
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.{TaiConstants, TaxSummaryHelper}
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{Band, BandedGraph, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
@@ -39,7 +38,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
 
     val estimatedTotalTax: BigDecimal = details.totalLiability.get.totalTax
-    val decTaxTotal: BigDecimal = details.decreasesTax.get.total
+    val decTaxTotal: BigDecimal = details.decreasesTax.map(_.total).getOrElse(BigDecimal("0"))
     val incTotal: BigDecimal = details.increasesTax.get.total
     val reliefs: Boolean = TaxSummaryHelper.getPPR(details)._1 > BigDecimal(0) || TaxSummaryHelper.getGiftAid(details)._1 > BigDecimal(0)
     val emps = details.taxCodeDetails.flatMap(_.employment)
@@ -54,6 +53,10 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val taxBands = retrieveTaxBands(details)
     val graph = createBandedGraph(taxBands)
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
+    val dividendBands = {
+      val ukDividendBands = details.currentYearAccounts.flatMap(_.nps).flatMap(_.taxObjects.get(TaxObject.Type.UkDividends))
+        ukDividendBands.flatMap(_.taxBands)
+    }
     val nextYearTaxTotal = {
       val taxObjects = details.accounts.filter(_.year == TaxYear().next).flatMap(_.nps).map(_.taxObjects)
       taxObjects.flatMap(_.values).flatMap(_.totalTax).sum
@@ -75,7 +78,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       graph,
       TaxSummaryHelper.cyPlusOneAvailable(details),
       dividends,
-      None,
+      dividendBands.map(_.toList),
       None,
       nextYearTaxTotal,
       taxBandTypes.contains("PSR"),
@@ -121,7 +124,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
           } else {
             lstBand.upperBand.map(upBand => upBand + taxFreeAllowanceBandSum)
           }
-        }.getOrElse(higherRateBandIncome)
+        }.getOrElse(taxFreeAllowanceBandSum)
 
         if (income > upperBand) income
         else upperBand

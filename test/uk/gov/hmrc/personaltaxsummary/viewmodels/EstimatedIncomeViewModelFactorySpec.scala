@@ -23,11 +23,15 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.nps2.{TaxAccount, TaxBand, TaxDetail, TaxObject}
 import uk.gov.hmrc.model.tai.{AnnualAccount, TaxYear}
-import uk.gov.hmrc.model.{TaxSummaryDetails, nps2}
+import uk.gov.hmrc.model.{IabdSummary, TaxComponent, TaxSummaryDetails, nps2}
 import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.EstimatedIncomeViewModelFactory
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
+import WrappedDataMatchers._
+import uk.gov.hmrc.model._
+import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
+import uk.gov.hmrc.personaltaxsummary.utils.NinoGenerator
 
 class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplication with StubApplicationConfiguration with TaiTestData {
 
@@ -90,6 +94,16 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       result.hasPSA shouldBe true
       result.hasSSR shouldBe false
     }
+
+    "have all the ukdividend bands list" in {
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CN499213B"), ukDividendsTaxSummary)
+
+      result.ukDividends shouldBe Some(TaxComponent(20000,0, "",List(IabdSummary(76,"UK Dividend",20000,Some(0),None))))
+      result.taxBands shouldBe Some(List(TaxBand(Some("SDR"),None,0,0,Some(0),Some(5000),0),
+        TaxBand(Some("LDR"),None,22,4.4,Some(5000),Some(32910),7.5),
+        TaxBand(Some("HDR1"),None,0,0,Some(32910),Some(151125),32.5),
+        TaxBand(Some("HDR2"),None,0,0,Some(151125),Some(0),38.1)))
+    }
   }
 
   "merge Tax bands" should {
@@ -133,14 +147,15 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
   "getUpperBand" should {
 
     "return 0 when empty list" in {
-      //Given
       val taxBands = Nil
-
-      //When
       val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands)
-
-      //Then
       upperBand shouldBe 0
+    }
+
+    "return default value when only pa band has been passed" in {
+      val taxBands: List[TaxBand] = List(TaxBand(Some("pa"), None, income = 11500, tax = 0, lowerBand = None, upperBand = None, rate = 0))
+      val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands)
+      upperBand shouldBe 11500
     }
 
     "return proper upperBand when passed two bands (0&20)" in {
@@ -550,5 +565,38 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary))
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750, nextBandMessage)
     }
+
+    "return zero for decreasesTax total when there is no decreasesTax value" in {
+      val nino = NinoGenerator.randomNino
+      val personalTaxSummary = PersonalTaxSummaryContainer(
+        details = TaxSummaryDetails(
+          nino = nino.toString,
+          version = 0,
+          totalLiability = Some(TotalLiability(
+            totalTax = BigDecimal("0"))),
+          increasesTax = Some(IncreasesTax(total = BigDecimal("0")))),
+        links = Map.empty)
+      val result = EstimatedIncomeViewModelFactory.createObject(nino, personalTaxSummary)
+
+      result.taxFreeEstimate shouldBe BigDecimal("0")
+    }
+
+    "return the correct value for decreasesTax total" in {
+      val nino = NinoGenerator.randomNino
+      val decreasesTaxTotalValue = BigDecimal("2000")
+      val personalTaxSummary = PersonalTaxSummaryContainer(
+        details = TaxSummaryDetails(
+          nino = nino.toString,
+          version = 0,
+          totalLiability = Some(TotalLiability(
+            totalTax = BigDecimal("0"))),
+          decreasesTax = Some(DecreasesTax(total = decreasesTaxTotalValue)),
+          increasesTax = Some(IncreasesTax(total = BigDecimal("0")))),
+        links = Map.empty)
+      val result = EstimatedIncomeViewModelFactory.createObject(nino, personalTaxSummary)
+
+      result.taxFreeEstimate shouldBe decreasesTaxTotalValue
+    }
+    
   }
 }
