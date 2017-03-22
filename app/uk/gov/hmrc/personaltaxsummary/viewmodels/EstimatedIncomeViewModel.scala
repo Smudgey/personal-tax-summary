@@ -17,44 +17,51 @@
 package uk.gov.hmrc.personaltaxsummary.viewmodels
 
 import play.api.libs.json._
-import uk.gov.hmrc.model.{TaxBand, TaxComponent}
+import uk.gov.hmrc.model.{nps2, TaxBand, TaxComponent}
 
 
 case class EstimatedIncomeViewModel(
-                            increasesTax: Boolean = false,
-                            incomeTaxEstimate: BigDecimal = 0,
-                            incomeEstimate: BigDecimal = 0,
-                            taxFreeEstimate: BigDecimal = 0,
-                            taxRelief: Boolean = false,
-                            taxCodes: List[String] = List(),
-                            potentialUnderpayment: Boolean = false,
-                            additionalTaxTable :List[(String,String)] = List(),
-                            additionalTaxTableTotal: String = "",
-                            reductionsTable: List[(String,String,String)] = List(),
-                            reductionsTableTotal: String = "",
-                            graph: BandedGraph,
-                            hasChanges: Boolean = false,
-                            ukDividends: Option[TaxComponent],
-                            taxBands: Option[List[TaxBand]],
-                            incomeTaxReducedToZeroMessage: Option[String]
-                          )
+                                     increasesTax: Boolean = false,
+                                     incomeTaxEstimate: BigDecimal = 0,
+                                     incomeEstimate: BigDecimal = 0,
+                                     taxFreeEstimate: BigDecimal = 0,
+                                     taxRelief: Boolean = false,
+                                     taxCodes: List[String] = List(),
+                                     potentialUnderpayment:Boolean = false,
+                                     additionalTaxTable: List[(String,String)] = List(),
+                                     additionalTaxTableTotal: String = "",
+                                     reductionsTable: List[(String,String,String)] = List(),
+                                     reductionsTableTotal: String = "",
+                                     graph: BandedGraph,
+                                     hasChanges: Boolean = false,
+                                     ukDividends: Option[TaxComponent],
+                                     taxBands: Option[List[nps2.TaxBand]],
+                                     incomeTaxReducedToZeroMessage: Option[String],
+                                     nextYearTaxTotal: BigDecimal =0,
+                                     hasPSA: Boolean = false,
+                                     hasSSR: Boolean = false
+                                   )
 
 case class BandedGraph(
-                        id: String,
-                        bands: List[Band] = List(),
-                        minBand: BigDecimal = 0,
-                        nextBand: BigDecimal = 0,
-                        incomeTotal: BigDecimal = 0,
-                        incomeAsPercentage: BigDecimal = 0,
-                        taxTotal: BigDecimal = 0
+                        id:String,
+                        bands:List[Band] = List(),
+                        minBand :BigDecimal =0,
+                        nextBand :BigDecimal = 0,
+                        incomeTotal:BigDecimal = 0,
+                        zeroIncomeAsPercentage: BigDecimal =0,
+                        zeroIncomeTotal: BigDecimal =0,
+                        incomeAsPercentage: BigDecimal =0,
+                        taxTotal:BigDecimal =0,
+                        nextBandMessage: Option[String] = None
                       )
 
 case class Band(
-                 colour: String,
+                 colour:String,
                  barPercentage: BigDecimal = 0,
                  tablePercentage: String = "0",
                  income: BigDecimal = 0,
-                 tax: BigDecimal = 0
+                 tax: BigDecimal = 0,
+                 bandType: String
                )
 
 object Band {

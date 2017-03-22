@@ -14,6 +14,63 @@
       "nps": {
         "date": "09/12/2014",
         "totalEstTax": 10241.8,
+        "totalLiability": {
+
+          "nonSavings": {
+
+            "taxBands": [{
+
+              "bandType": "B",
+
+              "income": 32000,
+
+              "tax": 6400,
+
+              "lowerBand": 0,
+
+              "upperBand": 32000,
+
+              "rate": 20
+
+            },
+
+              {
+
+                "bandType": "D0",
+
+                "income": 27000,
+
+                "tax": 10800,
+
+                "lowerBand": 32000,
+
+                "upperBand": 150000,
+
+                "rate": 40
+
+              },
+
+              {
+
+                "bandType": "D1",
+
+                "income": 0,
+
+                "tax": 0,
+
+                "lowerBand": 150000,
+
+                "upperBand": 0,
+
+                "rate": 45
+
+              }],
+
+            "totalTax": 17200,
+
+            "totalTaxableIncome": 59000
+
+          }},
         "incomeSources": [
           {
             "employmentId": 1,

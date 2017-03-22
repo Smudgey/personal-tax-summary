@@ -16,15 +16,8 @@
 
 package uk.gov.hmrc.model.nps2
 
-case class TaxBand (
-  /**
-    * Part of the tax code. Rarely used by itself.
-    */
-  bandType: Option[String],
-  code: Option[String],
-  income: BigDecimal,
-  tax: BigDecimal,
-  lowerBand: Option[BigDecimal],
-  upperBand: Option[BigDecimal],
-  rate: BigDecimal
-)
+
+case class TaxDetail(totalTax: Option[BigDecimal] = None,
+                     totalTaxableIncome: Option[BigDecimal] = None,
+                     totalIncome: Option[BigDecimal] = None,
+                     taxBands: Option[Seq[TaxBand]] = None)
