@@ -1731,3 +1731,7 @@ menu.yearRange={0} to {1}&nbsp;{2}
 tai.label.print=Print
 tai.label.paye=Taxable Income
 tai.label.back=Back
+
+#PSA-DIV changes
+tai.zero-percentage=0%
+tai.not-applicable=NA

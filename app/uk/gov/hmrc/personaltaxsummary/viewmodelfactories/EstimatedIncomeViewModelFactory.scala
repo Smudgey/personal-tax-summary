@@ -140,7 +140,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
   def individualBands(taxBands: List[TaxBand]): List[Band] =
     for (taxBand <- taxBands.filter(_.rate == 0)) yield Band("TaxFree", calcBarPercentage(taxBand.income, taxBands),
-      "0%", taxBand.income, taxBand.tax, taxBand.bandType.getOrElse("NA"))
+      Messages("tai.zero-percentage"), taxBand.income, taxBand.tax, taxBand.bandType.getOrElse(Messages("tai.not-applicable")))
 
   def createBandedGraph(taxBands: List[TaxBand]): BandedGraph = {
     taxBands match {
