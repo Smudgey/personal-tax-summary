@@ -182,6 +182,29 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       upperBand shouldBe 200000
     }
 
+    "deduct personal allowance from tax-free allowances to get the upper-band if user is in higher rate" in {
+      val taxBands = List(
+        TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20),
+        TaxBand(Some("D0"), None, income = 100, tax = 60000, lowerBand = Some(32000), upperBand = Some(150000), rate = 40)
+      )
+
+      val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands = taxBands, personalAllowance = Some(5000))
+
+      upperBand shouldBe 150000
+    }
+
+    "not deduct personal allowance from tax-free allowances to get the upper-band if user is not in higher rate" in {
+      val taxBands = List(
+        TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20)
+      )
+
+      val upperBand = EstimatedIncomeViewModelFactory.getUpperBand(taxBands = taxBands, personalAllowance = Some(5000))
+
+      upperBand shouldBe 37000
+    }
+
   }
 
   "calculate bar percentage" should {
