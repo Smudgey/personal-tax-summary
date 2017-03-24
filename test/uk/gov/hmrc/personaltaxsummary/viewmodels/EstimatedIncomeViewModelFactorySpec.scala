@@ -81,6 +81,22 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       result.incomeTaxReducedToZeroMessage.isDefined shouldBe false
     }
 
+    "return a zero income tax estimate message as reductions are greater than the income tax due" in {
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CN499213B"), reductionsGreaterThanIncomeTaxLiabilityTaxSummary)
+
+      result.incomeTaxEstimate shouldBe 0
+      result.reductionsTable.size shouldBe 2
+      result.incomeTaxReducedToZeroMessage.isDefined shouldBe true
+    }
+
+    "return a zero income tax estimate message as reductions are equal to the income tax due" in {
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CN499213B"), reductionsEqualToIncomeTaxLiabilityTaxSummary)
+
+      result.incomeTaxEstimate shouldBe 0
+      result.reductionsTable.size shouldBe 2
+      result.incomeTaxReducedToZeroMessage.isDefined shouldBe true
+    }
+
     "have 'hasSSR' flag as true for SR band" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CN499213B"), containsSRBandTaxSummary)
 
