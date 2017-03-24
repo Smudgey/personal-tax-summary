@@ -81,11 +81,19 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       TaxSummaryHelper.cyPlusOneAvailable(details),
       dividends,
       dividendBands.map(_.toList),
-      None,
+      fetchTaxReducedZeroMsg(reductionsTable.size, totalLiability.totalTax),
       nextYearTaxTotal,
       taxBandTypes.contains("PSR"),
       taxBandTypes.contains("SR")
     )
+  }
+
+  private def fetchTaxReducedZeroMsg(reductions: Int, totalTax: BigDecimal): Option[String] = {
+    if(reductions > 0 && totalTax <= 0) {
+      Some(Messages("tai.estimatedIncome.reductionsTax.incomeTaxReducedToZeroMessage"))
+    } else {
+      None
+    }
   }
 
   def mergedBands(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None): Option[Band] = {
