@@ -622,4 +622,73 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
     }
     
   }
+
+  "oldBandedGraph" should {
+
+    "return an empty BandedGraph with Nil bands and values set to zero when an empty list is supplied." in {
+
+      val result = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(Nil)
+
+      result shouldBe BandedGraph("taxGraph", Nil,0,0,0,0,0,0,0, None)
+
+    }
+
+    "have two bands(0&20) to display in graph" in {
+
+      val taxBand = List(
+        TaxBand(Some("pa"), None, income = 3200, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 16000, tax = 5000, lowerBand = Some(11000), upperBand = Some(28800), rate = 20)
+      )
+
+      val bands = List(Band("",barPercentage = 0,"0",3200,0,"pa"),
+        Band("",barPercentage = 0,"20",16000,5000,"B"))
+
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands )
+    }
+
+    "have three bands 0, 20 & 40 to display in graph" in {
+
+      val taxBand = List(
+        TaxBand(Some("pa"), None, income = 3000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20),
+        TaxBand(Some("D0"), None, income = 30000, tax = 12000, lowerBand = Some(32000), upperBand = Some(147000), rate = 40)
+      )
+
+      val bands = List(
+        Band("", barPercentage = 0, "0", 3000, 0, "pa"),
+        Band("", barPercentage = 0, "20", 15000, 3000, "B"),
+        Band("", barPercentage = 0, "40", 30000, 12000, "D0")
+      )
+
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands)
+    }
+
+    "have multiple rate band 0,7.5 & 20 & 45 & 60 in graph" in {
+
+      val taxBand = List(
+        TaxBand(Some("pa"), None, income = 10000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("SR"), None, income = 10000, tax = 0, lowerBand = Some(11000), upperBand = Some(14000), rate = 0),
+        TaxBand(Some("D0"), None, income = 10000, tax = 750, lowerBand = Some(14000), upperBand = Some(32000), rate = 20),
+        TaxBand(Some("D1"), None, income = 10000, tax = 3000, lowerBand = Some(14000), upperBand = Some(100000), rate = 40),
+        TaxBand(Some("D2"), None, income = 40000, tax = 3000, lowerBand = Some(100000), upperBand = Some(200000), rate = 45),
+        TaxBand(Some("D3"), None, income = 40000, tax = 3000, lowerBand = Some(200000), upperBand = Some(0), rate = 60)
+      )
+
+      val bands = List(
+        Band("", barPercentage = 0, "0", 10000, 0, "pa"),
+        Band("", barPercentage = 0, "0", 10000, 0, "SR"),
+        Band("", barPercentage = 0, "20", 10000, 750, "D0"),
+        Band("", barPercentage = 0, "40", 10000, 3000, "D1"),
+        Band("", barPercentage = 0, "45", 40000, 3000, "D2"),
+        Band("", barPercentage = 0, "60", 40000, 3000, "D3")
+      )
+
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
+      dataF shouldBe BandedGraph("taxGraph",bands)
+    }
+
+  }
+
 }

@@ -30,6 +30,7 @@ import uk.gov.hmrc.personaltaxsummary.viewmodels.{Band, BandedGraph, EstimatedIn
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
 object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] {
+
   override def createObject(nino: Nino, container: PersonalTaxSummaryContainer): EstimatedIncomeViewModel = {
     val details = container.details
 
@@ -53,7 +54,8 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability), 2).quantity
     val taxBands = retrieveTaxBands(details)
     val personalAllowance = details.decreasesTax.flatMap(_.personalAllowance)
-    val graph = createBandedGraph(taxBands, personalAllowance)
+    val oldGraph = createBandedGraphWithBandsOnly(taxBands);
+    val newGraph = createBandedGraph(taxBands, personalAllowance)
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
     val dividendBands = {
       val ukDividendBands = details.currentYearAccounts.flatMap(_.nps).flatMap(_.taxObjects.get(TaxObject.Type.UkDividends))
@@ -77,15 +79,28 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       additionalTableTotal,
       reductionsTable,
       reductionsTableTotal,
-      graph,
+      oldGraph,
       TaxSummaryHelper.cyPlusOneAvailable(details),
       dividends,
       dividendBands.map(_.toList),
       None,
       nextYearTaxTotal,
       taxBandTypes.contains("PSR"),
-      taxBandTypes.contains("SR")
+      taxBandTypes.contains("SR"),
+      newGraph
     )
+  }
+
+  def createBandedGraphWithBandsOnly(taxBands: List[TaxBand]): BandedGraph = {
+    val bands = taxBands.map(
+      taxBand =>
+        Band(
+          colour = "",
+          tablePercentage = taxBand.rate.toString(),
+          income = taxBand.income, tax = taxBand.tax,
+          bandType = taxBand.bandType.getOrElse("NA"))
+    )
+    BandedGraph(id = "taxGraph", bands = bands)
   }
 
   def mergedBands(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None): Option[Band] = {
