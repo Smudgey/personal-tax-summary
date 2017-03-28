@@ -660,7 +660,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("",barPercentage = 0,"20",16000,5000,"B"))
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
-      dataF shouldBe BandedGraph("taxGraph", bands )
+      dataF shouldBe BandedGraph("taxGraph", bands, incomeTotal = 19200, taxTotal = 5000 )
     }
 
     "have three bands 0, 20 & 40 to display in graph" in {
@@ -678,7 +678,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
-      dataF shouldBe BandedGraph("taxGraph", bands)
+      dataF shouldBe BandedGraph("taxGraph", bands, incomeTotal = 48000, taxTotal = 15000 )
     }
 
     "have multiple rate band 0,7.5 & 20 & 45 & 60 in graph" in {
@@ -702,7 +702,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
-      dataF shouldBe BandedGraph("taxGraph",bands)
+      dataF shouldBe BandedGraph("taxGraph",bands, incomeTotal = 120000, taxTotal = 9750 )
     }
 
   }

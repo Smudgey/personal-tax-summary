@@ -100,7 +100,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
           income = taxBand.income, tax = taxBand.tax,
           bandType = taxBand.bandType.getOrElse("NA"))
     )
-    BandedGraph(id = "taxGraph", bands = bands)
+    BandedGraph(id = "taxGraph", bands = bands, incomeTotal = bands.map(_.income).sum, taxTotal = bands.map(_.tax).sum)
   }
 
   private def fetchTaxReducedZeroMsg(reductions: Int, totalTax: BigDecimal): Option[String] = {
