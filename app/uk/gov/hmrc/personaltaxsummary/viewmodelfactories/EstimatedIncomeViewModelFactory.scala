@@ -98,7 +98,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
           colour = "",
           tablePercentage = taxBand.rate.toString(),
           income = taxBand.income, tax = taxBand.tax,
-          bandType = taxBand.bandType.getOrElse("NA"))
+          bandType = taxBand.bandType.getOrElse(Messages("tai.not-applicable")))
     )
     BandedGraph(id = "taxGraph", bands = bands, incomeTotal = bands.map(_.income).sum, taxTotal = bands.map(_.tax).sum)
   }

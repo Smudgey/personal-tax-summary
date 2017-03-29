@@ -705,6 +705,20 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       dataF shouldBe BandedGraph("taxGraph",bands, incomeTotal = 120000, taxTotal = 9750 )
     }
 
+    "return NA as band type if no band-type coming in Tax-Bands model" in {
+
+      val taxBand = List(
+        TaxBand(Some("pa"), None, income = 3200, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(None, None, income = 16000, tax = 5000, lowerBand = Some(11000), upperBand = Some(28800), rate = 20)
+      )
+
+      val bands = List(Band("",barPercentage = 0,"0",3200,0,"pa"),
+        Band("",barPercentage = 0,"20",16000,5000,Messages("tai.not-applicable")))
+
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
+      dataF shouldBe BandedGraph("taxGraph", bands, incomeTotal = 19200, taxTotal = 5000 )
+    }
+
   }
 
 }
