@@ -111,7 +111,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  def mergedBands(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map()): Option[Band] = {
+  def mergedBands(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): Option[Band] = {
     val nonZeroBands = taxBands.filter(_.rate != 0)
 
     Option(nonZeroBands.nonEmpty).collect {
@@ -127,7 +127,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  private def getBandValues(nonZeroBands: List[TaxBand], links: Map[String, String] = Map()) = {
+  private def getBandValues(nonZeroBands: List[TaxBand], links: Map[String, String] = Map.empty) = {
     if (nonZeroBands.size > 1) {
       (links.getOrElse("taxExplanationScreen",""), Messages("tai.taxedIncome.desc"), nonZeroBands.map(_.income).sum)
     } else {
@@ -173,14 +173,14 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     for (taxBand <- taxBands.filter(_.rate == 0)) yield Band("TaxFree", calcBarPercentage(taxBand.income, taxBands, personalAllowance),
       Messages("tai.zero-percentage"), taxBand.income, taxBand.tax, taxBand.bandType.getOrElse(Messages("tai.not-applicable")))
 
-  def createBandedGraph(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map()): BandedGraph = {
+  def createBandedGraph(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): BandedGraph = {
     taxBands match {
       case Nil => BandedGraph("taxGraph") //This case will never occur
       case taxbands => createGraph(taxbands, personalAllowance, links)
     }
   }
 
-  private def createGraph(taxbands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map()): BandedGraph = {
+  private def createGraph(taxbands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): BandedGraph = {
     val zeroRateBands: List[Band] = individualBands(taxbands, personalAllowance)
     val otherRateBands: Option[Band] = mergedBands(taxbands, personalAllowance, links)
 
