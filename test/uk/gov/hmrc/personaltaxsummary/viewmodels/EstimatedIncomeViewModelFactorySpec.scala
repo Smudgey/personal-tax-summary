@@ -131,13 +131,24 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
     }
 
-    "return only one merged tax band for other than zero% rate band" in {
+    "return empty string in table percentage when tax explanation link is not coming " in {
       val taxBand = List(TaxBand(None, None, income = 1000, tax = 20, lowerBand = None, upperBand = Some(4000), rate = 20),
         TaxBand(None, None, income = 2500, tax = 40, lowerBand = None, upperBand = Some(5000), rate = 20),
         TaxBand(None, None, income = 1000, tax = 20, lowerBand = None, upperBand = Some(4000), rate = 40),
         TaxBand(None, None, income = 2000, tax = 20, lowerBand = None, upperBand = Some(4000), rate = 40))
 
       val dataF = EstimatedIncomeViewModelFactory.mergedBands(taxBand)
+      dataF.get shouldBe Band("Band", 100, "", 6500, 100, "TaxedIncome")
+    }
+
+    "return only one merged tax band for other than zero% rate band" in {
+      val taxBand = List(TaxBand(None, None, income = 1000, tax = 20, lowerBand = None, upperBand = Some(4000), rate = 20),
+        TaxBand(None, None, income = 2500, tax = 40, lowerBand = None, upperBand = Some(5000), rate = 20),
+        TaxBand(None, None, income = 1000, tax = 20, lowerBand = None, upperBand = Some(4000), rate = 40),
+        TaxBand(None, None, income = 2000, tax = 20, lowerBand = None, upperBand = Some(4000), rate = 40))
+
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.mergedBands(taxBand, links = links)
       dataF.get shouldBe Band("Band", 100, "Check in more detail", 6500, 100, "TaxedIncome")
     }
   }
@@ -393,8 +404,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val nextBandMessage = Some("You can have £102,000 more before your income reaches the next tax band.")
-
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand, links= links)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 48000, 2.00, 3000, 32.00, 15000, nextBandMessage)
     }
 
@@ -412,7 +423,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 97.5, "Check in more detail", 195000, 65250, "TaxedIncome")
       )
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand, links= links)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 200000, 200000, 2.5, 5000, 100, 65250)
     }
 
@@ -428,7 +440,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 100, "Check in more detail", 200000, 65250, "TaxedIncome")
       )
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand, links= links)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 200000, 200000, 0, 0, 100, 65250)
     }
 
@@ -467,7 +480,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 50, "Check in more detail", 20000, 6000, "TaxedIncome")
       )
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand, links= links)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 40000, 40000, 50, 20000, 100, 6000)
     }
 
@@ -524,7 +538,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         Band("Band", 50.00, "Check in more detail", 20000, 3750, "TaxedIncome")
       )
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand, links= links)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 40000, 40000, 50.00, 20000, 100.00, 3750)
     }
 
@@ -546,7 +561,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
       val nextBandMessage = Some("You can have £50,000 more before your income reaches the next tax band.")
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand, links= links)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 110000, 60000, 18.18, 20000, 54.54, 6750, nextBandMessage)
     }
 
@@ -569,7 +585,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
       val nextBandMessage = Some("You can have £90,000 more before your income reaches the next tax band.")
 
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand, links= links)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750, nextBandMessage)
     }
 
@@ -600,8 +617,8 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         taxObjects = taxObjects)
       val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
-
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary))
+      val links = Map("taxExplanationScreen" -> "Check in more detail")
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary), links= links)
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 210000, 120000, 9.52, 20000, 57.13, 9750, nextBandMessage)
     }
 

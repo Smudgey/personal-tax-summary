@@ -54,8 +54,8 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability), 2).quantity
     val taxBands = retrieveTaxBands(details)
     val personalAllowance = details.decreasesTax.flatMap(_.personalAllowance)
-    val oldGraph = createBandedGraphWithBandsOnly(taxBands);
-    val newGraph = createBandedGraph(taxBands, personalAllowance)
+    val oldGraph = createBandedGraphWithBandsOnly(taxBands)
+    val newGraph = createBandedGraph(taxBands, personalAllowance, container.links)
     val dividends = details.increasesTax.flatMap(_.incomes.map(inc => inc.noneTaxCodeIncomes)).flatMap(_.dividends)
     val dividendBands = {
       val ukDividendBands = details.currentYearAccounts.flatMap(_.nps).flatMap(_.taxObjects.get(TaxObject.Type.UkDividends))
@@ -111,12 +111,12 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  def mergedBands(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None): Option[Band] = {
+  def mergedBands(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): Option[Band] = {
     val nonZeroBands = taxBands.filter(_.rate != 0)
 
     Option(nonZeroBands.nonEmpty).collect {
       case true =>
-        val (tablePercentage, bandType, incomeSum) = getBandValues(nonZeroBands)
+        val (tablePercentage, bandType, incomeSum) = getBandValues(nonZeroBands, links)
 
         Band("Band", calcBarPercentage(incomeSum, taxBands, personalAllowance),
           tablePercentage = tablePercentage,
@@ -127,11 +127,11 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  private def getBandValues(nonZeroBands: List[TaxBand]) = {
+  private def getBandValues(nonZeroBands: List[TaxBand], links: Map[String, String] = Map.empty) = {
     if (nonZeroBands.size > 1) {
-      ("Check in more detail", "TaxedIncome", nonZeroBands.map(_.income).sum) // We will remove hard-coded messages as a part of Link Story
+      (links.getOrElse("taxExplanationScreen",""), Messages("tai.taxedIncome.desc"), nonZeroBands.map(_.income).sum)
     } else {
-      nonZeroBands.map(otherBand => (otherBand.rate.toString() + "%", otherBand.bandType.getOrElse("NA"), otherBand.income)).head
+      nonZeroBands.map(otherBand => (otherBand.rate.toString() + "%", otherBand.bandType.getOrElse(Messages("tai.not-applicable")), otherBand.income)).head
     }
   }
 
@@ -173,16 +173,16 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     for (taxBand <- taxBands.filter(_.rate == 0)) yield Band("TaxFree", calcBarPercentage(taxBand.income, taxBands, personalAllowance),
       Messages("tai.zero-percentage"), taxBand.income, taxBand.tax, taxBand.bandType.getOrElse(Messages("tai.not-applicable")))
 
-  def createBandedGraph(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None): BandedGraph = {
+  def createBandedGraph(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): BandedGraph = {
     taxBands match {
       case Nil => BandedGraph("taxGraph") //This case will never occur
-      case taxbands => createGraph(taxbands, personalAllowance)
+      case taxbands => createGraph(taxbands, personalAllowance, links)
     }
   }
 
-  private def createGraph(taxbands: List[TaxBand], personalAllowance: Option[BigDecimal] = None): BandedGraph = {
+  private def createGraph(taxbands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): BandedGraph = {
     val zeroRateBands: List[Band] = individualBands(taxbands, personalAllowance)
-    val otherRateBands: Option[Band] = mergedBands(taxbands, personalAllowance)
+    val otherRateBands: Option[Band] = mergedBands(taxbands, personalAllowance, links)
 
     val allBands = otherRateBands match {
       case Some(band) => zeroRateBands :+ band
