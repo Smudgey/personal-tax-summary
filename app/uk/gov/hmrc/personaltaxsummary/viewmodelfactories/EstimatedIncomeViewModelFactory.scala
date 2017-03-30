@@ -129,9 +129,9 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
   private def getBandValues(nonZeroBands: List[TaxBand], links: Map[String, String] = Map()) = {
     if (nonZeroBands.size > 1) {
-      (links.getOrElse("taxExplanationScreen",""), "TaxedIncome", nonZeroBands.map(_.income).sum) // We will remove hard-coded messages as a part of Link Story
+      (links.getOrElse("taxExplanationScreen",""), Messages("tai.taxedIncome.desc"), nonZeroBands.map(_.income).sum)
     } else {
-      nonZeroBands.map(otherBand => (otherBand.rate.toString() + "%", otherBand.bandType.getOrElse("NA"), otherBand.income)).head
+      nonZeroBands.map(otherBand => (otherBand.rate.toString() + "%", otherBand.bandType.getOrElse(Messages("tai.not-applicable")), otherBand.income)).head
     }
   }
 
