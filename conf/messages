@@ -1333,6 +1333,7 @@ tai.taxcode.deduction.type-40=Adjustment to rate band
 tai.taxcode.deduction.type-41=Outstanding debt from previous year
 tai.taxcode.deduction.type-42=Child Benefit charge  
 tai.taxcode.deduction.type-44=Dividend Tax
+tai.taxcode.deduction.type-45=In Year Adjustment
 tai.taxcode.deduction.child.benefit.description=This is the Child Benefit you owe HMRC. Your tax code has been adjusted to collect the £{0} due.
 tai.taxcode.deduction.underpayment.description=This is an underpayment you owe HMRC from a previous year. Your tax code has been adjusted to collect the £{0} due.
 tai.taxcode.deduction.outstanding.debt.description=This is outstanding debt you owe HMRC. Your tax code has been adjusted to collect the £{0} due.
@@ -1354,7 +1355,7 @@ tai.taxcode.deduction.type-33.desc=Personal savings allowance.
 tai.taxcode.deduction.type-38.desc=This is the taxable amount we expect you to receive in the tax year based on information provided by the Department for Work and Pensions.
 tai.taxcode.deduction.type-40.desc=We have included this adjustment as you have more than one job or pension and we estimate some of your income is taxable at a higher rate.
 tai.taxcode.deduction.type-44.desc=The amount shown is not your dividend amount. It is a figure used to reduce your tax-free allowance so you’ll pay the correct amount of tax on your dividends income at the basic rate of tax.
-
+tai.taxcode.deduction.type-45.desc=This is an estimated tax you owe this year. Your tax code has been adjusted to collect the £{0} due.
 #Company Car
 paye.companyCar.iabdType=31
 
