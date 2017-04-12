@@ -37,7 +37,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
   "EstimatedIncomeViewModelFactory createObject" should {
 
-    val annualAccounts = List(AnnualAccount(TaxYear(2016), Some(TaxAccount(None, None, 1564.45,
+    val annualAccounts = List(AnnualAccount(TaxYear(2017), Some(TaxAccount(None, None, 1564.45,
       Map(TaxObject.Type.NonSavings -> TaxDetail(Some(1111.11), Some(9969), None,
         Some(Seq(nps2.TaxBand(Some("pa"), None, 2290, 0, None, None, 0),
           nps2.TaxBand(Some("B"), None, 9969, 1993.80, Some(0), Some(33125), 20.00)))))))))
@@ -302,7 +302,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       })
       val taxAccount = TaxAccount(None, None, tax = 1000,
         taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
+      val accounts = List(AnnualAccount(TaxYear(2017), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val taxBands = EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary)
@@ -324,7 +324,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       })
       val taxAccount = TaxAccount(None, None, tax = 1000,
         taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
+      val accounts = List(AnnualAccount(TaxYear(2017), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val taxBands = EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary)
@@ -353,7 +353,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       })
       val taxAccount = TaxAccount(None, None, tax = 1000,
         taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
+      val accounts = List(AnnualAccount(TaxYear(2017), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
 
       val taxBands = EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary)
@@ -621,7 +621,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       })
       val taxAccount = TaxAccount(None, None, tax = 1000,
         taxObjects = taxObjects)
-      val accounts = List(AnnualAccount(TaxYear(2016), Some(taxAccount)))
+      val accounts = List(AnnualAccount(TaxYear(2017), Some(taxAccount)))
       val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
       val links = Map("taxExplanationScreen" -> "Check in more detail")
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary), links= links)
