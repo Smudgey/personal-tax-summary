@@ -56,8 +56,14 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       result.taxFreeEstimate shouldBe 10000
     }
 
-    "have a potential underpayment" in {
+    "not have a potential underpayment using old field name potentialUnderpayment" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), potentialUnderpaymentTaxSummary.copy(accounts = annualAccounts))
+
+      result.potentialUnderpayment shouldBe false
+    }
+
+    "have a potential underpayment using new field name totalInYearAdjustment" in {
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), inYearAdjustmentTaxSummary.copy(accounts = annualAccounts))
 
       result.potentialUnderpayment shouldBe true
     }

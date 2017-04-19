@@ -248,9 +248,9 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
   private def fetchPotentialUnderpayment(details: TaxSummaryDetails): Boolean = {
     val incomesWithUnderpayment = details.increasesTax.flatMap(_.incomes.map(incomes =>
-      TaxSummaryHelper.sortedTaxableIncomes(incomes.taxCodeIncomes).filter(_.tax.potentialUnderpayment.isDefined))).getOrElse(Nil)
+      TaxSummaryHelper.sortedTaxableIncomes(incomes.taxCodeIncomes).filter(_.tax.totalInYearAdjustment.isDefined))).getOrElse(Nil)
     incomesWithUnderpayment.foldLeft(BigDecimal(0))((total, income) =>
-      income.tax.potentialUnderpayment.getOrElse(BigDecimal(0)) + total)
+      income.tax.totalInYearAdjustment.getOrElse(BigDecimal(0)) + total)
     match {
       case x if x > 0 => true
       case _ => false
