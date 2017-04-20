@@ -310,7 +310,7 @@ case class TotalLiability(
                            nonCodedIncome: Option[Tax] = None,
                            totalTax: BigDecimal,
                            underpaymentPreviousYear: BigDecimal = BigDecimal(0),
-                           inYearAdjustment: BigDecimal = BigDecimal(0),
+                           inYearAdjustment: Option[BigDecimal] = None,
                            outstandingDebt: BigDecimal = BigDecimal(0),
                            childBenefitTaxDue: BigDecimal = BigDecimal(0),
                            taxOnBankBSInterest: Option[BigDecimal] = None,

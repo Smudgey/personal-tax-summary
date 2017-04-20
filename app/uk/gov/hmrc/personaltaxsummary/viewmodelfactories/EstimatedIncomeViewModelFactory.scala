@@ -259,7 +259,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
   private def createAdditionalTable(totalLiability: TotalLiability): List[(String, String)] = {
     val underPayment = fetchTaxTitleAndAmount(totalLiability.underpaymentPreviousYear, "tai.taxCalc.UnderpaymentPreviousYear.title")
-    val inYearAdjustment = fetchTaxTitleAndAmount(totalLiability.inYearAdjustment, "tai.taxcode.deduction.type-45")
+    val inYearAdjustment = fetchTaxTitleAndAmount(totalLiability.inYearAdjustment.fold(BigDecimal(0))(iya => iya), "tai.taxcode.deduction.type-45")
     val childBenefitTax = fetchTaxTitleAndAmount(totalLiability.childBenefitTaxDue, "tai.taxCalc.childBenefit.title")
     val outStandingDebt = fetchTaxTitleAndAmount(totalLiability.outstandingDebt, "tai.taxCalc.OutstandingDebt.title")
     val excessGiftAidTax = totalLiability.liabilityAdditions.flatMap(_.excessGiftAidTax.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0))
@@ -291,7 +291,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
   private def getTotalAdditionalTaxDue(totalLiability: TotalLiability): BigDecimal = {
       totalLiability.underpaymentPreviousYear +
-      totalLiability.inYearAdjustment +
+      totalLiability.inYearAdjustment.fold(BigDecimal(0))(iya => iya) +
       totalLiability.childBenefitTaxDue +
       totalLiability.outstandingDebt +
       totalLiability.liabilityAdditions.flatMap(_.excessGiftAidTax.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0)) +
