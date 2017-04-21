@@ -80,6 +80,12 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       result.additionalTaxTable.contains((Messages("tai.taxCalc.childBenefit.title"), MoneyPounds(1500, 2).quantity)) shouldBe true
     }
 
+    "have in year adjustment" in {
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), everythingTaxSummary.copy(accounts = annualAccounts))
+
+      result.additionalTaxTable.contains((Messages("tai.taxcode.deduction.type-45"), MoneyPounds(350, 2).quantity)) shouldBe true
+    }
+
     "not return a zero income tax estimate message as reductions are less than the income tax due" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CN499213B"), reductionsLessThanIncomeTaxLiabilityTaxSummary)
 

@@ -228,6 +228,7 @@
     "totalTax": 1361.4,
     "totalTaxOnIncome": 1361.4,
     "underpaymentPreviousYear": 0,
+    "inYearAdjustment":0,
     "outstandingDebt": 0,
     "childBenefitAmount": 0,
     "childBenefitTaxDue": 0,

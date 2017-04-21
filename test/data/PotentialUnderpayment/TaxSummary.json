@@ -173,6 +173,7 @@
     "totalTax": 5375,
     "totalTaxOnIncome":5375,
     "underpaymentPreviousYear":0,
+    "inYearAdjustment":0,
     "outstandingDebt":0,
     "childBenefitAmount": 0,
     "childBenefitTaxDue": 0
