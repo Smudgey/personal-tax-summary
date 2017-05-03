@@ -86,13 +86,27 @@ class TaxSummaryContainerFactorySpec extends UnitSpec with WithFakeApplication w
   }
 
   "TaxSummaryContainerFactory getPotentialUnderpayment" should {
-    "return potential underpayments given a nino with underpayment" in {
+    "not return potential underpayments given a nino with underpayment using old field name potentialUnderpayment" in {
       val result: Option[BigDecimal] = TaxSummaryContainerFactory.getPotentialUnderpayment(potentialUnderpaymentTaxSummary)
+
+      result should not be Some(4123.29)
+    }
+
+    "not return potential underpayments given a nino with no underpayments" in {
+      val result: Option[BigDecimal] = TaxSummaryContainerFactory.getPotentialUnderpayment(currentYearTaxSummary)
+
+      result shouldBe None
+    }
+  }
+
+  "TaxSummaryContainerFactory getPotentialUnderpayment with new field name totalInYearAdjustment " should {
+    "return total in year adjustment given a nino with underpayment" in {
+      val result: Option[BigDecimal] = TaxSummaryContainerFactory.getPotentialUnderpayment(inYearAdjustmentTaxSummary)
 
       result shouldBe Some(4123.29)
     }
 
-    "not return potential underpayments given a nino with no underpayments" in {
+    "not return in year adjustment given a nino with no underpayments" in {
       val result: Option[BigDecimal] = TaxSummaryContainerFactory.getPotentialUnderpayment(currentYearTaxSummary)
 
       result shouldBe None

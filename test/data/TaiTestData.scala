@@ -34,6 +34,7 @@ trait TaiTestData {
   private val nonCodedTaxSummaryFilename = "NonCodedIncome/TaxSummary.json"
   private val outstandingDebtFilename = "OutstandingDebt/TaxSummary.json"
   private val potentialUnderpaymentFilename = "PotentialUnderpayment/TaxSummary.json"
+  private val inYearAdjustmentFilename = "InYearAdjustment/TaxSummary.json"
   private val reductionsEqualToIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsEqualToIncomeTaxLiabilityTaxSummary.json"
   private val reductionsGreaterThanIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsGreaterThanIncomeTaxLiabilityTaxSummary.json"
   private val reductionsLessThanIncomeTaxLiabilityFilename = "EstimatedIncome/ReductionsLessThanIncomeTaxLiabilityTaxSummary.json"
@@ -60,6 +61,7 @@ trait TaiTestData {
   def nonCodedTaxSummary: TaxSummaryDetails = getTaxSummary(nonCodedTaxSummaryFilename)
   def outstandingDebtTaxSummary: TaxSummaryDetails = getTaxSummary(outstandingDebtFilename)
   def potentialUnderpaymentTaxSummary: TaxSummaryDetails = getTaxSummary(potentialUnderpaymentFilename)
+  def inYearAdjustmentTaxSummary: TaxSummaryDetails = getTaxSummary(inYearAdjustmentFilename)
   def reductionsEqualToIncomeTaxLiabilityTaxSummary: TaxSummaryDetails = getTaxSummary(reductionsEqualToIncomeTaxLiabilityFilename)
   def reductionsGreaterThanIncomeTaxLiabilityTaxSummary: TaxSummaryDetails = getTaxSummary(reductionsGreaterThanIncomeTaxLiabilityFilename)
   def reductionsLessThanIncomeTaxLiabilityTaxSummary: TaxSummaryDetails = getTaxSummary(reductionsLessThanIncomeTaxLiabilityFilename)
