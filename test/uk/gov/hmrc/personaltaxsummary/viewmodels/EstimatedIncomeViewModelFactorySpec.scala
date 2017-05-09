@@ -56,34 +56,31 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       result.taxFreeEstimate shouldBe 10000
     }
 
-    "not have a potential underpayment using old field name potentialUnderpayment" in {
-      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), potentialUnderpaymentTaxSummary.copy(accounts = annualAccounts))
-
-      result.potentialUnderpayment shouldBe false
-    }
-
-    "have a potential underpayment using new field name totalInYearAdjustment" in {
-      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), inYearAdjustmentTaxSummary.copy(accounts = annualAccounts))
-
-      result.potentialUnderpayment shouldBe true
-    }
-
     "have outstanding debt" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), outstandingDebtTaxSummary.copy(accounts = annualAccounts))
 
       result.additionalTaxTable shouldBe List((Messages("tai.taxCalc.OutstandingDebt.title"), MoneyPounds(200, 2).quantity))
+      result.additionalTaxTableV2 shouldBe List(AdditionalTaxRow(Messages("tai.taxCalc.OutstandingDebt.title"), MoneyPounds(200, 2).quantity))
+
     }
 
     "have child benefit" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), everythingTaxSummary.copy(accounts = annualAccounts))
 
       result.additionalTaxTable.contains((Messages("tai.taxCalc.childBenefit.title"), MoneyPounds(1500, 2).quantity)) shouldBe true
+      result.additionalTaxTableV2.contains(AdditionalTaxRow(Messages("tai.taxCalc.childBenefit.title"), MoneyPounds(1500, 2).quantity)) shouldBe true
     }
 
     "have in year adjustment" in {
-      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), everythingTaxSummary.copy(accounts = annualAccounts))
+      val url = "http://some.link/to/test"
+      val links = Map(("underpaymentEstimatePageUrl",url))
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), PersonalTaxSummaryContainer(everythingTaxSummary.copy(accounts = annualAccounts),links))
+
+      System.out.println(result.additionalTaxTableV2)
 
       result.additionalTaxTable.contains((Messages("tai.taxcode.deduction.type-45"), MoneyPounds(350, 2).quantity)) shouldBe true
+      result.additionalTaxTableV2.find(row => row.description == Messages("tai.taxcode.deduction.type-45")
+          && row.amount == MoneyPounds(350, 2).quantity && row.url == Some(url)).size shouldBe 1
     }
 
     "not return a zero income tax estimate message as reductions are less than the income tax due" in {
@@ -746,6 +743,30 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
       dataF shouldBe BandedGraph("taxGraph", bands, incomeTotal = 19200, taxTotal = 5000 )
+    }
+
+  }
+
+  "fetchPotentialUnderpayment" should {
+
+    "return false if tax details include iya cy and iya cy plus one" in {
+      val result = EstimatedIncomeViewModelFactory.fetchPotentialUnderpayment(potentialUnderpaymentTaxSummary)
+      result shouldBe false
+    }
+
+    "return false if tax details doesn't include iya cy or iya cy plus one" in {
+      val result = EstimatedIncomeViewModelFactory.fetchPotentialUnderpayment(potentialUnderpaymentTaxSummaryNoIya)
+      result shouldBe false
+    }
+
+    "return false if tax details includes iya cy but doesn't include iya cy plus one" in {
+      val result = EstimatedIncomeViewModelFactory.fetchPotentialUnderpayment(potentialUnderpaymentTaxSummaryIyaCY)
+      result shouldBe false
+    }
+
+    "return true if tax details doesn't include iya cy but does include iya cy plus one" in {
+      val result = EstimatedIncomeViewModelFactory.fetchPotentialUnderpayment(potentialUnderpaymentTaxSummaryIyaCYPlusOne)
+      result shouldBe true
     }
 
   }

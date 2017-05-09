@@ -22,12 +22,14 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.nps2.{TaxBand, TaxObject}
 import uk.gov.hmrc.model.tai.TaxYear
-import uk.gov.hmrc.model.{Employments, TaxSummaryDetails, TotalLiability}
+import uk.gov.hmrc.model.{Employments, Tax, TaxSummaryDetails, TotalLiability}
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaiConstants.higherRateBandIncome
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
-import uk.gov.hmrc.personaltaxsummary.viewmodels.{Band, BandedGraph, EstimatedIncomeViewModel}
+import uk.gov.hmrc.personaltaxsummary.viewmodels.{AdditionalTaxRow, Band, BandedGraph, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
+
+import scala.math.BigDecimal
 
 object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] {
 
@@ -49,6 +51,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
     val totalLiability = details.totalLiability.get
     val additionalTable = createAdditionalTable(totalLiability)
+    val additionalTableV2 = createAdditionalTableV2(totalLiability,container.links)
     val additionalTableTotal = MoneyPounds(getTotalAdditionalTaxDue(totalLiability), 2).quantity
     val reductionsTable: List[(String, String, String)] = createReductionsTable(totalLiability, container.links)
     val reductionsTableTotal = "-" + MoneyPounds(getTotalReductions(totalLiability), 2).quantity
@@ -76,6 +79,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       listEmps,
       potentialUnderpayment,
       additionalTable,
+      additionalTableV2,
       additionalTableTotal,
       reductionsTable,
       reductionsTableTotal,
@@ -246,28 +250,43 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  private def fetchPotentialUnderpayment(details: TaxSummaryDetails): Boolean = {
-    val incomesWithUnderpayment = details.increasesTax.flatMap(_.incomes.map(incomes =>
-      TaxSummaryHelper.sortedTaxableIncomes(incomes.taxCodeIncomes).filter(_.tax.totalInYearAdjustment.isDefined))).getOrElse(Nil)
-    incomesWithUnderpayment.foldLeft(BigDecimal(0))((total, income) =>
-      income.tax.totalInYearAdjustment.getOrElse(BigDecimal(0)) + total)
-    match {
-      case x if x > 0 => true
+  def fetchPotentialUnderpayment(details: TaxSummaryDetails): Boolean = {
+    val iyaIntoCYPlusOne = containsPositiveValue(details){ tax => tax.inYearAdjustmentIntoCYPlusOne }
+    val iyaIntoCY = containsPositiveValue(details){ tax => tax.inYearAdjustmentIntoCY }
+
+    (iyaIntoCY, iyaIntoCYPlusOne) match {
+      case (false,true) => true
       case _ => false
     }
   }
 
+  def containsPositiveValue(details: TaxSummaryDetails)(extract: Tax => Option[BigDecimal]):Boolean ={
+    val incomesWithUnderpayment = details.increasesTax.flatMap(_.incomes.map(incomes =>
+      TaxSummaryHelper.sortedTaxableIncomes(incomes.taxCodeIncomes).filter(income => extract(income.tax).isDefined))).getOrElse(Nil)
+
+    incomesWithUnderpayment.foldLeft(false)((result, income) =>
+      extract(income.tax).getOrElse(BigDecimal(0)) > 0 || result)
+  }
+
+
   private def createAdditionalTable(totalLiability: TotalLiability): List[(String, String)] = {
-    val underPayment = fetchTaxTitleAndAmount(totalLiability.underpaymentPreviousYear, "tai.taxCalc.UnderpaymentPreviousYear.title")
-    val inYearAdjustment = fetchTaxTitleAndAmount(totalLiability.inYearAdjustment.fold(BigDecimal(0))(iya => iya), "tai.taxcode.deduction.type-45")
-    val childBenefitTax = fetchTaxTitleAndAmount(totalLiability.childBenefitTaxDue, "tai.taxCalc.childBenefit.title")
-    val outStandingDebt = fetchTaxTitleAndAmount(totalLiability.outstandingDebt, "tai.taxCalc.OutstandingDebt.title")
+    additionalTableFactory(totalLiability)(fetchTaxTitleAndAmount)
+  }
+  private def createAdditionalTableV2(totalLiability: TotalLiability, containerLinks:  Map[String, String]): List[AdditionalTaxRow] = {
+    additionalTableFactory(totalLiability)(createAdditionalTaxRow(containerLinks))
+  }
+
+  private def additionalTableFactory[R](totalLiability: TotalLiability)(fetchTableRow: (BigDecimal,String, Option[String]) => Option[R]): List[R] ={
+    val underPayment = fetchTableRow(totalLiability.underpaymentPreviousYear, "tai.taxCalc.UnderpaymentPreviousYear.title",None)
+    val inYearAdjustment = fetchTableRow(totalLiability.inYearAdjustment.fold(BigDecimal(0))(iya => iya), "tai.taxcode.deduction.type-45", Some("underpaymentEstimatePageUrl"))
+    val childBenefitTax = fetchTableRow(totalLiability.childBenefitTaxDue, "tai.taxCalc.childBenefit.title",None)
+    val outStandingDebt = fetchTableRow(totalLiability.outstandingDebt, "tai.taxCalc.OutstandingDebt.title",None)
     val excessGiftAidTax = totalLiability.liabilityAdditions.flatMap(_.excessGiftAidTax.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0))
-    val excessGiftAidTaxMessage = fetchTaxTitleAndAmount(excessGiftAidTax, "tai.taxCalc.excessGiftAidTax.title")
+    val excessGiftAidTaxMessage = fetchTableRow(excessGiftAidTax, "tai.taxCalc.excessGiftAidTax.title",None)
     val excessWidowsAndOrphans = totalLiability.liabilityAdditions.flatMap(_.excessWidowsAndOrphans.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0))
-    val excessWidowsAndOrphansMessage = fetchTaxTitleAndAmount(excessWidowsAndOrphans, "tai.taxCalc.excessWidowsAndOrphans.title")
+    val excessWidowsAndOrphansMessage = fetchTableRow(excessWidowsAndOrphans, "tai.taxCalc.excessWidowsAndOrphans.title",None)
     val pensionPaymentsAdjustment = totalLiability.liabilityAdditions.flatMap(_.pensionPaymentsAdjustment.map(_.amountInTermsOfTax)).getOrElse(BigDecimal(0))
-    val pensionPaymentsAdjustmentMessage = fetchTaxTitleAndAmount(pensionPaymentsAdjustment, "tai.taxCalc.pensionPaymentsAdjustment.title")
+    val pensionPaymentsAdjustmentMessage = fetchTableRow(pensionPaymentsAdjustment, "tai.taxCalc.pensionPaymentsAdjustment.title",None)
 
     val additionalTable = List(
       underPayment,
@@ -281,11 +300,18 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     additionalTable
   }
 
-  private def fetchTaxTitleAndAmount(amount: BigDecimal, messageKey: String): Option[(String, String)] = {
+  private def fetchTaxTitleAndAmount(amount: BigDecimal, messageKey: String, urlKey: Option[String]=None): Option[(String, String)] = {
     if (amount > 0) {
       Some(Messages(messageKey), MoneyPounds(amount, 2).quantity)
     } else {
       None
+    }
+  }
+
+  private def createAdditionalTaxRow(links:Map[String,String])(amount: BigDecimal, messageKey: String, urlKey: Option[String]=None): Option[AdditionalTaxRow] = {
+    fetchTaxTitleAndAmount(amount,messageKey) match {
+      case Some((description,amount)) =>  Some(AdditionalTaxRow(description,amount,links.get(urlKey.getOrElse(""))))
+      case _ => None
     }
   }
 

@@ -29,6 +29,7 @@ case class EstimatedIncomeViewModel(
                                      taxCodes: List[String] = List(),
                                      potentialUnderpayment:Boolean = false,
                                      additionalTaxTable: List[(String,String)] = List(),
+                                     additionalTaxTableV2: List[AdditionalTaxRow] = List(),
                                      additionalTaxTableTotal: String = "",
                                      reductionsTable: List[(String,String,String)] = List(),
                                      reductionsTableTotal: String = "",
@@ -64,6 +65,16 @@ case class Band(
                  tax: BigDecimal = 0,
                  bandType: String
                )
+
+case class AdditionalTaxRow(
+                             description:String,
+                             amount:String,
+                             url:Option[String] = None
+                           )
+
+object AdditionalTaxRow {
+  implicit val format = Json.format[AdditionalTaxRow]
+}
 
 object Band {
   implicit val format = Json.format[Band]
