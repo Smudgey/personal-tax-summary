@@ -72,18 +72,27 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), outstandingDebtTaxSummary.copy(accounts = annualAccounts))
 
       result.additionalTaxTable shouldBe List((Messages("tai.taxCalc.OutstandingDebt.title"), MoneyPounds(200, 2).quantity))
+      result.additionalTaxTableV2 shouldBe List(AdditionalTaxRow(Messages("tai.taxCalc.OutstandingDebt.title"), MoneyPounds(200, 2).quantity))
+
     }
 
     "have child benefit" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), everythingTaxSummary.copy(accounts = annualAccounts))
 
       result.additionalTaxTable.contains((Messages("tai.taxCalc.childBenefit.title"), MoneyPounds(1500, 2).quantity)) shouldBe true
+      result.additionalTaxTableV2.contains(AdditionalTaxRow(Messages("tai.taxCalc.childBenefit.title"), MoneyPounds(1500, 2).quantity)) shouldBe true
     }
 
     "have in year adjustment" in {
-      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), everythingTaxSummary.copy(accounts = annualAccounts))
+      val url = "http://some.link/to/test"
+      val links = Map(("underpaymentEstimatePageUrl",url))
+      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), PersonalTaxSummaryContainer(everythingTaxSummary.copy(accounts = annualAccounts),links))
+
+      System.out.println(result.additionalTaxTableV2)
 
       result.additionalTaxTable.contains((Messages("tai.taxcode.deduction.type-45"), MoneyPounds(350, 2).quantity)) shouldBe true
+      result.additionalTaxTableV2.find(row => row.description == Messages("tai.taxcode.deduction.type-45")
+          && row.amount == MoneyPounds(350, 2).quantity && row.url == Some(url)).size shouldBe 1
     }
 
     "not return a zero income tax estimate message as reductions are less than the income tax due" in {
