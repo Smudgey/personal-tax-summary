@@ -22,12 +22,14 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.nps2.{TaxBand, TaxObject}
 import uk.gov.hmrc.model.tai.TaxYear
-import uk.gov.hmrc.model.{Employments, TaxSummaryDetails, TotalLiability}
+import uk.gov.hmrc.model.{Employments, Tax, TaxSummaryDetails, TotalLiability}
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaiConstants.higherRateBandIncome
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{AdditionalTaxRow, Band, BandedGraph, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
+
+import scala.math.BigDecimal
 
 object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] {
 
@@ -248,16 +250,25 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
   }
 
-  private def fetchPotentialUnderpayment(details: TaxSummaryDetails): Boolean = {
-    val incomesWithUnderpayment = details.increasesTax.flatMap(_.incomes.map(incomes =>
-      TaxSummaryHelper.sortedTaxableIncomes(incomes.taxCodeIncomes).filter(_.tax.totalInYearAdjustment.isDefined))).getOrElse(Nil)
-    incomesWithUnderpayment.foldLeft(BigDecimal(0))((total, income) =>
-      income.tax.totalInYearAdjustment.getOrElse(BigDecimal(0)) + total)
-    match {
-      case x if x > 0 => true
+  def fetchPotentialUnderpayment(details: TaxSummaryDetails): Boolean = {
+    val iyaIntoCYPlusOne = containsPositiveValue(details){ tax => tax.inYearAdjustmentIntoCYPlusOne }
+    val iyaIntoCY = containsPositiveValue(details){ tax => tax.inYearAdjustmentIntoCY }
+
+    (iyaIntoCY, iyaIntoCYPlusOne) match {
+      case (false,true) => true
       case _ => false
     }
   }
+
+  def containsPositiveValue(details: TaxSummaryDetails)(extract: Tax => Option[BigDecimal]):Boolean ={
+    val incomesWithUnderpayment = details.increasesTax.flatMap(_.incomes.map(incomes =>
+      TaxSummaryHelper.sortedTaxableIncomes(incomes.taxCodeIncomes).filter(income => extract(income.tax).isDefined))).getOrElse(Nil)
+
+    incomesWithUnderpayment.foldLeft(false)((result, income) =>
+      extract(income.tax).getOrElse(BigDecimal(0)) > 0 || result)
+  }
+
+
   private def createAdditionalTable(totalLiability: TotalLiability): List[(String, String)] = {
     additionalTableFactory(totalLiability)(fetchTaxTitleAndAmount)
   }

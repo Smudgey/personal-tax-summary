@@ -56,18 +56,6 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       result.taxFreeEstimate shouldBe 10000
     }
 
-    "not have a potential underpayment using old field name potentialUnderpayment" in {
-      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), potentialUnderpaymentTaxSummary.copy(accounts = annualAccounts))
-
-      result.potentialUnderpayment shouldBe false
-    }
-
-    "have a potential underpayment using new field name totalInYearAdjustment" in {
-      val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), inYearAdjustmentTaxSummary.copy(accounts = annualAccounts))
-
-      result.potentialUnderpayment shouldBe true
-    }
-
     "have outstanding debt" in {
       val result = EstimatedIncomeViewModelFactory.createObject(Nino("CZ629113A"), outstandingDebtTaxSummary.copy(accounts = annualAccounts))
 
@@ -755,6 +743,30 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraphWithBandsOnly(taxBand)
       dataF shouldBe BandedGraph("taxGraph", bands, incomeTotal = 19200, taxTotal = 5000 )
+    }
+
+  }
+
+  "fetchPotentialUnderpayment" should {
+
+    "return false if tax details include iya cy and iya cy plus one" in {
+      val result = EstimatedIncomeViewModelFactory.fetchPotentialUnderpayment(potentialUnderpaymentTaxSummary)
+      result shouldBe false
+    }
+
+    "return false if tax details doesn't include iya cy or iya cy plus one" in {
+      val result = EstimatedIncomeViewModelFactory.fetchPotentialUnderpayment(potentialUnderpaymentTaxSummaryNoIya)
+      result shouldBe false
+    }
+
+    "return false if tax details includes iya cy but doesn't include iya cy plus one" in {
+      val result = EstimatedIncomeViewModelFactory.fetchPotentialUnderpayment(potentialUnderpaymentTaxSummaryIyaCY)
+      result shouldBe false
+    }
+
+    "return true if tax details doesn't include iya cy but does include iya cy plus one" in {
+      val result = EstimatedIncomeViewModelFactory.fetchPotentialUnderpayment(potentialUnderpaymentTaxSummaryIyaCYPlusOne)
+      result shouldBe true
     }
 
   }
