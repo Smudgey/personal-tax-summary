@@ -456,23 +456,6 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 200000, 200000, 0, 0, 100.00, 65250)
     }
 
-    "have two bands as 20% 40% for two other rate bands to display in graph" in {
-
-      val taxBand = List(
-        TaxBand(Some("B"), None, income = 33500, tax = 6700, lowerBand = Some(11000), upperBand = Some(33500), rate = 20),
-        TaxBand(Some("D0"), None, income = 91500, tax = 36600, lowerBand = Some(33500), upperBand = Some(150000), rate = 40)
-      )
-
-      val bands = List(
-        Band("Band", 10.00, "20%", 33500, 6700, "B"),
-        Band("Band", 75.00, "40%", 91500, 36600, "D0")
-      )
-
-      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
-      println(dataF)
-      dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 125000, 0, 0, 100.00, 43300)
-    }
-
     "have four bands as 20% 40% 45% 45% for four other rate bands to display in graph" in {
 
       val taxBand = List(
@@ -492,6 +475,25 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
 
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 230000,230000,0,0,99.98,67500)
+    }
+
+    "have two bands as 20% 40% for two other rate bands to display in graph" in {
+
+      val taxBand = List(
+        TaxBand(Some("B"), None, income = 33500, tax = 6700, lowerBand = Some(11000), upperBand = Some(33500), rate = 20),
+        TaxBand(Some("D0"), None, income = 91500, tax = 36600, lowerBand = Some(33500), upperBand = Some(150000), rate = 40)
+      )
+
+      val nextBandMessage = Some("You can have £25,000 more before your income reaches the next tax band.")
+
+      val bands = List(
+        Band("Band", 22.33, "20%", 33500, 6700, "B"),
+        Band("Band", 61.00, "40%", 91500, 36600, "D0")
+      )
+
+      val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
+      println(dataF)
+      dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 125000, 0, 0, 83.33, 43300, nextBandMessage)
     }
 
     "have two 0 % band and one 20% band in graph" in {
