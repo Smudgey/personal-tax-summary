@@ -390,9 +390,6 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       taxBands shouldBe List(TaxBand(Some("PSR"),None,10000,0,Some(0),Some(11000),0),
         TaxBand(Some("B"),None,15000,3000,Some(11000),Some(32000),20))
     }
-
-
-
   }
 
   "bandedGraph" should {
