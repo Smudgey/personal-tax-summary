@@ -189,20 +189,21 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   }
 
   private def createGraph(taxbands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): BandedGraph = {
-    val (zeroRateBands: List[Band], otherRateBands: Option[Band])  = {
+    val (individualBand: List[Band], mergedBand: Option[Band])  = {
       if(taxbands.filter(_.rate==0).size > 0)
         (individualBands(taxbands, personalAllowance), mergedBands(taxbands, personalAllowance, links))
       else (individualOtherRateBands(taxbands), None)
     }
 
-    val allBands = otherRateBands match {
-      case Some(band) => zeroRateBands :+ band
-      case _ => zeroRateBands
+    val allBands = mergedBand match {
+      case Some(band) => individualBand :+ band
+      case _ => individualBand
     }
 
     val nextHigherBand = getUpperBand(taxbands, personalAllowance)
     val incomeTotal = allBands.map(_.income).sum
     val nextBandMessage = createNextBandMessage(nextHigherBand - incomeTotal)
+    val zeroRateBands = individualBand.filter(_.tax == BigDecimal(0))
 
     BandedGraph("taxGraph",
       allBands,
