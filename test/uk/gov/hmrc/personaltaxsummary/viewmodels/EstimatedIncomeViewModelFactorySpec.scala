@@ -340,7 +340,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
     }
 
-    "return merged tax bands" in {
+    "return merged tax bands for multiple pa bands" in {
       val taxBand = List(
         TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
         TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
@@ -367,6 +367,28 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         TaxBand(Some("D0"), None, income = 150000, tax = 60000, lowerBand = Some(32000), upperBand = Some(150000), rate = 40),
         TaxBand(Some("D1"), None, income = 30000, tax = 2250, lowerBand = Some(150000), upperBand = Some(0), rate = 45)
       )
+    }
+
+    "return merged tax bands for multiple PSR bands" in {
+      val bankIntTaxBand = List(
+        TaxBand(Some("PSR"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20))
+
+      val untaxedTaxBand = List(TaxBand(Some("PSR"), None, income = 5000, tax = 0, lowerBand = Some(0),
+        upperBand = Some(11000), rate = 0))
+
+      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map(
+        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(bankIntTaxBand)),
+        TaxObject.Type.UntaxedInterest -> TaxDetail(taxBands = Some(untaxedTaxBand)))
+      val taxAccount = TaxAccount(None, None, tax = 1000,
+        taxObjects = taxObjects)
+      val accounts = List(AnnualAccount(TaxYear(2017), Some(taxAccount)))
+      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+
+      val taxBands = EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary)
+
+      taxBands shouldBe List(TaxBand(Some("PSR"),None,10000,0,Some(0),Some(11000),0),
+        TaxBand(Some("B"),None,15000,3000,Some(11000),Some(32000),20))
     }
 
 

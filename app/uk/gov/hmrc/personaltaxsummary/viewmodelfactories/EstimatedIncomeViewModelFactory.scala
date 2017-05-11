@@ -221,23 +221,26 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     createObject(nino, PersonalTaxSummaryContainer(details, Map.empty))
   }
 
+  private val mergeAllowanceTaxBands = (taxBands: List[TaxBand], bandType:  String) => {
+    val (bands, remBands) = taxBands.partition(_.bandType.contains(bandType))
+    bands match {
+      case Nil => remBands
+      case _ => TaxBand(bands.map(_.bandType).head,
+        bands.map(_.code).head,
+        bands.map(_.income).sum,
+        bands.map(_.tax).sum,
+        bands.map(_.lowerBand).head,
+        bands.map(_.upperBand).head,
+        bands.map(_.rate).head) :: remBands
+    }
+  }
+
   def retrieveTaxBands(details: TaxSummaryDetails): List[TaxBand] = {
     val taxObjects = details.currentYearAccounts.flatMap(_.nps).map(_.taxObjects)
     val seqBands = taxObjects.map(_.values.toList).getOrElse(Nil)
     val taxBands = seqBands.flatMap(_.taxBands).flatten
-    val (paBands, nonPaBands) = taxBands.partition(_.bandType.contains("pa"))
-
-    val bands = paBands match {
-      case Nil => nonPaBands
-      case _ => TaxBand(paBands.map(_.bandType).head,
-        paBands.map(_.code).head,
-        paBands.map(_.income).sum,
-        paBands.map(_.tax).sum,
-        paBands.map(_.lowerBand).head,
-        paBands.map(_.upperBand).head,
-        paBands.map(_.rate).head) :: nonPaBands
-    }
-
+    val mergedPaBands = mergeAllowanceTaxBands(taxBands, "pa")
+    val bands = mergeAllowanceTaxBands(mergedPaBands, "PSR")
     bands.sortBy(_.rate)
   }
 
