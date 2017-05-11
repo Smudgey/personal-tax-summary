@@ -470,7 +470,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
-      println(dataF)
+
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 200000, 200000, 0, 0, 100.00, 65250)
     }
 
@@ -510,7 +510,7 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       )
 
       val dataF = EstimatedIncomeViewModelFactory.createBandedGraph(taxBand)
-      println(dataF)
+
       dataF shouldBe BandedGraph("taxGraph", bands, 0, 150000, 125000, 0, 0, 83.33, 43300, nextBandMessage)
     }
 
