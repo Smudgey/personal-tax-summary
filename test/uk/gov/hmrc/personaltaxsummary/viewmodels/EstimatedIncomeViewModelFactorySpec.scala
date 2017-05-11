@@ -180,6 +180,24 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
     }
   }
 
+  "individual other rate Tax bands" should {
+
+    "return an empty list when an empty list is supplied." in {
+
+      val result = EstimatedIncomeViewModelFactory.individualOtherRateBands(Nil)
+      result shouldBe Nil
+
+    }
+
+    "return two tax bands for 20% and 40% rate" in {
+      val taxBand = List(TaxBand(Some("B"), None, income = 1000, tax = 200, lowerBand = None, upperBand = Some(5000), rate = 20),
+        TaxBand(Some("D0"), None, income = 2000, tax = 800, lowerBand = None, upperBand = Some(5000), rate = 40))
+
+      val dataF = EstimatedIncomeViewModelFactory.individualOtherRateBands(taxBand)
+      dataF shouldBe List(Band("Band", 20, "20%", 1000, 200, "B"), Band("Band", 40, "40%", 2000, 800, "D0"))
+    }
+  }
+
   "getUpperBand" should {
 
     "return 0 when empty list" in {
