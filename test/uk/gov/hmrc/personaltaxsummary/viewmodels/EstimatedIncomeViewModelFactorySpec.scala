@@ -390,6 +390,36 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
       taxBands shouldBe List(TaxBand(Some("PSR"),None,10000,0,Some(0),Some(11000),0),
         TaxBand(Some("B"),None,15000,3000,Some(11000),Some(32000),20))
     }
+
+    "return ordered tax bands for multiple PSR SR pa SDR bands" in {
+      val bankIntTaxBand = List(
+        TaxBand(Some("PSR"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("SR"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("B"), None, income = 15000, tax = 3000, lowerBand = Some(11000), upperBand = Some(32000), rate = 20))
+
+      val untaxedTaxBand = List(
+        TaxBand(Some("PSR"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("pa"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0),
+        TaxBand(Some("SDR"), None, income = 5000, tax = 0, lowerBand = Some(0), upperBand = Some(11000), rate = 0))
+
+      val taxObjects: Map[TaxObject.Type.Value, TaxDetail] = Map(
+        TaxObject.Type.BankInterest -> TaxDetail(taxBands = Some(bankIntTaxBand)),
+        TaxObject.Type.UntaxedInterest -> TaxDetail(taxBands = Some(untaxedTaxBand)))
+      val taxAccount = TaxAccount(None, None, tax = 1000,
+        taxObjects = taxObjects)
+      val accounts = List(AnnualAccount(TaxYear(2017), Some(taxAccount)))
+      val testTaxSummary = TaxSummaryDetails(nino = "", version = 0, accounts = accounts)
+
+      val taxBands = EstimatedIncomeViewModelFactory.retrieveTaxBands(testTaxSummary)
+
+      val resBands = List(TaxBand(Some("pa"),None,5000,0,Some(0),Some(11000),0),
+        TaxBand(Some("SR"),None,5000,0,Some(0),Some(11000),0),
+        TaxBand(Some("PSR"),None,10000,0,Some(0),Some(11000),0),
+        TaxBand(Some("SDR"),None,5000,0,Some(0),Some(11000),0),
+        TaxBand(Some("B"),None,15000,3000,Some(11000),Some(32000),20))
+
+      taxBands shouldBe resBands
+    }
   }
 
   "bandedGraph" should {

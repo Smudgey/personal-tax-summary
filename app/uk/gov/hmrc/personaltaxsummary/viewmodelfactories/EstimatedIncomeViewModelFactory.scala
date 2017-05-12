@@ -239,8 +239,9 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     val taxObjects = details.currentYearAccounts.flatMap(_.nps).map(_.taxObjects)
     val seqBands = taxObjects.map(_.values.toList).getOrElse(Nil)
     val taxBands = seqBands.flatMap(_.taxBands).flatten
-    val mergedPaBands = mergeAllowanceTaxBands(taxBands, "pa")
-    val bands = mergeAllowanceTaxBands(mergedPaBands, "PSR")
+    val mergedPsaBands = mergeAllowanceTaxBands(taxBands, "PSR")
+    val mergedSrBands = mergeAllowanceTaxBands(mergedPsaBands, "SR")
+    val bands = mergeAllowanceTaxBands(mergedSrBands, "pa")
     bands.sortBy(_.rate)
   }
 
