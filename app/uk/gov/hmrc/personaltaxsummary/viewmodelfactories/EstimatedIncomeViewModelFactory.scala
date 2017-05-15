@@ -177,6 +177,10 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     for (taxBand <- taxBands.filter(_.rate == 0)) yield Band("TaxFree", calcBarPercentage(taxBand.income, taxBands, personalAllowance),
       Messages("tai.zero-percentage"), taxBand.income, taxBand.tax, taxBand.bandType.getOrElse(Messages("tai.not-applicable")))
 
+  def individualOtherRateBands(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None): List[Band] =
+    for (taxBand <- taxBands) yield Band("Band", calcBarPercentage(taxBand.income, taxBands, personalAllowance),
+      Messages("tai.taxRate-percentage", taxBand.rate), taxBand.income, taxBand.tax, taxBand.bandType.getOrElse(Messages("tai.not-applicable")))
+
   def createBandedGraph(taxBands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): BandedGraph = {
     taxBands match {
       case Nil => BandedGraph("taxGraph") //This case will never occur
@@ -185,17 +189,21 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
   }
 
   private def createGraph(taxbands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): BandedGraph = {
-    val zeroRateBands: List[Band] = individualBands(taxbands, personalAllowance)
-    val otherRateBands: Option[Band] = mergedBands(taxbands, personalAllowance, links)
+    val (individualBand: List[Band], mergedBand: Option[Band])  = {
+      if(taxbands.filter(_.rate==0).size > 0)
+        (individualBands(taxbands, personalAllowance), mergedBands(taxbands, personalAllowance, links))
+      else (individualOtherRateBands(taxbands), None)
+    }
 
-    val allBands = otherRateBands match {
-      case Some(band) => zeroRateBands :+ band
-      case _ => zeroRateBands
+    val allBands = mergedBand match {
+      case Some(band) => individualBand :+ band
+      case _ => individualBand
     }
 
     val nextHigherBand = getUpperBand(taxbands, personalAllowance)
     val incomeTotal = allBands.map(_.income).sum
     val nextBandMessage = createNextBandMessage(nextHigherBand - incomeTotal)
+    val zeroRateBands = individualBand.filter(_.tax == BigDecimal(0))
 
     BandedGraph("taxGraph",
       allBands,
