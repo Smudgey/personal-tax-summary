@@ -193,7 +193,7 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
 
       benefitDetails.size shouldBe 1
       amount shouldBe 100
-      benefitDetails.head._1 shouldBe "Accommodation for TESCO"
+      benefitDetails.head._1 shouldBe  Messages("tai.iabdSummary.employmentBenefit.type-38", "TESCO")
     }
 
     "create an Employer Benefits table given Assets transferred benefit is available" in {
@@ -206,7 +206,7 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
 
       benefitDetails.size shouldBe 1
       amount shouldBe 100
-      benefitDetails.head._1 shouldBe "Assets transferred for TESCO"
+      benefitDetails.head._1 shouldBe Messages("tai.iabdSummary.employmentBenefit.type-40", "TESCO")
     }
 
     "create an Employer Benefits table given remuneration benefit is available" in {
@@ -219,7 +219,7 @@ class YourTaxableIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplic
 
       benefitDetails.size shouldBe 1
       amount shouldBe 100
-      benefitDetails.head._1 shouldBe "Income Tax paid but not deducted from director’s remuneration for TESCO"
+      benefitDetails.head._1 shouldBe Messages("tai.iabdSummary.employmentBenefit.type-52", "TESCO")
     }
 
     "create an Employer Benefits table given no employment benefits" in {
