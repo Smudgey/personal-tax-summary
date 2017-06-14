@@ -41,8 +41,8 @@ object Income {
 
   object EmploymentStatus {
     object Live extends EmploymentStatus { val code = 1 }
-    object PotentiallyCeased extends EmploymentStatus { val code = 3 }
-    object Ceased extends EmploymentStatus { val code = 2 }
+    object PotentiallyCeased extends EmploymentStatus { val code = 2 }
+    object Ceased extends EmploymentStatus { val code = 3 }
   }
 
   object IncomeType extends Enumeration {

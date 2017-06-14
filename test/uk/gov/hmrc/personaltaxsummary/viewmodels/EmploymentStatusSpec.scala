@@ -14,34 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.model.nps2
+package uk.gov.hmrc.personaltaxsummary.viewmodels
 
-sealed trait EmploymentStatus {
-  def code: Int
-}
+import uk.gov.hmrc.model.nps2.Income.EmploymentStatus.{Ceased, Live, PotentiallyCeased}
+import uk.gov.hmrc.play.test.UnitSpec
 
-object EmploymentStatus {
+class EmploymentStatusSpec extends UnitSpec {
 
-  object Live extends EmploymentStatus {
-    val code = 1
-  }
-
-  object PotentiallyCeased extends EmploymentStatus {
-    val code = 2
-  }
-
-  object Ceased extends EmploymentStatus {
-    val code = 3
-  }
-
-  case class Unknown(code: Int) extends EmploymentStatus
-
-  val set: Set[EmploymentStatus] = Set(Live, Ceased, PotentiallyCeased)
-
-  def apply(i: Int): EmploymentStatus = set.find {
-    _.code == i
-  }.
-    getOrElse {
-    Unknown(i)
-  }
+    "EmploymentStatus" should {
+      "evaluate against correct EmploymentStatus code" in {
+        Live.code should be(1)
+        PotentiallyCeased.code should be(2)
+        Ceased.code should be(3)
+      }
+    }
 }
