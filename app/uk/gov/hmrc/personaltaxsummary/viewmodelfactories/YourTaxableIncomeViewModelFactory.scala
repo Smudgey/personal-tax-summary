@@ -304,7 +304,7 @@ object YourTaxableIncomeHelper {
              case CarBenefit.code =>
                (Messages(s"tai.iabdSummary.employmentBenefit.type-${iabdSummary.iabdType}",
                  iabdSummary.employmentName.getOrElse("")), Messages(s"tai.iabdSummary.description-${iabdSummary.iabdType}"),
-                 links.getOrElse("companyCarServiceUrl", ""))
+                 links.getOrElse("updateCompanyCarDetailsUrl", "") + "/" + iabdSummary.employmentId.getOrElse(0))
 
              case _ =>
                (Messages(s"tai.iabdSummary.employmentBenefit.type-${iabdSummary.iabdType}",
