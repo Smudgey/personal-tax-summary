@@ -1,3 +1,4 @@
+import org.apache.http.protocol.ExecutionContext
 import sbt._
 import uk.gov.hmrc.SbtAutoBuildPlugin
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
@@ -9,6 +10,7 @@ object MicroServiceBuild extends Build with MicroService {
 
   val appName = "personal-tax-summary"
 
+
   override lazy val plugins: Seq[Plugins] = Seq(
     SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin
   )
@@ -19,23 +21,22 @@ object MicroServiceBuild extends Build with MicroService {
 }
 
 private object AppDependencies {
+
   import play.sbt.PlayImport._
   import play.core.PlayVersion
 
-  private val microserviceBootstrapVersion = "5.15.0"
-  private val playAuthVersion = "4.3.0"
-  private val playHealthVersion = "2.1.0"
-  private val playJsonLoggerVersion = "3.1.0"
-  private val playConfigVersion = "4.3.0"
-  private val domainVersion = "4.1.0"
-  private val playHmrcApiVersion = "1.2.0"
+  private val microserviceBootstrapVersion = "6.9.0"
+
+
+
+  private val domainVersion = "5.0.0"
+  private val playHmrcApiVersion = "2.0.0"
   private val hmrcTestVersion = "2.2.0"
-  private val pegdownVersion = "1.6.0"
-  private val scalaTestVersion = "2.2.6"
+    private val scalaTestVersion = "2.2.6"
   private val wireMockVersion = "2.3.1"
   private val cucumberVersion = "1.2.5"
-  private val playUI: String = "7.2.1"
-  private val circuitBreaker = "2.0.0"
+  private val playUI = "7.2.1"
+  private val circuitBreaker = "2.1.0"
   private val icu4jVersion = "54.1.1"
 
   val compile = Seq(
@@ -44,18 +45,15 @@ private object AppDependencies {
     "com.ibm.icu" %  "icu4j" % icu4jVersion,
     "uk.gov.hmrc" %% "microservice-bootstrap" % microserviceBootstrapVersion,
     "uk.gov.hmrc" %% "play-hmrc-api" % playHmrcApiVersion,
-    "uk.gov.hmrc" %% "play-authorisation" % playAuthVersion,
-    "uk.gov.hmrc" %% "play-health" % playHealthVersion,
-    "uk.gov.hmrc" %% "play-config" % playConfigVersion,
-    "uk.gov.hmrc" %% "logback-json-logger" % playJsonLoggerVersion,
     "uk.gov.hmrc" %% "domain" % domainVersion,
     "uk.gov.hmrc" %% "reactive-circuit-breaker" % circuitBreaker,
-    "uk.gov.hmrc" %% "play-ui" %  playUI
+    "uk.gov.hmrc" %% "play-ui" % playUI
+
   )
 
   trait TestDependencies {
     lazy val scope: String = "test"
-    lazy val test : Seq[ModuleID] = ???
+    lazy val test: Seq[ModuleID] = ???
   }
 
   object Test {
@@ -63,7 +61,6 @@ private object AppDependencies {
       override lazy val test = Seq(
         "uk.gov.hmrc" %% "hmrctest" % hmrcTestVersion % scope,
         "org.scalatest" %% "scalatest" % scalaTestVersion % scope,
-        "org.pegdown" % "pegdown" % pegdownVersion % scope,
         "org.mockito" % "mockito-all" % "1.10.19" % scope
       )
     }.test
@@ -77,8 +74,7 @@ private object AppDependencies {
       override lazy val test = Seq(
         "uk.gov.hmrc" %% "hmrctest" % hmrcTestVersion % scope,
         "org.scalatest" %% "scalatest" % scalaTestVersion % scope,
-        "org.pegdown" % "pegdown" % pegdownVersion % scope,
-        "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
+       "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
         "info.cukes" %% "cucumber-scala" % cucumberVersion % scope,
         "info.cukes" % "cucumber-junit" % cucumberVersion % scope,
         "com.github.tomakehurst" % "wiremock" % wireMockVersion % scope,

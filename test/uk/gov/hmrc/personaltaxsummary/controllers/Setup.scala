@@ -29,7 +29,7 @@ import uk.gov.hmrc.personaltaxsummary.domain.{PersonalTaxSummaryContainer, TaxSu
 import uk.gov.hmrc.personaltaxsummary.services.PersonalTaxSummaryDomainFactory
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.{EstimatedIncomeViewModelFactory, TaxSummaryContainerFactory, YourTaxableIncomeViewModelFactory}
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{EstimatedIncomeViewModel, YourTaxableIncomeViewModel}
-import uk.gov.hmrc.play.http.HeaderCarrier
+import uk.gov.hmrc.http.HeaderCarrier
 
 trait Setup extends TaiTestData with MockitoSugar {
   implicit val hc = HeaderCarrier()
