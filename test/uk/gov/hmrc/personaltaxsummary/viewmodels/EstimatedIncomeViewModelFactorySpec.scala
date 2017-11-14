@@ -888,11 +888,21 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         )
         val taxCodeDetails = Some(TaxCodeDetails(employment = Some(employments), None, None, None, None, None))
 
-        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails) shouldBe ScottishTaxRegion
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails, true) shouldBe ScottishTaxRegion
       }
     }
 
     "return Uk tax region" when {
+      "tax starts with S but scottish tax bands are not enabled" in {
+        val employments = List(
+          Employments(id = Some(1), taxCode = Some("1150L")),
+          Employments(id = Some(2), taxCode = Some("S1100L"))
+        )
+        val taxCodeDetails = Some(TaxCodeDetails(employment = Some(employments), None, None, None, None, None))
+
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails, false) shouldBe UkTaxRegion
+      }
+
       "no tax code starts with S" in {
         val employments = List(
           Employments(id = Some(1), taxCode = Some("1150L")),
@@ -900,23 +910,23 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
         )
         val taxCodeDetails = Some(TaxCodeDetails(employment = Some(employments), None, None, None, None, None))
 
-        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails) shouldBe UkTaxRegion
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails, true) shouldBe UkTaxRegion
       }
 
       "tax code details is none" in {
-        EstimatedIncomeViewModelFactory.findTaxRegion(None) shouldBe UkTaxRegion
+        EstimatedIncomeViewModelFactory.findTaxRegion(None, true) shouldBe UkTaxRegion
       }
 
       "employments are Nil" in {
         val taxCodeDetails = Some(TaxCodeDetails(employment = Some(Nil), None, None, None, None, None))
 
-        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails) shouldBe UkTaxRegion
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails, true) shouldBe UkTaxRegion
       }
 
       "employments are None" in {
         val taxCodeDetails = Some(TaxCodeDetails(employment = None, None, None, None, None, None))
 
-        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails) shouldBe UkTaxRegion
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails, true) shouldBe UkTaxRegion
       }
     }
   }

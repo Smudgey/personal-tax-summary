@@ -20,9 +20,10 @@ import play.api.Play.current
 import play.api.i18n.Messages
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
+import uk.gov.hmrc.model._
 import uk.gov.hmrc.model.nps2.{TaxBand, TaxObject}
 import uk.gov.hmrc.model.tai.TaxYear
-import uk.gov.hmrc.model._
+import uk.gov.hmrc.personaltaxsummary.config.FeatureTogglesConfig
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaiConstants.higherRateBandIncome
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.{TaxRegion, TaxSummaryHelper}
@@ -31,7 +32,7 @@ import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
 import scala.math.BigDecimal
 
-object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] with TaxRegion {
+object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] with TaxRegion with FeatureTogglesConfig {
 
 
   override def createObject(nino: Nino, container: PersonalTaxSummaryContainer): EstimatedIncomeViewModel = {
@@ -71,7 +72,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
     val taxBandTypes = taxBands.flatMap(_.bandType)
 
-    val taxRegion = findTaxRegion(details.taxCodeDetails)
+    val taxRegion = findTaxRegion(details.taxCodeDetails, scottishTaxRateEnabled)
 
     EstimatedIncomeViewModel(
       incTax,
@@ -99,9 +100,10 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     )
   }
 
-  def findTaxRegion(taxCodes: Option[TaxCodeDetails]): String = {
+  def findTaxRegion(taxCodes: Option[TaxCodeDetails], scottishTaxRateEnabled: Boolean): String = {
+
     val bandType = for {
-      taxCodeDetails <- taxCodes
+      taxCodeDetails <- taxCodes if scottishTaxRateEnabled
       employments <- taxCodeDetails.employment
     } yield {
       if(employments.exists(_.taxCode.getOrElse("").startsWith("S"))) ScottishTaxRegion

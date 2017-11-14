@@ -25,3 +25,7 @@ object AppContext extends ServicesConfig {
   lazy val serviceLocatorUrl: String = baseUrl("service-locator")
   lazy val registrationEnabled: Boolean = current.configuration.getBoolean(s"microservice.services.service-locator.enabled").getOrElse(true)
 }
+
+trait FeatureTogglesConfig extends ServicesConfig {
+  val scottishTaxRateEnabled = current.configuration.getBoolean("tai.scottishTaxRate.enabled").getOrElse(false)
+}
