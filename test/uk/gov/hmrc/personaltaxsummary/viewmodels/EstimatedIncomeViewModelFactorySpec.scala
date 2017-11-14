@@ -23,17 +23,16 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.nps2.{TaxAccount, TaxBand, TaxDetail, TaxObject}
 import uk.gov.hmrc.model.tai.{AnnualAccount, TaxYear}
-import uk.gov.hmrc.model.{IabdSummary, TaxComponent, TaxSummaryDetails, nps2}
+import uk.gov.hmrc.model.{IabdSummary, TaxComponent, TaxSummaryDetails, nps2, _}
 import uk.gov.hmrc.personaltaxsummary.config.StubApplicationConfiguration
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.EstimatedIncomeViewModelFactory
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
-import uk.gov.hmrc.play.views.helpers.MoneyPounds
-import WrappedDataMatchers._
-import uk.gov.hmrc.model._
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.utils.NinoGenerator
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.EstimatedIncomeViewModelFactory
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxRegion
+import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
-class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplication with StubApplicationConfiguration with TaiTestData {
+class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplication with StubApplicationConfiguration with TaiTestData with TaxRegion {
 
   "EstimatedIncomeViewModelFactory createObject" should {
 
@@ -880,4 +879,45 @@ class EstimatedIncomeViewModelFactorySpec extends UnitSpec with WithFakeApplicat
 
   }
 
+  "findTaxRegion" should {
+    "return scottish region" when {
+      "any tax-code starts with S" in {
+        val employments = List(
+          Employments(id = Some(1), taxCode = Some("1150L")),
+          Employments(id = Some(2), taxCode = Some("S1100L"))
+        )
+        val taxCodeDetails = Some(TaxCodeDetails(employment = Some(employments), None, None, None, None, None))
+
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails) shouldBe ScottishTaxRegion
+      }
+    }
+
+    "return Uk tax region" when {
+      "no tax code starts with S" in {
+        val employments = List(
+          Employments(id = Some(1), taxCode = Some("1150L")),
+          Employments(id = Some(2), taxCode = Some("BR"))
+        )
+        val taxCodeDetails = Some(TaxCodeDetails(employment = Some(employments), None, None, None, None, None))
+
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails) shouldBe UkTaxRegion
+      }
+
+      "tax code details is none" in {
+        EstimatedIncomeViewModelFactory.findTaxRegion(None) shouldBe UkTaxRegion
+      }
+
+      "employments are Nil" in {
+        val taxCodeDetails = Some(TaxCodeDetails(employment = Some(Nil), None, None, None, None, None))
+
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails) shouldBe UkTaxRegion
+      }
+
+      "employments are None" in {
+        val taxCodeDetails = Some(TaxCodeDetails(employment = None, None, None, None, None, None))
+
+        EstimatedIncomeViewModelFactory.findTaxRegion(taxCodeDetails) shouldBe UkTaxRegion
+      }
+    }
+  }
 }

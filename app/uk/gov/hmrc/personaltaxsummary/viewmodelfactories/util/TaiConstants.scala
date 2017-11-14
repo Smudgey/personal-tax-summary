@@ -55,3 +55,8 @@ object TaiConstants {
   val defaultSecondaryPay = 5000
   val higherRateBandIncome = 150000
 }
+
+trait TaxRegion {
+  val UkTaxRegion = "UK"
+  val ScottishTaxRegion = "SCOTTISH"
+}

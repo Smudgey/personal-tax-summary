@@ -22,16 +22,17 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.domain.Nino
 import uk.gov.hmrc.model.nps2.{TaxBand, TaxObject}
 import uk.gov.hmrc.model.tai.TaxYear
-import uk.gov.hmrc.model.{Employments, Tax, TaxSummaryDetails, TotalLiability}
+import uk.gov.hmrc.model._
 import uk.gov.hmrc.personaltaxsummary.domain.PersonalTaxSummaryContainer
 import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaiConstants.higherRateBandIncome
-import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.TaxSummaryHelper
+import uk.gov.hmrc.personaltaxsummary.viewmodelfactories.util.{TaxRegion, TaxSummaryHelper}
 import uk.gov.hmrc.personaltaxsummary.viewmodels.{AdditionalTaxRow, Band, BandedGraph, EstimatedIncomeViewModel}
 import uk.gov.hmrc.play.views.helpers.MoneyPounds
 
 import scala.math.BigDecimal
 
-object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] {
+object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeViewModel] with TaxRegion {
+
 
   override def createObject(nino: Nino, container: PersonalTaxSummaryContainer): EstimatedIncomeViewModel = {
     val details = container.details
@@ -70,6 +71,8 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
     }
     val taxBandTypes = taxBands.flatMap(_.bandType)
 
+    val taxRegion = findTaxRegion(details.taxCodeDetails)
+
     EstimatedIncomeViewModel(
       incTax,
       estimatedTotalTax,
@@ -91,8 +94,21 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
       nextYearTaxTotal,
       taxBandTypes.contains("PSR"),
       taxBandTypes.contains("SR"),
-      newGraph
+      newGraph,
+      taxRegion
     )
+  }
+
+  def findTaxRegion(taxCodes: Option[TaxCodeDetails]): String = {
+    val bandType = for {
+      taxCodeDetails <- taxCodes
+      employments <- taxCodeDetails.employment
+    } yield {
+      if(employments.exists(_.taxCode.getOrElse("").startsWith("S"))) ScottishTaxRegion
+      else UkTaxRegion
+    }
+
+    bandType.getOrElse(UkTaxRegion)
   }
 
   def createBandedGraphWithBandsOnly(taxBands: List[TaxBand]): BandedGraph = {
@@ -190,7 +206,7 @@ object EstimatedIncomeViewModelFactory extends ViewModelFactory[EstimatedIncomeV
 
   private def createGraph(taxbands: List[TaxBand], personalAllowance: Option[BigDecimal] = None, links: Map[String, String] = Map.empty): BandedGraph = {
     val (individualBand: List[Band], mergedBand: Option[Band])  = {
-      if(taxbands.filter(_.rate==0).size > 0)
+      if(taxbands.exists(_.rate == 0))
         (individualBands(taxbands, personalAllowance), mergedBands(taxbands, personalAllowance, links))
       else (individualOtherRateBands(taxbands), None)
     }
