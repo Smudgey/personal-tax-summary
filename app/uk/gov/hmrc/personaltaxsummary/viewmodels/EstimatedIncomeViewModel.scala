@@ -41,7 +41,8 @@ case class EstimatedIncomeViewModel(
                                      nextYearTaxTotal: BigDecimal =0,
                                      hasPSA: Boolean = false,
                                      hasSSR: Boolean = false,
-                                     newGraph:BandedGraph
+                                     newGraph:BandedGraph,
+                                     taxRegion: String
                                    )
 
 case class BandedGraph(
