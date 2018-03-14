@@ -35,7 +35,7 @@ private object AppDependencies {
     private val scalaTestVersion = "2.2.6"
   private val wireMockVersion = "2.3.1"
   private val cucumberVersion = "1.2.5"
-  private val playUI = "7.2.1"
+  private val playUI = "7.14.0"
   private val circuitBreaker = "2.1.0"
   private val icu4jVersion = "54.1.1"
 
